@@ -1,0 +1,23 @@
+{
+  "name": "healthy_product",
+  "version": "0.0.1",
+  "description": "Healthy Product e-commerce",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "healthy",
+    "product"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.5",
+    "morgan": "^1.9.0"
+  }
+}

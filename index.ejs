@@ -1,0 +1,31 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <base href="/">
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+    <!-- Custom scripts -->
+    <script src="/static/javascripts/angularApp.js"></script>
+
+    <!-- controllers -->
+    <script src="/static/javascripts/controllers/homepage.js"></script>
+
+    <!-- services -->
+    <script src="/static/javascripts/services/products.js"></script>
+
+    <title>Healthy Products</title>
+</head>
+
+<body>
+    <div ng-app="healthy_product_app">
+        <div ng-view></div>
+    </div>
+</body>
+
+</html>
