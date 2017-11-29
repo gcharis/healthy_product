@@ -1,0 +1,95 @@
+/* ======================================================================================================= 
+                                             Main Styling
+======================================================================================================= */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #51493d;
+}
+
+.main-container {
+    height: calc(100vh - 97px);
+    padding: 3rem 1rem;
+    max-width: 1140px;
+}
+
+.w-22 {
+    width: 22% !important;
+}
+
+.row.add {
+    padding-bottom: 2rem;
+}
+
+
+/* Buttons */
+
+.btn-outline {
+    border: 1px solid #633f22;
+    color: #633f22;
+    padding: 0.375rem 0.75rem;
+    background: transparent;
+}
+
+.btn-fill {
+    background: #633f22;
+    border: 1px solid #633f22;
+    padding: 0.375rem 0.75rem;
+    color: white;
+}
+
+
+/* ======================================================================================================= 
+                                             Nav Bar
+======================================================================================================= */
+
+.navbar {
+    /* background: #29363d; */
+    background: #51493d;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #b9b8b8;
+}
+
+
+/* ======================================================================================================= 
+                                             Products Page
+======================================================================================================= */
+
+.product-listing table th:last-child {
+    width: 256px;
+}
+
+.product-listing table td,
+.product-listing table th {
+    vertical-align: middle;
+}
+
+.product-listing table td:last-child {
+    text-align: right;
+}
+
+.product-listing table img {
+    max-width: 25px;
+}
+
+
+/* ======================================================================================================= 
+                                             Product Page
+======================================================================================================= */
+
+
+/* ======================================================================================================= 
+                                             Footer
+======================================================================================================= */
+
+footer {
+    background: #29363d;
+    ;
+    color: white;
+}
