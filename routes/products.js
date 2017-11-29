@@ -1,7 +1,13 @@
 const express = require('express')
 const Product = require('../database/models/Product.js')
+const jwt = require('jsonwebtoken')
 
 const router = express.Router()
+
+router.param('admin', (req, res, next, value, nameOfParameter) => {
+    console.log(`im in`)
+    next()
+})
 
 router.get('/all', (req, res) => {
     Product.find({}, (err, products) => {
@@ -10,7 +16,7 @@ router.get('/all', (req, res) => {
     })
 })
 
-router.get('/by-category/:category', (req, res) => {
+router.get('/by-category/:category/', (req, res) => {
     let searchCategory = req.params.category
     Product.find({ category: searchCategory }, (err, products) => {
         if (err) return res.status(500).send({ message: 'Κάποιο σφάλμα συνέβη.', err })
@@ -18,7 +24,7 @@ router.get('/by-category/:category', (req, res) => {
     })
 })
 
-router.post('/new', (req, res) => {
+router.post('/new/:admin', (req, res) => {
     let newProduct = new Product(req.body)
     newProduct.save((err, product) => {
         if (err) return res.status(500).send({
@@ -29,13 +35,25 @@ router.post('/new', (req, res) => {
     })
 })
 
-router.put('/one', (req, res) => {
+router.put('/one/:id/:admin', (req, res) => {
+    let _id = req.params.id
     Product.findByIdAndUpdate(_id, updatedProduct, { new: true }, (err, product) => {
         if (err) return res.status(500).send({
             message: 'Τα στοιχεία του προϊόντος δεν ήταν δυνατόν να ανανεωθούν.',
             err
         })
         res.send({ message: 'Τα στοιχεία του προϊόντος ανανεώθηκαν επιτυχώς!', product })
+    })
+})
+
+router.delete('/one/:id/:admin', (req, res) => {
+    let _id = req.params.id
+    Product.findByIdAndRemove(_id, (err, product) => {
+        if (err) return res.status(500).send({
+            message: 'Το προϊόν δεν ήταν δυνατόν να διαγραφεί.',
+            err
+        })
+        res.send({ message: `Το προϊόν με κωδικό ${product.sku} διαγράφτηκε επιτυχώς!` })
     })
 })
 
