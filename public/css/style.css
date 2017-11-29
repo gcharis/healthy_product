@@ -7,14 +7,34 @@ body {
     color: #51493d;
 }
 
+.w-22 {
+    width: 22% !important;
+}
+
+
+/* Reset Stuff For Browser Compitabilities */
+
+
+/* Remove Spinners from Input type number */
+
+input[type='number'] {
+    -moz-appearance: textfield !important;
+    margin: 0 !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0 !important;
+}
+
+
+/* All Pages Styling */
+
 .main-container {
     height: calc(100vh - 97px);
     padding: 3rem 1rem;
     max-width: 1140px;
-}
-
-.w-22 {
-    width: 22% !important;
 }
 
 .row.add {

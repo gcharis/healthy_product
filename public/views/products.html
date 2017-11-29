@@ -1,7 +1,7 @@
 <div class="container-fluid main-container product-listing">
     <div class="row add">
         <div class="col-md-12 text-right">
-            <button type="button" class="btn-fill">Νεο Προϊον</button>
+            <button type="button" class="btn-fill" data-toggle="modal" data-target="#myModal">Νεο Προϊον</button>
         </div>
     </div>
     <div class="row">
@@ -60,6 +60,65 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="row">
+                    <div class="form-group col-md-6">
+                        <label for="">Name</label>
+                        <input type="text" class="form-control" placeholder="Name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Slug</label>
+                        <input type="text" class="form-control" placeholder="Slug">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Price</label>
+                        <input type="number" class="form-control" placeholder="Price">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Sales Price</label>
+                        <input type="number" class="form-control" placeholder="Sales Price">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Weight</label>
+                        <input type="number" class="form-control" placeholder="Weight">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Sku</label>
+                        <input type="number" class="form-control" placeholder="Sku">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Category</label>
+                        <input type="text" class="form-control" placeholder="Category">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Stock</label>
+                        <input type="number" class="form-control" placeholder="Stock">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="">Description</label>
+                        <textarea class="form-control" id="" rows="3"></textarea>
+                    </div>
+                    <div class="form-group col-md-12 text-right">
+                        <button type="submit" class="btn-fill ">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
