@@ -37,7 +37,7 @@ app.use('/public', express.static(__dirname + '/public'))
 app.get('/', (err, res) => res.render('index'))
 
 app.use('/products', products)
-app.use('/admins', admins)
+app.use('/admin', admins)
 
 
 app.listen(port, () => console.log('Healthy Product started on port', port))
