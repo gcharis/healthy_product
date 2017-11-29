@@ -10,15 +10,15 @@ app.config(function ($locationProvider, $routeProvider) {
 
     $routeProvider
         .when('/', {
-            templateUrl: '/static/views/homepage.html',
+            templateUrl: '/public/views/homepage.html',
             controller: 'homepage'
         })
         .when('/products', {
-            templateUrl: '/static/views/products.html',
+            templateUrl: '/public/views/products.html',
             controller: 'homepage'
         })
         .when('/product', {
-            templateUrl: '/static/views/product.html',
+            templateUrl: '/public/views/product.html',
             controller: 'homepage'
         })
 

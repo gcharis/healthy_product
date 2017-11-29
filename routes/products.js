@@ -1,7 +1,6 @@
 const express = require('express')
 const Product = require('../database/models/Product.js')
-const jwt = require('jsonwebtoken')
-
+const authentication = require('../')
 const router = express.Router()
 
 router.param('admin', (req, res, next, value, nameOfParameter) => {
