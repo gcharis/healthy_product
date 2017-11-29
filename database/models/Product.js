@@ -10,7 +10,12 @@ let productSchema = new mongoose.Schema({
     slug: {
         type: String,
         unique: true,
-        // required: true
+        required: true
+    },
+    sku: {
+        type: String,
+        unique: true,
+        required: true
     },
     category: {
         type: Array,
@@ -27,6 +32,7 @@ let productSchema = new mongoose.Schema({
         required: true
     },
     amountForSale: Number,
+    stock: Number,
     creationDate: {
         type: Date,
         default: Date.now,
@@ -35,8 +41,8 @@ let productSchema = new mongoose.Schema({
 })
 
 
-productSchema.pre('save', function (next) {
-    if (!this.name) throw new ReferenceError(`Field 'name' for new product is undefined`)
+productSchema.pre('validate', function (next) {
+    if (!this.name) throw new ReferenceError(`Field 'name' for new product is not filled`)
     this.slug = this.name.toGreeklish()
     next()
 })
