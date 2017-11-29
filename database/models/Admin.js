@@ -30,8 +30,8 @@ let adminSchema = new mongoose.Schema({
 
 adminSchema.methods.comparePassword = function (candidatePassword, callBack) {
     bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-        if (err) return callBack(err);
-        callBack(null, isMatch);
+        if (err) return callBack(err)
+        callBack(null, isMatch)
     })
 }
 
@@ -46,8 +46,8 @@ adminSchema.pre('save', function (next) {
             if (err) console.error(err)
             this.password = hash
             next()
-        });
-    });
+        })
+    })
 })
 
 const Admin = mongoose.model('admin', adminSchema)
