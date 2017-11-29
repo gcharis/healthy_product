@@ -24,7 +24,9 @@ app.use(function (req, res, next) {
 app.use(logger('dev'))
 
 // Body Parser middleware
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
 app.use(bodyParser.json())
 
 // Ejs middleware
@@ -34,7 +36,9 @@ app.set('views', __dirname)
 // URI for static files
 app.use('/public', express.static(__dirname + '/public'))
 
-app.get('/', (err, res) => res.render('index'))
+// Make refresh work on refresh for development reasons
+app.get('*', (err, res) => res.render('index'))
+// app.get('/', (err, res) => res.render('index'))
 
 app.use('/products', products)
 app.use('/admin', admins)
