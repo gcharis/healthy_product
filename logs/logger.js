@@ -1,15 +1,15 @@
 const fs = require('fs')
 
-let logsDirectory = __dirname + '/logs.txt'
+let logsFile = __dirname + '/logs.txt'
 
 module.exports = {
     async createLogs() {
-        if (!fs.existsSync(logsDirectory))
-            await fs.writeFile(logsDirectory, '')
+        if (!fs.existsSync(logsFile))
+            await fs.writeFile(logsFile, '')
     },
     openLogs() {
         return new Promise(resolve => {
-            fs.readFile(logsDirectory, 'utf-8', (err, data) => {
+            fs.readFile(logsFile, 'utf-8', (err, data) => {
                 if (err) throw err
                 if (data)
                     return resolve(JSON.parse(data))
