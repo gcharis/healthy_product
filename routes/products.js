@@ -2,6 +2,7 @@ const express = require('express')
 const Product = require('../database/models/Product.js')
 const authentication = require('../authentication/jwtAuthentication.js')
 const config = require('../config.js')
+const logger = require('../logs/logger.js')
 
 const router = express.Router()
 
@@ -14,6 +15,11 @@ router.param('admin', (req, res, next, value, nameOfParameter) => {
             let intruderIP = req.headers['x-appengine-user-ip'] || req.connection.remoteAddress
 
             console.error(`Authentication failed for IP: ${intruderIP} on ${new Date()}`)
+
+            const newLog = { date: new Date(), log: `Fail for IP: ${intruderIP}` }
+
+            logger.openLogs()
+                .then(logs => logger.updateLogs(logs, newLog))
             res.status(500).send({ message: 'Δεν έχετε εξουσιοδότηση για αυτή την ενέργεια.' })
         })
 })

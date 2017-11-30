@@ -1,11 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-const logger = require('morgan')
+const morgan = require('morgan')
 
 const connection = require('./database/connection.js')
 const products = require('./routes/products.js')
 const admin = require('./routes/admin.js')
+const logger = require('./logs/logger.js')
 const config = require('./config.js')
 
 const app = express()
@@ -21,7 +22,7 @@ app.use(function (req, res, next) {
 
 
 // Morgan middleware
-app.use(logger('dev'))
+app.use(morgan('dev'))
 
 // Body Parser middleware
 app.use(bodyParser.urlencoded({
@@ -43,5 +44,6 @@ app.get('*', (err, res) => res.render('index'))
 app.use('/products', products)
 app.use('/admin', admin)
 
+logger.createLogs()
 
 app.listen(port, () => console.log('Healthy Product started on port', port))
