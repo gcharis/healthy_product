@@ -3,7 +3,7 @@ const mongooseTypes = require('mongoose-types')
 mongooseTypes.loadTypes(mongoose, 'email')
 const Email = mongoose.SchemaTypes.Email
 const bcrypt = require('bcrypt')
-const saltRounds = 10;
+const saltRounds = 10
 
 let adminSchema = new mongoose.Schema({
     firstname: {

@@ -6,7 +6,7 @@ const logger = require('../logs/logger.js')
 
 const router = express.Router()
 
-router.param('admin', (req, res, next, value, nameOfParameter) => {
+router.param('admin', (req, res, next) => {
     let token = req.body.token
     // Verify admin
     authentication.verifyAdmin(token)
@@ -31,6 +31,14 @@ router.get('/all', (req, res) => {
     })
 })
 
+router.get('/one/:id', (req, res) => {
+    let id = req.params.id
+    Product.findById(id, (err, product) => {
+        if (err) return res.send({ message: 'Κάποιο σφάλμα συνέβη.', err })
+        res.send(product)
+    })
+})
+
 router.get('/by-category/:category/', (req, res) => {
     let searchCategory = req.params.category
     Product.find({ category: searchCategory }, (err, products) => {
@@ -51,8 +59,8 @@ router.post('/new/:admin', (req, res) => {
 })
 
 router.put('/one/:id/:admin', (req, res) => {
-    let _id = req.params.id
-    Product.findByIdAndUpdate(_id, updatedProduct, { new: true }, (err, product) => {
+    let id = req.params.id
+    Product.findByIdAndUpdate(id, updatedProduct, { new: true }, (err, product) => {
         if (err) return res.status(500).send({
             message: 'Τα στοιχεία του προϊόντος δεν ήταν δυνατόν να ανανεωθούν.',
             err
@@ -62,14 +70,25 @@ router.put('/one/:id/:admin', (req, res) => {
 })
 
 router.delete('/one/:id/:admin', (req, res) => {
-    let _id = req.params.id
-    Product.findByIdAndRemove(_id, (err, product) => {
+    let id = req.params.id
+    Product.findByIdAndRemove(id, (err, product) => {
         if (err) return res.status(500).send({
             message: 'Το προϊόν δεν ήταν δυνατόν να διαγραφεί.',
             err
         })
-        res.send({ message: `Το προϊόν με κωδικό ${product.sku} διαγράφτηκε επιτυχώς!` })
+        res.send({ message: `Το προϊόν με κωδικό ${product.sku} διαγράφηκε επιτυχώς!` })
     })
+})
+
+router.delete('/multiple/:admin', (req, res) => {
+    let ids = req.body
+
+    ids.forEach(async id => {
+        await Product.findByIdAndRemove(id, err => {
+            if (err) return res.send({ message: 'Κάποιο σφάλμα συνέβη.', err })
+        })
+    });
+    res.send({ message: 'Τα προϊόντα διαγράφηκαν επιτυχώς!' })
 })
 
 module.exports = router
