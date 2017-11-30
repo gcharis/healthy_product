@@ -24,7 +24,7 @@ router.post('/login', (req, res) => {
             if (!isMatch) {
                 return res.status(500).send({ message: `Τα στοιχεία που δώσατε είναι λανθασμένα. Παρακαλώ προσπαθήστε ξανά.` })
             }
-            let token = authentication.initializeToken({ username: admin.username, email: admin.email })
+            let token = authentication.initializeToken({ username: admin.username, password: admin.password })
             res.send({ message: `Καλώς ήρθατε ${admin.username}`, admin, token })
         })
     })

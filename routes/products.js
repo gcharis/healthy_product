@@ -1,11 +1,21 @@
 const express = require('express')
 const Product = require('../database/models/Product.js')
-const authentication = require('../')
+const authentication = require('../authentication/jwtAuthentication.js')
+const config = require('../config.js')
+
 const router = express.Router()
 
 router.param('admin', (req, res, next, value, nameOfParameter) => {
-    console.log(`im in`)
-    next()
+    let token = req.body.token
+    // Verify admin
+    authentication.verifyAdmin(token)
+        .then(results => next())
+        .catch(err => {
+            let intruderIP = req.headers['x-appengine-user-ip'] || req.connection.remoteAddress
+
+            console.error(`Authentication failed for IP: ${intruderIP} on ${new Date()}`)
+            res.status(500).send({ message: 'Δεν έχετε εξουσιοδότηση για αυτή την ενέργεια.' })
+        })
 })
 
 router.get('/all', (req, res) => {

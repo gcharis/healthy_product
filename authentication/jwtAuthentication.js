@@ -3,9 +3,16 @@ const config = require('../config.js')
 
 module.exports = {
     initializeToken(user) {
-        console.log(user)
         return jwt.sign(user, config.secretKey, {
             expiresIn: '1h'
+        })
+    },
+    verifyAdmin(token) {
+        return new Promise(resolve => {
+            jwt.verify(token, config.secretKey, (err, decoded) => {
+                if (err) throw err
+                resolve(decoded)
+            })
         })
     }
 }

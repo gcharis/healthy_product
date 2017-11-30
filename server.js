@@ -5,7 +5,7 @@ const logger = require('morgan')
 
 const connection = require('./database/connection.js')
 const products = require('./routes/products.js')
-const admins = require('./routes/admins.js')
+const admin = require('./routes/admin.js')
 const config = require('./config.js')
 
 const app = express()
@@ -41,7 +41,7 @@ app.get('*', (err, res) => res.render('index'))
 // app.get('/', (err, res) => res.render('index'))
 
 app.use('/products', products)
-app.use('/admin', admins)
+app.use('/admin', admin)
 
 
 app.listen(port, () => console.log('Healthy Product started on port', port))
