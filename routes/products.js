@@ -16,7 +16,7 @@ router.param('admin', (req, res, next) => {
 
             console.error(`Authentication failed for IP: ${intruderIP} on ${new Date()}`)
 
-            const newLog = { date: new Date(), log: `Fail for IP: ${intruderIP}` }
+            const newLog = { date: new Date(), log: `Αποτυχημένη προσπάθεια σύνδεσης για την IP: ${intruderIP}` }
 
             logger.openLogs()
                 .then(logs => logger.updateLogs(logs, newLog))

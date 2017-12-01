@@ -19,9 +19,8 @@ module.exports = {
     },
     updateLogs(logs, newLog) {
         return new Promise(resolve => {
-            console.log('Updating logs...')
             logs.push(newLog)
-            fs.writeFile(logsDirectory, JSON.stringify(logs), 'utf-8', (err) => {
+            fs.writeFile(logsFile, JSON.stringify(logs), 'utf-8', (err) => {
                 if (err) throw err
                 resolve('Logs updated')
             })

@@ -1,4 +1,5 @@
 const express = require('express')
+const fs = require('fs')
 const Admin = require('../database/models/Admin.js')
 const authentication = require('../authentication/jwtAuthentication.js')
 
@@ -42,6 +43,18 @@ router.put('/update/:id', (req, res) => {
         if (!admin) return res.status(500).send({ message: 'Δεν βρέθηκε admin με αυτά τα στοιχεία.' })
         res.send({ message: `Τα στοιχεία σας ανανεώθηκαν με επιτυχία ${admin.username}!` })
     })
+})
+
+router.get('/logs', (req, res) => {
+    new Promise(resolve => {
+        fs.readFile(`${__dirname}/../logs/logs.txt`, 'utf-8', (err, data) => {
+            if (err) throw err
+            data = data ? JSON.parse(data) : data
+            resolve(data)
+        })
+    })
+        .then(logs => res.send(logs))
+        .catch(err => res.send({ message: 'Κάποιο σφάλμα συνέβη.' }))
 })
 
 module.exports = router
