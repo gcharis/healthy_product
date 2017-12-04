@@ -21,5 +21,11 @@ app.config(function ($locationProvider, $routeProvider) {
             templateUrl: '/public/views/product.html',
             controller: 'homepage'
         })
+        .when('/categories', {
+            templateUrl: '/public/views/categories.html'
+        })
+        .when('/test', {
+            templateUrl: '/public/views/test.html'
+        })
 
 });
