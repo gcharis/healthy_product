@@ -4,11 +4,16 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #e4e5e6;
     color: #51493d;
 }
 
 .w-22 {
     width: 22% !important;
+}
+
+.row.stripped:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, .05);
 }
 
 
@@ -28,11 +33,17 @@ input::-webkit-inner-spin-button {
     margin: 0 !important;
 }
 
+.form-control:focus {
+    color: none;
+    box-shadow: none;
+    border-color: #51493d;
+}
+
 
 /* All Pages Styling */
 
 .main-container {
-    height: calc(100vh - 97px);
+    height: calc(100vh - 56px);
     padding: 3rem 1rem;
     max-width: 1140px;
 }
@@ -78,11 +89,100 @@ input::-webkit-inner-spin-button {
 
 
 /* ======================================================================================================= 
+                                             Login Page
+======================================================================================================= */
+
+.login-wrapper {
+    max-width: 450px;
+    margin: 0 auto;
+    background: white;
+    padding: 5rem 3rem;
+    border: 1px solid #51493d;
+}
+
+.login-wrapper h3 {
+    margin-bottom: 2rem;
+}
+
+.login-page input {
+    border: none;
+    border-bottom: 1px solid #51493d;
+    border-radius: 0;
+    padding-left: 0;
+}
+
+.login-page input:focus {
+    border: none;
+    /* border-bottom: 1px solid red; */
+    border-radius: 0;
+    transition: border 2s linear;
+}
+
+.login-page .form-group {
+    margin-bottom: 2rem;
+}
+
+.login-page .form-group {
+    position: relative;
+}
+
+.login-page .test {
+    position: absolute;
+    bottom: 6px;
+    left: 0px;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.login-page .login-wrapper input:focus~.test,
+.login-page .login-wrapper input:valid~.test {
+    bottom: 30px;
+}
+
+.bar {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.bar:before,
+.bar:after {
+    content: '';
+    height: 1px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #5264AE;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {
+    left: 50%;
+}
+
+.bar:after {
+    right: 50%;
+}
+
+
+/* active state */
+
+input:focus~.bar:before,
+input:focus~.bar:after {
+    width: 50%;
+}
+
+
+/* ======================================================================================================= 
                                              Products Page
 ======================================================================================================= */
 
 .product-listing table th:last-child {
-    width: 256px;
+    width: 256px !important;
 }
 
 .product-listing table td,
@@ -99,9 +199,59 @@ input::-webkit-inner-spin-button {
 }
 
 
+/* New Product Page
+======================== */
+
+@media (min-width: 576px) {
+    #registerModal .modal-dialog {
+        max-width: 650px;
+        margin: 30px auto;
+    }
+}
+
+div#registerModal {
+    padding-left: 0 !important;
+}
+
+#registerModal input.form-control {
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 0;
+}
+
+
 /* ======================================================================================================= 
                                              Product Page
 ======================================================================================================= */
+
+
+/* ======================================================================================================= 
+                                            Category Page
+======================================================================================================= */
+
+.container-fluid.white-wrapper {
+    background: white;
+    padding: 3rem 2rem;
+}
+
+.grey-wrapper {
+    background: whitesmoke;
+    /* padding: 2rem; */
+}
+
+.grey-wrapper .row {
+    padding: .75rem;
+    border-bottom: 1px solid white;
+}
+
+.sub-category {
+    padding-left: 3rem;
+}
+
+.row.stripped {
+    padding: .75rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
 
 
 /* ======================================================================================================= 
