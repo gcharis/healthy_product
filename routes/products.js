@@ -2,27 +2,14 @@ const express = require('express')
 const Product = require('../database/models/Product.js')
 const authentication = require('../authentication/jwtAuthentication.js')
 const config = require('../config.js')
+const checkAdmin = require('../authentication/bustAndLog.js')
 const logger = require('../logs/logger.js')
 
 const router = express.Router()
 
-router.param('admin', (req, res, next) => {
-    let token = req.body.token
-    // Verify admin
-    authentication.verifyAdmin(token)
-        .then(results => next())
-        .catch(err => {
-            let intruderIP = req.headers['x-appengine-user-ip'] || req.connection.remoteAddress
-
-            console.error(`Authentication failed for IP: ${intruderIP} on ${new Date()}`)
-
-            const newLog = { date: new Date(), log: `Αποτυχημένη προσπάθεια σύνδεσης για την IP: ${intruderIP}` }
-
-            logger.openLogs()
-                .then(logs => logger.updateLogs(logs, newLog))
-            res.status(500).send({ message: 'Δεν έχετε εξουσιοδότηση για αυτή την ενέργεια.' })
-        })
-})
+// If the check fails a status of 500 will be sent and
+// a log will be saved
+router.param('admin', checkAdmin)
 
 router.get('/all', (req, res) => {
     Product.find({}, (err, products) => {
@@ -62,7 +49,7 @@ router.put('/one/:id/:admin', (req, res) => {
     let id = req.params.id
     Product.findByIdAndUpdate(id, updatedProduct, { new: true }, (err, product) => {
         if (err) return res.status(500).send({
-            message: 'Τα στοιχεία του προϊόντος δεν ήταν δυνατόν να ανανεωθούν.',
+            message: `Τα στοιχεία του προϊόντος δεν ήταν δυνατόν να ανανεωθούν. Κωδικός σφάλματος: ${err.message}`,
             err
         })
         res.send({ message: 'Τα στοιχεία του προϊόντος ανανεώθηκαν επιτυχώς!', product })
@@ -72,10 +59,7 @@ router.put('/one/:id/:admin', (req, res) => {
 router.delete('/one/:id/:admin', (req, res) => {
     let id = req.params.id
     Product.findByIdAndRemove(id, (err, product) => {
-        if (err) return res.status(500).send({
-            message: 'Το προϊόν δεν ήταν δυνατόν να διαγραφεί.',
-            err
-        })
+        if (err) return res.status(500).send({ message: 'Κάποιο σφάλμα συνέβη.', err })
         res.send({ message: `Το προϊόν με κωδικό ${product.sku} διαγράφηκε επιτυχώς!` })
     })
 })

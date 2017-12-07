@@ -1,28 +1,12 @@
-const fs = require('fs')
-
-let logsFile = __dirname + '/logs.txt'
+const Log = require('../database/models/Log.js')
 
 module.exports = {
-    async createLogs() {
-        if (!fs.existsSync(logsFile))
-            await fs.writeFile(logsFile, '')
-    },
-    openLogs() {
+    updateLogs(log) {
         return new Promise(resolve => {
-            fs.readFile(logsFile, 'utf-8', (err, data) => {
+            let newLog = new Log(log)
+            newLog.save((err, log) => {
                 if (err) throw err
-                if (data)
-                    return resolve(JSON.parse(data))
-                resolve([])
-            })
-        })
-    },
-    updateLogs(logs, newLog) {
-        return new Promise(resolve => {
-            logs.push(newLog)
-            fs.writeFile(logsFile, JSON.stringify(logs), 'utf-8', (err) => {
-                if (err) throw err
-                resolve('Logs updated')
+                resolve(log)
             })
         })
     }

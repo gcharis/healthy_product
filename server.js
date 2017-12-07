@@ -44,6 +44,4 @@ app.get('*', (err, res) => res.render('index'))
 app.use('/products', products)
 app.use('/admin', admin)
 
-logger.createLogs()
-
 app.listen(port, () => console.log('Healthy Product started on port', port))

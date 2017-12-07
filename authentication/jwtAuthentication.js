@@ -9,8 +9,8 @@ module.exports = {
     },
     verifyAdmin(token) {
         return new Promise(resolve => {
-            jwt.verify(token, config.secretKey, (err, decoded) => {
-                if (err) throw err
+            jwt.verify(token, config.secretKey, { maxAge: '1d' }, (err, decoded) => {
+                if (err) throw new Error('Δεν έχετε εξουσιοδότηση για αυτή την ενέργεια.')
                 resolve(decoded)
             })
         })
