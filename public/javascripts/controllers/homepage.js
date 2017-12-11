@@ -1,5 +1,11 @@
-app.controller('homepage', function ($scope, $products) {
+app.controller('homepage', function($scope, $admin) {
+	$scope.admin = {};
 
-    $products.getAll()
-        .then(products => console.log(products))
-})
+	$scope.onLogin = (data) => {
+		$admin.login(data).then((token) => saveToken(token));
+	};
+
+	function saveToken(token) {
+		localStorage.setItem('token', token);
+	}
+});
