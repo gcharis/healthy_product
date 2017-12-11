@@ -5,7 +5,7 @@ app.service('$admin', function($http) {
 				$http
 					.post(`${URL}/admin/login`, data)
 					.then((res) => resolve(res.data.token))
-					.catch((res) => console.error(res.data.message));
+					.catch((res) => reject(res.data.message));
 			});
 		}
 	};
