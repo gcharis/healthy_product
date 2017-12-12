@@ -1,8 +1,14 @@
-app.controller('homepage', function($scope, $admin, $timeout, $rootScope) {
+app.controller('login', function($scope, $admin, $timeout, $rootScope, $location) {
 	$scope.admin = {};
 
 	$scope.onLogin = (data) => {
-		$admin.login(data).then((token) => saveToken(token)).catch((errMsg) => showErrorMessage(errMsg));
+		$admin
+			.login(data)
+			.then((token) => {
+				saveToken(token);
+				$scope.$apply(() => $location.path('/home'));
+			})
+			.catch((errMsg) => showErrorMessage(errMsg));
 	};
 
 	function saveToken(token) {

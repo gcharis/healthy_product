@@ -8,12 +8,16 @@ app.config(function($locationProvider, $routeProvider) {
 
 	$routeProvider
 		.when('/', {
-			templateUrl: '/public/views/homepage.html',
-			controller: 'homepage'
+			template: '',
+			controller: 'index'
+		})
+		.when('/login', {
+			templateUrl: '/public/views/login.html',
+			controller: 'login'
 		})
 		.when('/products', {
 			templateUrl: '/public/views/products.html',
-			controller: 'homepage'
+			controller: 'products'
 		})
 		.when('/product', {
 			templateUrl: '/public/views/product.html',

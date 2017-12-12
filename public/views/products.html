@@ -72,35 +72,36 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <p>{{errMsg}}</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form class="row">
+                <form class="row" ng-submit="registerProduct(newProduct)">
                     <div class="form-group col-md-6">
                         <label for="">Name</label>
-                        <input type="text" class="form-control" placeholder="Name">
+                        <input type="text" class="form-control" placeholder="Name" ng-model="newProduct.name">
                     </div>
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6">
                         <label for="">Slug</label>
                         <input type="text" class="form-control" placeholder="Slug">
-                    </div>
+                    </div> -->
                     <div class="form-group col-md-6">
                         <label for="">Price</label>
-                        <input type="number" class="form-control" placeholder="Price">
+                        <input type="number" class="form-control" placeholder="Price" ng-model="newProduct.price">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Sales Price</label>
-                        <input type="number" class="form-control" placeholder="Sales Price">
+                        <input type="number" class="form-control" placeholder="Sales Price" ng-model="newProduct.salesPrice">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Weight</label>
-                        <input type="number" class="form-control" placeholder="Weight">
+                        <input type="number" class="form-control" placeholder="Weight" ng-model="newProduct.weight">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Sku</label>
-                        <input type="number" class="form-control" placeholder="Sku">
+                        <input type="text" class="form-control" placeholder="Sku" ng-model="newProduct.sku">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Category</label>
@@ -108,11 +109,11 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Stock</label>
-                        <input type="number" class="form-control" placeholder="Stock">
+                        <input type="number" class="form-control" placeholder="Stock" ng-model="newProduct.stock">
                     </div>
                     <div class="form-group col-md-12">
                         <label for="">Description</label>
-                        <textarea class="form-control" id="" rows="3"></textarea>
+                        <textarea class="form-control" id="" rows="3" ng-model="newProduct.description"></textarea>
                     </div>
                     <div class="form-group col-md-12 text-right">
                         <button type="submit" class="btn-fill ">Submit</button>
