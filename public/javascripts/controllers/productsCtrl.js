@@ -4,11 +4,11 @@ app.controller('products', function($scope, $products, $timeout) {
 	$scope.registerProduct = (newProduct) => {
 		$products
 			.register(newProduct)
-			.then((product) => clearProductRegisterForm())
+			.then((product) => clearProductRegistrationForm())
 			.catch((err) => showErrorMessage(err));
 	};
 
-	function clearProductRegisterForm() {
+	function clearProductRegistrationForm() {
 		$scope.newProduct = {};
 	}
 
