@@ -38,8 +38,8 @@ app.set('views', __dirname);
 app.use('/public', express.static(__dirname + '/public'));
 
 // Make refresh work on refresh for development reasons
-app.get('*', (err, res) => res.render('index'));
-// app.get('/', (err, res) => res.render('index'))
+// app.get('*', (err, res) => res.render('index'));
+app.get('/', (err, res) => res.render('index'));
 
 app.use('/products', products);
 app.use('/admin', admin);
