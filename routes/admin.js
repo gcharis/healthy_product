@@ -23,7 +23,7 @@ router.post('/register', (req, res) => {
 				.status(500)
 				.send(`Δεν ήταν δυνατόν να δημιουργηθεί νέος admin. Κωδικός σφάλματος: ${err.message}`);
 		}
-		let token = authentication.initializeToken();
+		let token = authentication.initializeToken({ username: admin.username, password: admin.password });
 		res.send({ message: `Νέος admin με όνομα χρήστη ${admin.username} προστέθηκε επιτυχώς!`, admin, token });
 	});
 });

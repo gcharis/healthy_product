@@ -1,0 +1,13 @@
+<form ng-submit="onRegister(newAdmin)">
+    <input type="text" ng-model="newAdmin.firstname">firstname
+    <input type="text" ng-model="newAdmin.lastname">lastname
+    <input type="text" ng-model="newAdmin.username">username
+    <input type="text" ng-model="newAdmin.password">password
+    <!-- Confirm Password -->
+    <!-- <input type="text" ng-model="newAdmin.password"> -->
+    <input type="email" ng-model="newAdmin.email">email
+    <button type="submit">Εγγραφή</button>
+</form>
+
+<div ui-message message="message">
+</div>
