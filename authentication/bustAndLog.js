@@ -20,6 +20,5 @@ module.exports = function(req, res, next) {
 			logger.updateLogs(newLog).catch((err) => res.status(500));
 
 			res.status(500).send(err.message);
-			console.log('remove this');
 		});
 };
