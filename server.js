@@ -5,6 +5,7 @@ const morgan = require('morgan');
 
 const connection = require('./database/connection.js');
 const products = require('./routes/products.js');
+const shippings = require('./database/models/Shippings.js');
 const admin = require('./routes/admin.js');
 const logger = require('./logs/logger.js');
 const config = require('./config.js');
@@ -42,6 +43,7 @@ app.use('/public', express.static(__dirname + '/public'));
 app.get('/', (err, res) => res.render('index'));
 
 app.use('/products', products);
+app.use('/shippings', shippings);
 app.use('/admin', admin);
 
 app.listen(port, () => console.log('Healthy Product started on port', port));
