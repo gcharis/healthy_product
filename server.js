@@ -5,7 +5,7 @@ const morgan = require('morgan');
 
 const connection = require('./database/connection.js');
 const products = require('./routes/products.js');
-const shippings = require('./database/models/Shippings.js');
+const shipping = require('./database/models/Shipping.js');
 const admin = require('./routes/admin.js');
 const logger = require('./logs/logger.js');
 const config = require('./config.js');
@@ -36,14 +36,14 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname);
 
 // URI for static files
-app.use('/public', express.static(__dirname + '/public'));
+app.use('/public', express.static(`${__dirname}/public`));
 
 // Make refresh work on refresh for development reasons
 // app.get('*', (err, res) => res.render('index'));
 app.get('/', (err, res) => res.render('index'));
 
 app.use('/products', products);
-app.use('/shippings', shippings);
+app.use('/shippings', shipping);
 app.use('/admin', admin);
 
 app.listen(port, () => console.log('Healthy Product started on port', port));
