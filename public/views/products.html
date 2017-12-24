@@ -58,6 +58,19 @@
 
                         </td>
                     </tr>
+                    <tr ng-repeat="product in products track by $index">
+                        <th scope="row">3</th>
+                        <td>{{product.name}}</td>
+                        <td>{{product.category.toString()}}</td>
+                        <td>
+                            <a ng-href="/products/{{product.slug}}"><button type="button" class="btn-outline">
+                                <img src="/public/img/svg-icons/file-or.svg" alt="" class="img-fluid">
+                            </button></a>
+                            <button type="button" class="btn-fill" ng-click="deleteProduct(product)">
+                                <img src="/public/img/svg-icons/dustbin-wh.svg" alt="" class="img-fluid">
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

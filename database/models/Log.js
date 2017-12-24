@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 let logSchema = new mongoose.Schema({
 	dateCreated: {
 		type: Date,
-		default: Date.now,
+		default: new Date(),
 		required: true
 	},
 	content: {

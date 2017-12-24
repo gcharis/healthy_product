@@ -11,6 +11,15 @@ app.service('$products', function($http) {
 					}
 				})
 				.then((res) => res.data);
+		},
+		deleteById(id) {
+			return $http
+				.delete(`${URL}/products/one/${id}/admin`, {
+					headers: {
+						token: localStorage['token']
+					}
+				})
+				.then((res) => res.data);
 		}
 	};
 });
