@@ -6,37 +6,22 @@ app.service('$admin', function($http, $rootScope) {
 
 	return {
 		getVerification(token) {
-			return new Promise((resolve, reject) => {
-				$http
-					.post(`${URL}/admin/verify`, null, {
-						headers: {
-							token
-						}
-					})
-					.then((res) => resolve(res.data))
-					.catch((res) => reject(res.data));
+			return $http.post(`${URL}/admin/verify`, null, {
+				headers: {
+					token
+				}
 			});
 		},
 		register(data) {
-			return new Promise((resolve, reject) => {
-				$http
-					.post(`${URL}/admin/register`, data)
-					.then((res) => {
-						saveToken(res.data.token);
-						resolve(res.data.message);
-					})
-					.catch((res) => reject(res.data));
+			return $http.post(`${URL}/admin/register`, data).then((res) => {
+				saveToken(res.data.token);
+				return res.data.message;
 			});
 		},
 		login(data) {
-			return new Promise((resolve, reject) => {
-				$http
-					.post(`${URL}/admin/login`, data)
-					.then((res) => {
-						saveToken(res.data.token);
-						resolve(res.data.token);
-					})
-					.catch((res) => reject(res.data));
+			return $http.post(`${URL}/admin/login`, data).then((res) => {
+				saveToken(res.data.token);
+				return res.data.token;
 			});
 		}
 	};

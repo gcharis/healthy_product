@@ -35,22 +35,35 @@ app.config(function($locationProvider, $routeProvider) {
 		});
 });
 
-app.directive('uiMessage', function($timeout) {
-	return {
-		restrict: 'EA',
-		transclude: true,
-		scope: {
-			message: '='
-		},
-		link: function(scope, element, attrs, controller, transcludeFn) {
-			scope.$watch('message', function(newValue, oldValue) {
-				if (!newValue) return;
-				element[0].innerHTML = newValue;
-				$timeout(() => {
-					scope.message = '';
-					element[0].innerHTML = '';
-				}, 2500);
-			});
-		}
-	};
-});
+app
+	.directive('uiMessage', function($timeout) {
+		return {
+			restrict: 'EA',
+			transclude: true,
+			scope: {
+				message: '='
+			},
+			link: function(scope, element, attrs, controller, transcludeFn) {
+				scope.$watch('message', function(newValue, oldValue) {
+					if (!newValue) return;
+					element[0].innerHTML = newValue;
+					$timeout(() => {
+						scope.message = '';
+						element[0].innerHTML = '';
+					}, 2500);
+				});
+			}
+		};
+	})
+	.directive('password', function($timeout) {
+		return {
+			restrict: 'A',
+			transclude: true,
+			// scope: {
+			// 	value: '='
+			// },
+			link: function(scope, element, attrs, controller, transcludeFn) {
+				element[0].onchange = () => $timeout(() => (element[0].type = 'password'), 100);
+			}
+		};
+	});
