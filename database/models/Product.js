@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const toGreeklish = require('../../custom_scripts/convertToGreeklish.js');
+const autoIncrement = require('mongoose-auto-increment');
+
+autoIncrement.initialize(mongoose.connection);
 
 let productSchema = new mongoose.Schema({
 	name: {
@@ -37,7 +40,9 @@ let productSchema = new mongoose.Schema({
 		type: Date,
 		default: new Date()
 	},
-	expirationDate: Date
+	expirationDate: Date,
+	images: [ String ],
+	featuredImage: String
 });
 
 productSchema.pre('validate', function(next) {
@@ -46,7 +51,9 @@ productSchema.pre('validate', function(next) {
 	next();
 });
 
+productSchema.plugin(autoIncrement.plugin, { model: 'product', field: 'id', startAt: 1000 });
 const Product = mongoose.model('product', productSchema);
+
 module.exports = Product;
 
 String.prototype.toGreeklish = toGreeklish;

@@ -11,18 +11,14 @@ app.controller('products', function($scope, $products, $timeout, $hpLocation, $u
 			.catch((res) => ($scope.errMsg = res.data));
 	};
 
-	$scope.deleteProduct = (product) =>
-		$products.deleteById(product._id).then((data) => {
-			console.log(data);
-			showProducts();
-		});
+	$scope.deleteProduct = (product) => $products.deleteById(product._id).then((data) => showProducts());
 
 	function showProducts() {
 		$products.getAll().then((products) => ($scope.products = products)).catch((err) => console.warn(err));
 	}
 
 	function clearProductRegistrationForm() {
-		$scope.newProduct = {};
+		$scope.newProduct = { images: [] };
 		$uiHandler.hideModalById('registerModal');
 	}
 });

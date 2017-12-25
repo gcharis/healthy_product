@@ -10,62 +10,24 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Εικόνα</th>
                         <th scope="col">Όνομα Προϊόντος</th>
                         <th scope="col">Κατηγορία</th>
-                        <th scope="col" class="">Επιλογές</th>
+                        <th scope="col">Επιλογές</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Προϊόν 1</td>
-                        <td>Κατηγορία</td>
-                        <td>
-                            <button type="button" class="btn-outline">
-                                <img src="/public/img/svg-icons/file-or.svg" alt="" class="img-fluid">
-                            </button>
-                            <button type="button" class="btn-fill">
-                                <img src="/public/img/svg-icons/dustbin-wh.svg" alt="" class="img-fluid">
-                            </button>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Προϊόν 2</td>
-                        <td>Κατηγορία</td>
-                        <td>
-                            <button type="button" class="btn-outline">
-                                <img src="/public/img/svg-icons/file-or.svg" alt="" class="img-fluid">
-                            </button>
-                            <button type="button" class="btn-fill">
-                                <img src="/public/img/svg-icons/dustbin-wh.svg" alt="" class="img-fluid">
-                            </button>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Προϊόν 3</td>
-                        <td>Κατηγορία</td>
-                        <td>
-                            <button type="button" class="btn-outline">
-                                <img src="/public/img/svg-icons/file-or.svg" alt="" class="img-fluid">
-                            </button>
-                            <button type="button" class="btn-fill">
-                                <img src="/public/img/svg-icons/dustbin-wh.svg" alt="" class="img-fluid">
-                            </button>
-
-                        </td>
-                    </tr>
                     <tr ng-repeat="product in products track by $index">
-                        <th scope="row">3</th>
+                        <td scope="row">{{product.id}}</th>
+                        <td><img style="height: 40px; width: 100px" ng-src="{{product.featuredImage}}" err-src="{{product.images[0]}}"></td>
                         <td>{{product.name}}</td>
                         <td>{{product.category.toString()}}</td>
                         <td>
-                            <a ng-href="/products/{{product.slug}}"><button type="button" class="btn-outline">
-                                <img src="/public/img/svg-icons/file-or.svg" alt="" class="img-fluid">
-                            </button></a>
+                            <a ng-href="/products/{{product.slug}}">
+                                <button type="button" class="btn-outline">
+                                    <img src="/public/img/svg-icons/file-or.svg" alt="" class="img-fluid">
+                                </button>
+                            </a>
                             <button type="button" class="btn-fill" ng-click="deleteProduct(product)">
                                 <img src="/public/img/svg-icons/dustbin-wh.svg" alt="" class="img-fluid">
                             </button>
@@ -127,6 +89,14 @@
                     <div class="form-group col-md-12">
                         <label for="">Description</label>
                         <textarea class="form-control" id="" rows="3" ng-model="newProduct.description"></textarea>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="">Images</label>
+                        <input type="file" class="form-control" placeholder="Add new image" image-upload images="newProduct.images">
+                        <div ng-repeat="image in newProduct.images track by $index">
+                            <img ng-src="{{image}}" alt="" style="height: 100px; width: 150px">
+                            <button class="btn btn-danger" type="button" ng-click="newProduct.images.splice($index, 1)">X</button>
+                        </div>
                     </div>
                     <div class="form-group col-md-12 text-right">
                         <button type="submit" class="btn-fill ">Submit</button>
