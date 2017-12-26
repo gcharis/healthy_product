@@ -3,6 +3,9 @@ app.service('$products', function($http) {
 		getAll() {
 			return $http.get(`${URL}/products/all`).then((res) => res.data);
 		},
+		getBySlug(slug) {
+			return $http.get(`${URL}/products/one-slug/${slug}`).then((res) => res.data);
+		},
 		register(newProduct) {
 			return $http
 				.post(`${URL}/products/new/admin`, newProduct, {

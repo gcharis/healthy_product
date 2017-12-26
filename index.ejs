@@ -37,6 +37,7 @@
     <script src="/public/javascripts/controllers/registerCtrl.js"></script>
     <script src="/public/javascripts/controllers/loginCtrl.js"></script>
     <script src="/public/javascripts/controllers/productsCtrl.js"></script>
+    <script src="/public/javascripts/controllers/productInfoCtrl.js"></script>
 
     <!-- services -->
     <script src="/public/javascripts/services/productsServices.js"></script>
@@ -53,7 +54,7 @@
 </head>
 
 <body>
-    <div ng-app="healthy_product_app">
+    <div ng-app="healthy_product_app" ng-cloak>
         <div ng-include="'./public/views/main-site-templates/navigation.html'"></div>
 
         <div ng-view></div>

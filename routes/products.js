@@ -1,9 +1,6 @@
 const express = require('express');
 const Product = require('../database/models/Product.js');
-const authentication = require('../authentication/jwtAuthentication.js');
-const config = require('../config.js');
 const checkAdmin = require('../authentication/bustAndLog.js');
-const logger = require('../logs/logger.js');
 
 const router = express.Router();
 
@@ -27,6 +24,17 @@ router.get('/one/:id', (req, res) => {
 		if (err) {
 			console.error(new Date(), 'Product could not get retrieved. ERROR', err);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+		}
+		res.send(product);
+	});
+});
+
+router.get('/one-slug/:slug', (req, res) => {
+	let slug = req.params.slug;
+	Product.findOne({ slug }, (err, product) => {
+		if (err) {
+			console.error(new Date(), 'Product could not get retrieved. ERROR', err);
+			return res.status(500).send('Κάποιο σφάλμα συνέβη');
 		}
 		res.send(product);
 	});

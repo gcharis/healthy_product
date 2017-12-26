@@ -1,5 +1,4 @@
 const express = require('express');
-const fs = require('fs');
 const Admin = require('../database/models/Admin.js');
 const Log = require('../database/models/Log.js');
 const authentication = require('../authentication/jwtAuthentication.js');

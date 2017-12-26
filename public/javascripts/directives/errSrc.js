@@ -5,7 +5,10 @@ app.directive('errSrc', function() {
 				if (attrs.src !== attrs.errSrc) attrs.$set('src', attrs.errSrc);
 			});
 			attrs.$observe('ngSrc', function(value) {
-				if (!value && attrs.errSrc) attrs.$set('src', attrs.errSrc);
+				if (!value && !!attrs.errSrc) attrs.$set('src', attrs.errSrc);
+			});
+			attrs.$observe('errSrc', function(value) {
+				if (!!value && !attrs.ngSrc) attrs.$set('src', attrs.errSrc);
 			});
 		}
 	};
