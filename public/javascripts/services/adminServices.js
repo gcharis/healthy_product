@@ -6,20 +6,23 @@ app.service('$admin', function($http, $rootScope) {
 
 	return {
 		getVerification(token) {
-			return $http.post(`${URL}/admin/verify`, null, {
+			return $http.post('/admin/verify', null, {
 				headers: {
 					token
 				}
 			});
 		},
+		requestRegisterForm(data) {
+			return $http.post('/admin/pre-register', data).then((res) => res.data);
+		},
 		register(data) {
-			return $http.post(`${URL}/admin/register`, data).then((res) => {
+			return $http.post('/admin/register', data).then((res) => {
 				saveToken(res.data.token);
 				return res.data.message;
 			});
 		},
 		login(data) {
-			return $http.post(`${URL}/admin/login`, data).then((res) => {
+			return $http.post('/admin/login', data).then((res) => {
 				saveToken(res.data.token);
 				return res.data.token;
 			});
