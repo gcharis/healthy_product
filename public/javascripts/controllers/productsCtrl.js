@@ -11,7 +11,8 @@ app.controller('products', function($scope, $products, $timeout, $hpLocation, $u
 			.catch((res) => ($scope.errMsg = res.data));
 	};
 
-	$scope.deleteProduct = (product) => $products.deleteById(product._id).then((data) => showProducts());
+	$scope.deleteProduct = (product) =>
+		$products.deleteById(product._id).then((data) => showProducts()).catch((res) => ($scope.message = res.data));
 
 	function showProducts() {
 		$products.getAll().then((products) => ($scope.products = products)).catch((err) => console.warn(err));

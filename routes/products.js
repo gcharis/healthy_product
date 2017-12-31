@@ -78,6 +78,7 @@ router.put('/one/:id/:admin', (req, res) => {
 
 router.delete('/one/:id/:admin', (req, res) => {
 	let id = req.params.id;
+	console.log(id);
 	Product.findByIdAndRemove(id, (err, product) => {
 		if (err) {
 			console.error(new Date(), 'Product could not get deleted. ERROR', err);
