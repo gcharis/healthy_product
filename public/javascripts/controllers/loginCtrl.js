@@ -1,4 +1,4 @@
-app.controller('login', function($scope, $admin, $timeout, $rootScope, $hpLocation) {
+app.controller('login', function($scope, $admin, $hpLocation) {
 	$scope.admin = {};
 	$scope.onLogin = (data) => {
 		$admin
