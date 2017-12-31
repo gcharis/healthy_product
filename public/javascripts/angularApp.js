@@ -2,10 +2,12 @@ const app = angular.module('healthy_product_app', [ 'ngRoute' ]);
 
 app
 	.run(function($rootScope, $admin, $hpLocation, $location) {
-		$rootScope.$on('$locationChangeStart', async function($event, next, current) {
-			$event.preventDefault();
-			if ($location.url() === '/login' || $location.url() === '/register') return;
-			await $admin.getVerification(localStorage['token']).catch((res) => $hpLocation.replaceWith('/login'));
+		$rootScope.$on('$locationChangeStart', function($event, next, current) {
+			if (next === 'http://localhost:4000/login' || next === 'http://localhost:4000/register') return;
+
+			$admin.getVerification(localStorage['token']).catch((res) => {
+				$hpLocation.replaceWith('/login');
+			});
 		});
 	})
 	.config(function($locationProvider, $routeProvider) {
