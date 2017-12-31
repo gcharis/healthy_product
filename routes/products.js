@@ -12,7 +12,7 @@ router.get('/all', (req, res) => {
 	Product.find({}, (err, products) => {
 		if (err) {
 			console.error(new Date(), 'Products could not get retrieved. ERROR', err);
-			return res.sendStatus(500).send('Κάποιο σφάλμα συνέβη.');
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		res.send(products);
 	});
@@ -23,7 +23,7 @@ router.get('/one/:id', (req, res) => {
 	Product.findById(id, (err, product) => {
 		if (err) {
 			console.error(new Date(), 'Product could not get retrieved. ERROR', err);
-			return res.sendStatus(500).send('Κάποιο σφάλμα συνέβη.');
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		res.send(product);
 	});
@@ -34,7 +34,7 @@ router.get('/one-slug/:slug', (req, res) => {
 	Product.findOne({ slug }, (err, product) => {
 		if (err) {
 			console.error(new Date(), 'Product could not get retrieved. ERROR', err);
-			return res.sendStatus(500).send('Κάποιο σφάλμα συνέβη');
+			return res.status(500).send('Κάποιο σφάλμα συνέβη');
 		}
 		res.send(product);
 	});
@@ -45,7 +45,7 @@ router.get('/by-category/:category/', (req, res) => {
 	Product.find({ category: searchCategory }, (err, products) => {
 		if (err) {
 			console.error(new Date(), 'Products could not get retrieved. ERROR', err);
-			return res.sendStatus(500).send('Κάποιο σφάλμα συνέβη.');
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		res.send(products);
 	});
@@ -56,9 +56,7 @@ router.post('/new/:admin', (req, res) => {
 	newProduct.save((err, product) => {
 		if (err) {
 			console.error(new Date(), 'Product could not be saved. ERROR', err);
-			return res
-				.sendStatus(500)
-				.send(`Το προϊόν δεν ήταν δυνατόν να αποθηκευτεί. Κωδικός σφάλματος: ${err.message}`);
+			return res.status(500).send(`Το προϊόν δεν ήταν δυνατόν να αποθηκευτεί. Κωδικός σφάλματος: ${err.message}`);
 		}
 		console.log(new Date(), `New product saved. sku: ${product.sku}, name: ${product.name}`);
 		res.send('Το προϊόν προστέθηκε επιτυχώς!');
@@ -83,7 +81,7 @@ router.delete('/one/:id/:admin', (req, res) => {
 	Product.findByIdAndRemove(id, (err, product) => {
 		if (err) {
 			console.error(new Date(), 'Product could not get deleted. ERROR', err);
-			return res.sendStatus(500).send('Κάποιο σφάλμα συνέβη.');
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		res.send(`Το προϊόν με κωδικό ${product.sku} διαγράφηκε επιτυχώς!`);
 	});
@@ -96,7 +94,7 @@ router.delete('/multiple/:admin', (req, res) => {
 		await Product.findByIdAndRemove(id, (err) => {
 			if (err) {
 				console.error(new Date(), 'Product could not get deleted. ERROR', err);
-				return res.sendStatus(500).send('Κάποιο σφάλμα συνέβη.');
+				return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 			}
 		});
 	});

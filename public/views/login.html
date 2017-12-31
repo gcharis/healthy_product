@@ -27,18 +27,14 @@
                         </label>
                     </div> -->
                     <div class="form-group text-right">
-                        <button type="button" class="btn-fill" ng-click="registerClicked = true">Register</button>
+                        <a ng-href="/register">
+                            <button type="button" class="btn-fill">Register</button>
+                        </a>
                     </div>
                     <div class="form-group text-right">
                         <button type="submit" class="btn-fill">Submit</button>
                     </div>
                 </form>
-                <div ng-show="registerClicked">
-                    <form action="admin/pre-register" method="post">
-                        <input type="text" name="registerKey" ng-model="registerKey">
-                        <button type="submit" class="btn-fill">Give me the form</button>
-                    </form>
-                </div>
             </div>
 
         </div>

@@ -1,13 +1,13 @@
 <form ng-submit="onRegister(newAdmin)">
-    <input type="text" ng-model="newAdmin.firstname">firstname
-    <input type="text" ng-model="newAdmin.lastname">lastname
-    <input type="text" ng-model="newAdmin.username">username
-    <input type="text" password ng-model="newAdmin.password">password
+    <input type="text" ng-model="newAdmin.firstname" required>firstname
+    <input type="text" ng-model="newAdmin.lastname" required>lastname
+    <input type="text" ng-model="newAdmin.username" required>username
+    <input type="text" password ng-model="newAdmin.password" required>password
     <!-- Confirm Password -->
-    <input type="text" ng-change="matchPasswords(newAdmin.password, passwordAgain)" ng-model="passwordAgain">confirm password
-    <input type="email" ng-model="newAdmin.email">email
-    <button type="submit" ng-disabled="submitDisabled" >Εγγραφή</button>
-    <p ng-show="submitDisabled">Παρακαλώ ελέγξτε τα πεδία της φόρμας.</p>
+    <input type="text" ng-model="passwordAgain" required>confirm password
+    <input type="email" ng-model="newAdmin.email" required>email
+    <input type="text" ng-model="newAdmin.registerKey" required>register key
+    <button type="submit" ng-disabled="!passwordsMatch(newAdmin.password, passwordAgain)">Εγγραφή</button>
 </form>
 
 <div ui-message message="message">

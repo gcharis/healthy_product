@@ -12,9 +12,6 @@ app.service('$admin', function($http, $rootScope) {
 				}
 			});
 		},
-		requestRegisterForm(data) {
-			return $http.post('/admin/pre-register', data).then((res) => res.data);
-		},
 		register(data) {
 			return $http.post('/admin/register', data).then((res) => {
 				saveToken(res.data.token);
