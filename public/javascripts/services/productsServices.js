@@ -1,14 +1,14 @@
 app.service('$products', function($http) {
 	return {
 		getAll() {
-			return $http.get(`${URL}/products/all`).then((res) => res.data);
+			return $http.get('$/products/all').then((res) => res.data);
 		},
 		getBySlug(slug) {
-			return $http.get(`${URL}/products/one-slug/${slug}`).then((res) => res.data);
+			return $http.get('$/products/one-slug/${slug}').then((res) => res.data);
 		},
 		register(newProduct) {
 			return $http
-				.post(`${URL}/products/new/admin`, newProduct, {
+				.post('$/products/new/admin', newProduct, {
 					headers: {
 						token: localStorage['token']
 					}
@@ -17,7 +17,7 @@ app.service('$products', function($http) {
 		},
 		deleteById(id) {
 			return $http
-				.delete(`${URL}/products/one/${id}/admin`, {
+				.delete('$/products/one/${id}/admin', {
 					headers: {
 						token: localStorage['token']
 					}

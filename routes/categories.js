@@ -12,7 +12,7 @@ router.get('/all', (req, res) => {
 	Category.find((err, categories) => {
 		if (err) {
 			console.error(new Date(), 'Categories could not get retrieved. ERROR', err);
-			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+			return res.sendStatus(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		res.send(categories);
 	});

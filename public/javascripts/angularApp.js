@@ -1,8 +1,5 @@
 const app = angular.module('healthy_product_app', [ 'ngRoute' ]);
 
-// const URL = 'http://192.168.1.4:4000'
-const URL = 'http://localhost:4000';
-
 app
 	.run(function($rootScope, $admin, $hpLocation, $location) {
 		$rootScope.$on('$locationChangeStart', async function($event, next, current) {
