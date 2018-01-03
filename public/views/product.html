@@ -1,10 +1,65 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h3>Product</h3>
-            <img style="height: 400px; width: 600px" ng-src="{{product.featuredImage}}" err-src="{{product.images[0]}}">
-            <h1>{{product.name}}</h1>
-            <p>Περιγραφή {{product.description}}</p>
-        </div>
+<div class="container main-container product-page">
+    <div class=" white-wrapper">
+        <form action="">
+
+            <!-- <div class="row">
+                <div class="col-md-6 ">
+                    <h3>{{product.name}}</h3>
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col-md-6 flex-md-last">
+                    <img class="img-fluid" ng-src="{{product.featuredImage}}" err-src="{{product.images[0]}}" >
+                    <div class="row">
+                        <div ng-repeat="image in product.images track by $index" class="col-md-4">
+                            <img ng-src="{{image}}" alt="" class="img-fluid">
+                            <button class="btn btn-danger" type="button" ng-click="images.splice($index, 1)">X</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label for="">{{product.name}}</label>
+                        <input type="text" class="form-control" placeholder="" ng-model="product.name">
+                    </div>
+                    <div class="form-group">
+                        <label for="">{{product.description}}</label>
+                        <input type="text" class="form-control" placeholder="" ng-model="product.description">
+                    </div>
+                    <!-- <p>{{product.description}}</p> -->
+                    <hr>
+                    <div class="row">
+                        <h3 class="col-12">Χαρακτηριστικά</h3>
+                        <div class="col-sm-6 form-group">
+                            <label for="">salesPrice</label>
+                            <input type="number" class="form-control" placeholder="Sales Price" ng-model="product.salesPrice">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                                <label for="">salesPrice</label>
+                            <input type="number" class="form-control" placeholder="Price" ng-model="product.price">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="">salesPrice</label>
+                            <input type="number" class="form-control" placeholder="Weight" ng-model="product.weight">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="">salesPrice</label>
+                            <input type="text" class="form-control" placeholder="Sku" ng-model="product.sku">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="">salesPrice</label>
+                            <input type="text" class="form-control" placeholder="Category" ng-model="product.category">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="">salesPrice</label>
+                            <input type="number" class="form-control" placeholder="Stock" ng-model="product.stock">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn-fill">Submit</button>
+        </form> 
     </div>
 </div>

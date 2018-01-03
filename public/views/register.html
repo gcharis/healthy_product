@@ -1,14 +1,90 @@
-<form ng-submit="onRegister(newAdmin)">
-    <input type="text" ng-model="newAdmin.firstname" required>firstname
-    <input type="text" ng-model="newAdmin.lastname" required>lastname
-    <input type="text" ng-model="newAdmin.username" required>username
-    <input type="text" password ng-model="newAdmin.password" required>password
-    <!-- Confirm Password -->
-    <input type="text" ng-model="passwordAgain" required>confirm password
-    <input type="email" ng-model="newAdmin.email" required>email
-    <input type="text" ng-model="newAdmin.registerKey" required>register key
-    <button type="submit" ng-disabled="!passwordsMatch(newAdmin.password, passwordAgain)">Εγγραφή</button>
-</form>
-
-<div ui-message message="message">
+<div class="container main-container register-page">
+    <div class="row align-items-center">
+        <div class="col-lg-12 justify-content-md-center">
+            <div class="register-wrapper">
+                <form ng-submit="onRegister(newAdmin)" class="row">
+                    <div class="form-group col-md-12">
+                        <input type="text" class="form-control" ng-model="newAdmin.username" required>
+                        <span class="bar"></span>
+                        <span class="test" for="">Όνομα Χρήστη</span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" ng-model="newAdmin.firstname" required>
+                        <span class="bar"></span>
+                        <span class="test" for="">Όνομα</span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" ng-model="newAdmin.lastname" required>
+                        <span class="bar"></span>
+                        <span class="test" for="">Επώνυμο</span>
+                    </div>
+                    
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control " password ng-model="newAdmin.password" required>
+                        <span class="bar"></span>
+                        <span class="test" for="">Κωδικός</span>
+                    </div>
+                    <div class="form-group col-md-6">
+                    
+                        <input type="text" class="form-control " ng-model="passwordAgain" required>
+                        <span class="bar"></span>
+                        <span class="test" for="">Επαλήθευση Κωδικού</span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="email" class="form-control" ng-model="newAdmin.email" required>
+                        <span class="bar"></span>
+                        <span class="test" for="">Email</span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" ng-model="newAdmin.registerKey" required>
+                        <span class="bar"></span>
+                        <span class="test" for="">registerKey</span>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <button type="submit" class="btn-fill" ng-disabled="!passwordsMatch(newAdmin.password, passwordAgain)">Εγγραφή</button>
+                    </div>
+                    
+                    <div ui-message message="message"></div>
+                </form>
+            </div>
+         </div>
+    </div>
 </div>
+
+<!-- <div class="container main-container login-page">
+    <div class="row h-100 align-items-center">
+        <div class="col-lg-12 justify-content-md-center">
+            <div class="login-wrapper">
+                <h3 class="text-center">Εγγραφή</h3>
+                <form ng-submit="onRegister(newAdmin)">
+                    <div class="form-group">
+                        <input type="text" ng-model="newAdmin.firstname" required>firstname
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="newAdmin.lastname" required>lastname
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="newAdmin.username" required>username
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" password ng-model="newAdmin.password" required>password
+                    </div>
+                    <div class="form-group">
+                    Confirm Password
+                        <input type="text" class="form-control" ng-model="passwordAgain" required>confirm password
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" ng-model="newAdmin.email" required>email
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="newAdmin.registerKey" required>register key
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" ng-disabled="!passwordsMatch(newAdmin.password, passwordAgain)">Εγγραφή</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div> -->
