@@ -23,7 +23,7 @@ router.post('/register', (req, res, next) => {
 router.post('/register', (req, res) => {
 	new Admin(req.body).save((err, admin) => {
 		if (err) {
-			console.error(new Date(), 'Register fail. ERROR', err);
+			console.error(`${new Date()}, Register fail. ERROR, ${err}`);
 			return res
 				.status(500)
 				.send(`Δεν ήταν δυνατόν να δημιουργηθεί νέος admin. Κωδικός σφάλματος: ${err.message}`);
@@ -38,7 +38,7 @@ router.post('/login', (req, res) => {
 
 	Admin.findOne({ username: adminToVerify.username }, (err, admin) => {
 		if (err) {
-			console.error(new Date(), 'Login fail. ERROR', err);
+			console.error(`${new Date()}, Login fail. ERROR, ${err}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		if (!admin) return res.status(500).send('Τα στοιχεία που δώσατε είναι λανθασμένα. Παρακαλώ προσπαθήστε ξανά.');
@@ -58,7 +58,7 @@ router.put('/update/:id', (req, res) => {
 
 	Admin.findByIdAndUpdate(id, updatedAdmin, { new: true }, (err, admin) => {
 		if (err) {
-			console.error(new Date(), 'Admin info update failed. ERROR', err);
+			console.error(`${new Date()}, Admin info update failed. ERROR, ${err}`);
 			return res
 				.status(500)
 				.send(`Τα στοιχεία δεν ήταν δυνατόν να ανανεωθούν. Κωδικός σφάλματος: ${err.message}`);
@@ -71,7 +71,7 @@ router.put('/update/:id', (req, res) => {
 router.get('/logs', (req, res) => {
 	Log.find({}, (err, logs) => {
 		if (err) {
-			console.error(new Date(), 'Logs could not get retrieved. ERROR', err);
+			console.error(`${new Date()}, Logs could not get retrieved. ERROR, ${err}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		if (!logs) return res.status(500).send('Δεν βρέθηκαν καταγεγραμμένα γεγονότα.');

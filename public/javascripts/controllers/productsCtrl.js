@@ -22,7 +22,7 @@ app.controller('products', function($scope, $products, $categories, $timeout, $h
 				categories = [ { name: 'Καμία κατηγορία', description: 'Καμία κατηγορία' }, ...categories ];
 
 				$scope.categories = categories;
-				$scope.selectedCategory = categories[0];
+				$scope.product.category = [ categories[0] ];
 			})
 			.catch((res) => ($scope.errMsg = res.data));
 	}

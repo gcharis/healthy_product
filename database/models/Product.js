@@ -38,7 +38,7 @@ let productSchema = new mongoose.Schema({
 	stock: Number,
 	creationDate: {
 		type: Date,
-		default: new Date()
+		default: Date.now
 	},
 	expirationDate: Date,
 	images: [ String ],

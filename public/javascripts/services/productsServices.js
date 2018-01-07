@@ -10,7 +10,7 @@ app.service('$products', function($http) {
 			return $http
 				.post('/products/new/admin', newProduct, {
 					headers: {
-						token: localStorage['token']
+						token: localStorage.token
 					}
 				})
 				.then((res) => res.data);
@@ -19,7 +19,7 @@ app.service('$products', function($http) {
 			return $http
 				.delete(`/products/one/${id}/admin`, {
 					headers: {
-						token: localStorage['token']
+						token: localStorage.token
 					}
 				})
 				.then((res) => res.data);

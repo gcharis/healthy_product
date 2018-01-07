@@ -4,7 +4,7 @@ app.service('$categories', function($http) {
 			return $http
 				.get('/categories/all/admin', {
 					headers: {
-						token: localStorage['token']
+						token: localStorage.token
 					}
 				})
 				.then((res) => res.data);
@@ -16,7 +16,7 @@ app.service('$categories', function($http) {
 			return $http
 				.post('/categories/new/admin', newCategory, {
 					headers: {
-						token: localStorage['token']
+						token: localStorage.token
 					}
 				})
 				.then((res) => res.data);
@@ -25,7 +25,7 @@ app.service('$categories', function($http) {
 			return $http
 				.delete(`/categories/one/${id}/admin`, {
 					headers: {
-						token: localStorage['token']
+						token: localStorage.token
 					}
 				})
 				.then((res) => res.data);

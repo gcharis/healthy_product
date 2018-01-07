@@ -5,19 +5,19 @@ app
 		$rootScope.$on('$routeChangeStart', function($event, next, current) {
 			if ($location.path() !== '/login' && $location.path() !== '/register')
 				return $admin
-					.getVerification(localStorage['token'])
+					.getVerification(localStorage.token)
 					.then(() => $rootScope.$broadcast('admin logged in'))
 					.catch((res) => $hpLocation.replaceWith('/login'));
 
 			!!localStorage.token
 				? $admin
-						.getVerification(localStorage['token'])
+						.getVerification(localStorage.token)
 						.then((res) => {
-							$hpLocation.replaceWith('/');
 							$rootScope.$broadcast('admin logged in');
+							$hpLocation.replaceWith('/');
 						})
 						.catch((res) => console.warn(res.data))
-				: null;
+				: console.warn('No token found');
 		});
 
 		$rootScope.$on('admin logged out', function() {
