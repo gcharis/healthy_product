@@ -31,3 +31,16 @@ router.post('/new/:admin', (req, res) => {
 		res.send('Η κατηγορία προστέθηκε επιτυχώς!');
 	});
 });
+
+router.delete('/one/:id/:admin', (req, res) => {
+	let id = req.params.id;
+	console.log(id);
+	Category.findByIdAndRemove(id, (err, category) => {
+		if (err) {
+			console.error(new Date(), 'category could not get deleted. ERROR', err);
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+		}
+		res.send(`Το προϊόν με κωδικό ${category.name} διαγράφηκε επιτυχώς!`);
+	});
+});
+module.exports = router;

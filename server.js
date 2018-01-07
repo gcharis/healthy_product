@@ -5,6 +5,7 @@ const morgan = require('morgan');
 
 const connection = require('./database/connection.js');
 const products = require('./routes/products.js');
+const categories = require('./routes/categories.js');
 const shipping = require('./database/models/Shipping.js');
 const admin = require('./routes/admin.js');
 const logger = require('./logs/logger.js');
@@ -13,7 +14,7 @@ const config = require('./config.js');
 const app = express();
 const port = process.env.PORT || config.port;
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
 	res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
 	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -24,8 +25,13 @@ app.use(function(req, res, next) {
 app.use(morgan('dev'));
 
 // Body Parser middleware
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({
+	limit: '50mb',
+	extended: true
+}));
+app.use(bodyParser.json({
+	limit: '50mb'
+}));
 
 // Ejs middleware
 app.set('view engine', 'ejs');
@@ -39,6 +45,7 @@ app.use('/public', express.static(`${__dirname}/public`));
 app.get('/', (err, res) => res.render('index'));
 
 app.use('/products', products);
+app.use('/categories', categories);
 app.use('/shippings', shipping);
 app.use('/admin', admin);
 

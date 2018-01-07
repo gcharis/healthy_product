@@ -16,7 +16,9 @@ body {
 	background-color: rgba(0, 0, 0, .05);
 }
 
+
 /* Reset Stuff For Browser Compitabilities */
+
 
 /* Remove Spinners from Input type number */
 
@@ -37,6 +39,7 @@ input::-webkit-inner-spin-button {
 	border-color: #51493d;
 }
 
+
 /* All Pages Styling */
 
 .main-container {
@@ -48,6 +51,7 @@ input::-webkit-inner-spin-button {
 .row.add {
 	padding-bottom: 2rem;
 }
+
 
 /* Buttons */
 
@@ -67,6 +71,7 @@ input::-webkit-inner-spin-button {
 	color: white;
 }
 
+
 /* ======================================================================================================= 
                                              Nav Bar
 ======================================================================================================= */
@@ -83,6 +88,7 @@ input::-webkit-inner-spin-button {
 .navbar-light .navbar-nav .nav-link:hover {
 	color: #b9b8b8;
 }
+
 
 /* ======================================================================================================= 
                                              Login Page
@@ -138,10 +144,10 @@ input::-webkit-inner-spin-button {
 	-webkit-transition: 0.2s ease all;
 }
 
-.login-page .login-wrapper input:focus ~ .test,
-.login-page .login-wrapper input:valid ~ .test,
-.register-page .register-wrapper input:focus ~ .test,
-.register-page .register-wrapper input:valid ~ .test {
+.login-page .login-wrapper input:focus~.test,
+.login-page .login-wrapper input:valid~.test,
+.register-page .register-wrapper input:focus~.test,
+.register-page .register-wrapper input:valid~.test {
 	bottom: 30px;
 }
 
@@ -172,16 +178,19 @@ input::-webkit-inner-spin-button {
 	right: 50%;
 }
 
+
 /* active state */
 
-input:focus ~ .bar:before,
-input:focus ~ .bar:after {
+input:focus~.bar:before,
+input:focus~.bar:after {
 	width: 50%;
 }
+
 
 /* ======================================================================================================= 
                                              Login Page
 ======================================================================================================= */
+
 .register-wrapper {
 	max-width: 600px;
 	margin: 0 auto;
@@ -189,9 +198,11 @@ input:focus ~ .bar:after {
 	padding: 5rem 3rem;
 	border: 1px solid #51493d;
 }
+
 .register-page .test {
 	left: 1rem;
 }
+
 
 /* ======================================================================================================= 
                                              Products Page
@@ -214,6 +225,7 @@ input:focus ~ .bar:after {
 	max-width: 25px;
 }
 
+
 /* New Product Page
 ======================== */
 
@@ -234,9 +246,11 @@ div#registerModal {
 	border-radius: 0;
 }
 
+
 /* ======================================================================================================= 
                                              Product Page
 ======================================================================================================= */
+
 
 /* ======================================================================================================= 
                                             Category Page
@@ -247,24 +261,12 @@ div#registerModal {
 	padding: 3rem 2rem;
 }
 
-.grey-wrapper {
+.category-wrapper.ng-scope {
 	background: whitesmoke;
-	/* padding: 2rem; */
-}
-
-.grey-wrapper .row {
 	padding: .75rem;
-	border-bottom: 1px solid white;
+	margin-bottom: .5rem;
 }
 
-.sub-category {
-	padding-left: 3rem;
-}
-
-.row.stripped {
-	padding: .75rem 0;
-	border-bottom: 1px solid #e9ecef;
-}
 
 /* ======================================================================================================= 
                                              Footer

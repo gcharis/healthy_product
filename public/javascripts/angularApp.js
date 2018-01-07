@@ -1,8 +1,8 @@
-const app = angular.module('healthy_product_app', [ 'ngRoute' ]);
+const app = angular.module('healthy_product_app', ['ngRoute']);
 
 app
-	.run(function($rootScope, $admin, $hpLocation, $location) {
-		$rootScope.$on('$locationChangeStart', function($event, next, current) {
+	.run(function ($rootScope, $admin, $hpLocation, $location) {
+		$rootScope.$on('$locationChangeStart', function ($event, next, current) {
 			if (next === 'http://localhost:4000/login' || next === 'http://localhost:4000/register') return;
 
 			$admin.getVerification(localStorage['token']).catch((res) => {
@@ -10,8 +10,8 @@ app
 			});
 		});
 	})
-	.config(function($locationProvider, $routeProvider) {
-		$locationProvider.hashPrefix('').html5Mode(true);
+	.config(function ($locationProvider, $routeProvider) {
+		$locationProvider.hashPrefix('')
 
 		$routeProvider
 			.when('/', {
@@ -35,6 +35,7 @@ app
 				controller: 'productInfo'
 			})
 			.when('/categories', {
-				templateUrl: '/public/views/categories.html'
+				templateUrl: '/public/views/categories.html',
+				controller: 'categories'
 			});
 	});
