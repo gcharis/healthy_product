@@ -9,7 +9,6 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" href="#/">Αρχική
-
                 </a>
             </li>
             <!-- <li class="nav-item">
@@ -35,7 +34,9 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </li>
-
+            <li class="nav-item" ng-controller="login" ng-show="isLoggedIn">
+                <button ng-click="logout()" style="color:white">Logout</button>
+            </li>
         </ul>
 
     </div>

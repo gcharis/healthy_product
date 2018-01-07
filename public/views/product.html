@@ -50,8 +50,7 @@
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="">categories</label>
-                            <select class="custom-select" id="" ng-options="category.name for category in categories">
-                                <option selected>{{category.name}}</option>
+                            <select class="custom-select" id="" ng-model="selectedCategory" ng-options="category as category.name for category in categories">
                             </select>
                         </div>
                         <div class="col-sm-6 form-group">

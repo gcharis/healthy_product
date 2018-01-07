@@ -1,17 +1,31 @@
-const app = angular.module('healthy_product_app', ['ngRoute']);
+const app = angular.module('healthy_product_app', [ 'ngRoute' ]);
 
 app
-	.run(function ($rootScope, $admin, $hpLocation, $location) {
-		$rootScope.$on('$locationChangeStart', function ($event, next, current) {
-			if (next === 'http://localhost:4000/login' || next === 'http://localhost:4000/register') return;
+	.run(function($rootScope, $admin, $hpLocation, $location) {
+		$rootScope.$on('$routeChangeStart', function($event, next, current) {
+			if ($location.path() !== '/login' && $location.path() !== '/register')
+				return $admin
+					.getVerification(localStorage['token'])
+					.then(() => $rootScope.$broadcast('admin logged in'))
+					.catch((res) => $hpLocation.replaceWith('/login'));
 
-			$admin.getVerification(localStorage['token']).catch((res) => {
-				$hpLocation.replaceWith('/login');
-			});
+			!!localStorage.token
+				? $admin
+						.getVerification(localStorage['token'])
+						.then((res) => {
+							$hpLocation.replaceWith('/');
+							$rootScope.$broadcast('admin logged in');
+						})
+						.catch((res) => console.warn(res.data))
+				: null;
+		});
+
+		$rootScope.$on('admin logged out', function() {
+			$hpLocation.replaceWith('/login');
 		});
 	})
-	.config(function ($locationProvider, $routeProvider) {
-		$locationProvider.hashPrefix('')
+	.config(function($locationProvider, $routeProvider) {
+		$locationProvider.hashPrefix('');
 
 		$routeProvider
 			.when('/', {

@@ -8,7 +8,7 @@ const router = express.Router();
 // a log will be saved
 router.param('admin', checkAdmin);
 
-router.get('/all', (req, res) => {
+router.get('/all/:admin', (req, res) => {
 	Category.find((err, categories) => {
 		if (err) {
 			console.error(new Date(), 'Categories could not get retrieved. ERROR', err);
@@ -34,13 +34,12 @@ router.post('/new/:admin', (req, res) => {
 
 router.delete('/one/:id/:admin', (req, res) => {
 	let id = req.params.id;
-	console.log(id);
 	Category.findByIdAndRemove(id, (err, category) => {
 		if (err) {
-			console.error(new Date(), 'category could not get deleted. ERROR', err);
+			console.error(new Date(), 'Category could not get deleted. ERROR', err);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
-		res.send(`Το προϊόν με κωδικό ${category.name} διαγράφηκε επιτυχώς!`);
+		res.send(`Η κατηγορία με όνομα ${category.name} διαγράφηκε επιτυχώς!`);
 	});
 });
 module.exports = router;

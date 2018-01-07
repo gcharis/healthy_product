@@ -1,7 +1,7 @@
 <div class="container-fluid main-container product-listing">
     <div class="row add">
         <div class="col-md-12 text-right">
-            <button type="button" class="btn-fill" data-toggle="modal" data-target="#registerModal">Νεο Προϊον</button>
+            <button type="button" class="btn-fill" data-toggle="modal" data-target="#registerModal" ng-click="getCategories()">Νεο Προϊον</button>
         </div>
     </div>
     <div ui-message message="message"></div>
@@ -24,10 +24,8 @@
                         <td>{{product.name}}</td>
                         <td>{{product.category.toString()}}</td>
                         <td>
-                            <a ng-href="/products/{{product.slug}}" class="btn-outline">
-                               
-                                    <img src="/public/img/svg-icons/file-or.svg" alt="" class="img-fluid">
-                               
+                            <a ng-href="#/products/{{product.slug}}" class="btn-outline">
+                                <img src="/public/img/svg-icons/file-or.svg" alt="" class="img-fluid">
                             </a>
                             <button type="button" class="btn-fill" ng-click="deleteProduct(product)">
                                 <img src="/public/img/svg-icons/dustbin-wh.svg" alt="" class="img-fluid">
@@ -81,7 +79,8 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Category</label>
-                        <input type="text" class="form-control" placeholder="Category">
+                        <select class="form-control" ng-model="selectedCategory" ng-options="category as category.name for category in categories">
+                        </select>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Stock</label>

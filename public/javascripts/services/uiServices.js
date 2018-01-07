@@ -6,6 +6,7 @@ app.service('$uiHandler', function() {
 			modal.setAttribute('style', 'display:none;');
 			modal.setAttribute('aria-hidden', 'true');
 
+			document.body.classList.remove('modal-open');
 			document.body.removeChild(document.getElementsByClassName('modal-backdrop fade show')[0]);
 		}
 	};

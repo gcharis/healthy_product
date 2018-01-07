@@ -18,12 +18,11 @@ let categorySchema = new mongoose.Schema({
 	},
 	parent: {
 		type: String,
-		default: '',
-		required: true
+		default: ''
 	}
 });
 
-categorySchema.pre('validate', function (next) {
+categorySchema.pre('validate', function(next) {
 	if (!this.name) throw new ReferenceError(`Field 'name' for new category is not filled`);
 	this.slug = this.name.toGreeklish();
 	next();

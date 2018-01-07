@@ -4,6 +4,11 @@ app.service('$admin', function($http, $rootScope) {
 		$rootScope.$broadcast('admin logged in');
 	}
 
+	function deleteToken() {
+		localStorage.removeItem('token');
+		$rootScope.$broadcast('admin logged out');
+	}
+
 	return {
 		getVerification(token) {
 			return $http.post('/admin/verify', null, {
@@ -23,6 +28,9 @@ app.service('$admin', function($http, $rootScope) {
 				saveToken(res.data.token);
 				return res.data.token;
 			});
+		},
+		logout() {
+			deleteToken();
 		}
 	};
 });
