@@ -15,7 +15,16 @@ app.service('$products', function($http) {
 				})
 				.then((res) => res.data);
 		},
-		deleteById(id) {
+		updateOneById(product) {
+			return $http
+				.put(`/products/one/${product._id}/admin`, product, {
+					headers: {
+						token: localStorage.token
+					}
+				})
+				.then((res) => res.data);
+		},
+		deleteOneById(id) {
 			return $http
 				.delete(`/products/one/${id}/admin`, {
 					headers: {

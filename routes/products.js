@@ -65,7 +65,7 @@ router.post('/new/:admin', (req, res) => {
 
 router.put('/one/:id/:admin', (req, res) => {
 	let id = req.params.id;
-	Product.findByIdAndUpdate(id, updatedProduct, { new: true }, (err, product) => {
+	Product.findByIdAndUpdate(id, req.body, { new: true }, (err, product) => {
 		if (err) {
 			console.error(`${new Date()}, Product could not be updated. ERROR, ${err}`);
 			return res

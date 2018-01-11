@@ -1,6 +1,6 @@
-app.controller('products', function($scope, $products, $categories, $timeout, $hpLocation, $uiHandler) {
+app.controller('products', function($scope, $products, $categories, $timeout, $location, $uiHandler) {
 	showProducts();
-	getCategories();
+	showCategories();
 
 	$scope.registerProduct = (newProduct) => {
 		$products
@@ -9,22 +9,19 @@ app.controller('products', function($scope, $products, $categories, $timeout, $h
 				clearProductRegistrationForm();
 				showProducts();
 			})
-			.catch((res) => ($scope.errMsg = res.data));
+			.catch((res) => ($scope.message = res.data));
 	};
 
 	$scope.deleteProduct = (product) =>
-		$products.deleteById(product._id).then((data) => showProducts()).catch((res) => ($scope.message = res.data));
+		$products.deleteOneById(product._id).then((data) => showProducts()).catch((res) => ($scope.message = res.data));
 
-	function getCategories() {
+	$scope.renderProductCategories = (product) => product.category.map((category) => category.name).toString();
+
+	function showCategories() {
 		$categories
 			.getAll()
-			.then((categories) => {
-				categories = [ { name: 'Καμία κατηγορία', description: 'Καμία κατηγορία' }, ...categories ];
-
-				$scope.categories = categories;
-				$scope.product.category = [ categories[0] ];
-			})
-			.catch((res) => ($scope.errMsg = res.data));
+			.then((categories) => ($scope.categories = categories))
+			.catch((res) => ($scope.message = res.data));
 	}
 
 	function showProducts() {

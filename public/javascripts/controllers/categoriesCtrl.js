@@ -1,4 +1,4 @@
-app.controller('categories', function($scope, $categories, $timeout, $hpLocation, $uiHandler) {
+app.controller('categories', function($scope, $categories, $timeout, $location, $uiHandler) {
 	showCategories();
 
 	$scope.registerCategory = (newCategory) => {
@@ -8,12 +8,12 @@ app.controller('categories', function($scope, $categories, $timeout, $hpLocation
 				clearCategoryRegistrationForm();
 				showCategories();
 			})
-			.catch((res) => ($scope.errMsg = res.data));
+			.catch((res) => ($scope.message = res.data));
 	};
 
 	$scope.deleteCategory = (category) =>
 		$categories
-			.deleteById(category._id)
+			.deleteOneById(category._id)
 			.then((data) => showCategories())
 			.catch((res) => ($scope.message = res.data));
 

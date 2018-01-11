@@ -1,16 +1,9 @@
 <div class="container main-container product-page">
     <div class=" white-wrapper">
-        <form action="">
-
-            <!-- <div class="row">
-                <div class="col-md-6 ">
-                    <h3>{{product.name}}</h3>
-                </div>
-            </div> -->
-
+        <form ng-submit="updateProduct(product)">
             <div class="row">
                 <div class="col-md-6 flex-md-last">
-                    <img class="img-fluid" ng-src="{{product.featuredImage}}" err-src="{{product.images[0]}}">
+                    <img class="img-fluid" ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg">
                     <div class="row">
                         <div ng-repeat="image in product.images track by $index" class="col-md-4">
                             <img ng-src="{{image}}" alt="" class="img-fluid">
@@ -21,11 +14,11 @@
 
                 <div class="col-md-6 ">
                     <div class="form-group">
-                        <label for="">{{product.name}}</label>
+                        <label for="">name</label>
                         <input type="text" class="form-control" placeholder="" ng-model="product.name">
                     </div>
                     <div class="form-group">
-                        <label for="">{{product.description}}</label>
+                        <label for="">description</label>
                         <input type="text" class="form-control" placeholder="" ng-model="product.description">
                     </div>
                     <!-- <p>{{product.description}}</p> -->
@@ -33,34 +26,44 @@
                     <div class="row">
                         <h3 class="col-12">Χαρακτηριστικά</h3>
                         <div class="col-sm-6 form-group">
-                            <label for="">salesPrice</label>
-                            <input type="number" class="form-control" placeholder="Sales Price" ng-model="product.salesPrice">
-                        </div>
-                        <div class="col-sm-6 form-group">
-                            <label for="">salesPrice</label>
+                            <label for="">price</label>
                             <input type="number" class="form-control" placeholder="Price" ng-model="product.price">
                         </div>
                         <div class="col-sm-6 form-group">
-                            <label for="">salesPrice</label>
+                            <label for="">sales price</label>
+                            <input type="number" class="form-control" placeholder="Sales Price" ng-model="product.salesPrice">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="">weight</label>
                             <input type="number" class="form-control" placeholder="Weight" ng-model="product.weight">
                         </div>
                         <div class="col-sm-6 form-group">
-                            <label for="">salesPrice</label>
+                            <label for="">sku</label>
                             <input type="text" class="form-control" placeholder="Sku" ng-model="product.sku">
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="">categories</label>
-                            <select class="custom-select" id="" ng-model="product.category" ng-options="category as category.name for category in categories" multiple>
-                            </select>
+
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" ng-click="categoriesDropDownOpen = !categoriesDropDownOpen" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    Επιλέξτε Κατηγορία
+                                </button>
+                                <div ng-class="categoriesDropDownOpen ? 'dropdown-menu show' : 'dropdown-menu'" aria-labelledby="dropdownMenuButton">
+                                    <span class="mouse-hand" ng-repeat="category in categories" ng-click="changeProductCategory(category)" ng-style="categoryIsInProduct(category) ? {color: 'red'} : {} ">{{category.name}}</span>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="col-sm-6 form-group">
-                            <label for="">salesPrice</label>
+                            <label for="">stock</label>
                             <input type="number" class="form-control" placeholder="Stock" ng-model="product.stock">
                         </div>
                     </div>
                 </div>
             </div>
             <button type="submit" class="btn-fill">Submit</button>
+            <a ng-href="/#/products"><button type="button" class="btn-fill">Cancel</button></a>
         </form>
     </div>
 </div>

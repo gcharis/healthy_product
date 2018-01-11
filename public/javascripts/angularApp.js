@@ -1,27 +1,27 @@
 const app = angular.module('healthy_product_app', [ 'ngRoute' ]);
 
 app
-	.run(function($rootScope, $admin, $hpLocation, $location) {
+	.run(function($rootScope, $admin, $location, $location) {
 		$rootScope.$on('$routeChangeStart', function($event, next, current) {
 			if ($location.path() !== '/login' && $location.path() !== '/register')
 				return $admin
 					.getVerification(localStorage.token)
 					.then(() => $rootScope.$broadcast('admin logged in'))
-					.catch((res) => $hpLocation.replaceWith('/login'));
+					.catch((res) => $location.path('/login').replace());
 
 			!!localStorage.token
 				? $admin
 						.getVerification(localStorage.token)
 						.then((res) => {
 							$rootScope.$broadcast('admin logged in');
-							$hpLocation.replaceWith('/');
+							$location.path('/').replace();
 						})
 						.catch((res) => console.warn(res.data))
 				: console.warn('No token found');
 		});
 
 		$rootScope.$on('admin logged out', function() {
-			$hpLocation.replaceWith('/login');
+			$location.path('/login').replace();
 		});
 	})
 	.config(function($locationProvider, $routeProvider) {

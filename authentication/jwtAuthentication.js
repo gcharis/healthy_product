@@ -8,7 +8,7 @@ module.exports = {
 		});
 	},
 	verifyAdmin(token) {
-		return new Promise((resolve) => {
+		return new Promise((resolve, reject) => {
 			jwt.verify(token, config.secretKey, { maxAge: '1d' }, (err, decoded) => {
 				if (err) reject(new Error('Δεν έχετε εξουσιοδότηση για αυτή την ενέργεια.'));
 				resolve(decoded);

@@ -21,7 +21,7 @@ app.service('$categories', function($http) {
 				})
 				.then((res) => res.data);
 		},
-		deleteById(id) {
+		deleteOneById(id) {
 			return $http
 				.delete(`/categories/one/${id}/admin`, {
 					headers: {
