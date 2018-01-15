@@ -3,11 +3,17 @@
         <form ng-submit="updateProduct(product)">
             <div class="row">
                 <div class="col-md-6 flex-md-last">
-                    <img class="img-fluid" ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg">
+                    <div>
+                        <labe>featured image</labe>
+                        <img class="img-fluid" ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg"
+                            ng-style="{height: '150px', width: '100px'}">
+                        <span ng-click="product.featuredImage = ''">remove featured</span>
+                    </div>
                     <div class="row">
                         <div ng-repeat="image in product.images track by $index" class="col-md-4">
-                            <img ng-src="{{image}}" alt="" class="img-fluid">
-                            <button class="btn btn-danger" type="button" ng-click="images.splice($index, 1)">X</button>
+                            <img ng-src="{{image}}" class="img-fluid">
+                            <span ng-click="product.featuredImage = image">make featured</span>
+                            <button class="btn btn-danger" type="button" ng-click="removeProductImage(image, $index)">X</button>
                         </div>
                     </div>
                 </div>

@@ -17,6 +17,21 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 
 	$scope.renderProductCategories = (product) => product.category.map((category) => category.name).toString();
 
+	$scope.toggleProductCategory = (category) => {
+		!$scope.categoryIsInProduct(category) ? addProductCategory(category) : removeProductCategory(category);
+	};
+
+	$scope.categoryIsInProduct = ({ name, slug }) =>
+		!!$scope.product.category.find(
+			(productCategory) => productCategory.name === name && productCategory.slug === slug
+		);
+
+	$scope.addNewProduct = () => {
+		getCategories();
+		$scope.addingNewProduct = true;
+		openModalById('registerModal');
+	};
+
 	function showCategories() {
 		$categories
 			.getAll()
@@ -32,4 +47,7 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 		$scope.newProduct = { images: [] };
 		$uiHandler.hideModalById('registerModal');
 	}
+
+	$scope.openModalById = $uiHandler.openModalById;
+	$scope.hideModalById = $uiHandler.hideModalById;
 });

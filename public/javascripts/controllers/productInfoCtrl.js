@@ -23,6 +23,11 @@ app.controller('productInfo', function($scope, $routeParams, $location, $product
 			(productCategory) => productCategory.name === name && productCategory.slug === slug
 		);
 
+	$scope.removeProductImage = (image, i) => {
+		$scope.product.images.splice(i, 1);
+		$scope.product.featuredImage === image ? ($scope.product.featuredImage = '') : null; //do nothing
+	};
+
 	function getProductInfo() {
 		return $products.getOneBySlug($routeParams.slug);
 	}

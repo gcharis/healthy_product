@@ -1,7 +1,7 @@
 <div class="container-fluid main-container product-listing">
     <div class="row add">
         <div class="col-md-12 text-right">
-            <button type="button" class="btn-fill" data-toggle="modal" data-target="#registerModal" ng-click="getCategories()">Νεο Προϊον</button>
+            <button type="button" class="btn-fill" data-toggle="modal" ng-click="addNewProduct()">Νεο Προϊον</button>
         </div>
     </div>
     <div ui-message message="message"></div>
@@ -25,10 +25,10 @@
                         <td>{{renderProductCategories(product)}}</td>
                         <td>
                             <a ng-href="#/products/{{product.slug}}" class="btn-outline">
-                                <img src="/public/img/svg-icons/file-or.svg" alt="" class="img-fluid">
+                                <img src="/public/img/svg-icons/file-or.svg" class="img-fluid">
                             </a>
                             <button type="button" class="btn-fill" ng-click="deleteProduct(product)">
-                                <img src="/public/img/svg-icons/dustbin-wh.svg" alt="" class="img-fluid">
+                                <img src="/public/img/svg-icons/dustbin-wh.svg" class="img-fluid">
                             </button>
                         </td>
                     </tr>
@@ -39,15 +39,14 @@
 </div>
 
 
-
 <!-- Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" ng-if="addingNewProduct">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                 <p ui-message message="message"></p>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"  ng-click="hideModalById('registerModal')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -57,7 +56,6 @@
                         <label for="">Name</label>
                         <input type="text" class="form-control" placeholder="Name" ng-model="newProduct.name">
                     </div>
-
                     <div class="form-group col-md-6">
                         <label for="">Price</label>
                         <input type="number" class="form-control" placeholder="Price" ng-model="newProduct.price">
@@ -74,11 +72,27 @@
                         <label for="">Sku</label>
                         <input type="text" class="form-control" placeholder="Sku" ng-model="newProduct.sku">
                     </div>
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6">
                         <label for="">Category</label>
                         <select class="form-control" ng-model="newProduct.category" ng-options="category as category.name for category in categories" multiple>
                             <option value="">Επιλέξτε Κατηγορία</option>
                         </select>
+                    </div> -->
+                    <div class="col-sm-6 form-group">
+                        <label for="">categories</label>
+                    
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" ng-click="categoriesDropDownOpen = !categoriesDropDownOpen"
+                                aria-haspopup="true" aria-expanded="false">
+                                Επιλέξτε Κατηγορία
+                            </button>
+                            <div ng-class="categoriesDropDownOpen ? 'dropdown-menu show' : 'dropdown-menu'" aria-labelledby="dropdownMenuButton">
+                                <div class="mouse-hand" ng-repeat="category in categories" ng-click="toggleProductCategory(category)" ng-style="categoryIsInProduct(category) ? {color: 'red'} : {} ">
+                                    {{category.name}}
+                                </div>
+                            </div>
+                        </div>
+                    
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Stock</label>
@@ -86,18 +100,26 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label for="">Description</label>
-                        <textarea class="form-control" id="" rows="3" ng-model="newProduct.description"></textarea>
+                        <textarea class="form-control" rows="3" ng-model="newProduct.description"></textarea>
                     </div>
                     <div class="form-group col-md-12">
                         <label for="">Images</label>
                         <input type="file" class="form-control" placeholder="Add new image" image-upload images="newProduct.images">
+                        
+                        <div ng-if="newProduct.featuredImage">
+                            <label>Featured Image</label>
+                            <img ng-src="{{newProduct.featuredImage}}" style="height: 100px; width: 150px">
+                            <button class="btn btn-danger" type="button" ng-click="newProduct.featuredImage = ''">X</button>
+                        </div>
+
                         <div ng-repeat="image in newProduct.images track by $index">
-                            <img ng-src="{{image}}" alt="" style="height: 100px; width: 150px">
+                            <img ng-src="{{image}}" style="height: 100px; width: 150px">
+                            <button class="btn btn-default" type="button" ng-click="newProduct.featuredImage = image">featured</button>
                             <button class="btn btn-danger" type="button" ng-click="newProduct.images.splice($index, 1)">X</button>
                         </div>
                     </div>
                     <div class="form-group col-md-12 text-right">
-                        <button type="submit" class="btn-fill ">Submit</button>
+                        <button type="submit" class="btn-fill">Submit</button>
                     </div>
                 </form>
             </div>
