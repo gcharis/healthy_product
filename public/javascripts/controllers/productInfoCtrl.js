@@ -14,12 +14,8 @@ app.controller('productInfo', function($scope, $routeParams, $location, $product
 			.then((data) => $location.path('/products'))
 			.catch((res) => ($scope.message = res.data));
 
-	$scope.changeProductCategory = (category) => {
-		const i = $scope.product.category.findIndex(
-			(productCategory) => productCategory.name === category.name && productCategory.slug === category.slug
-		);
-
-		i === -1 ? addProductCategory(category) : removeProductCategory(category);
+	$scope.toggleProductCategory = (category) => {
+		!$scope.categoryIsInProduct(category) ? addProductCategory(category) : removeProductCategory(category);
 	};
 
 	$scope.categoryIsInProduct = ({ name, slug }) =>
@@ -52,11 +48,14 @@ app.controller('productInfo', function($scope, $routeParams, $location, $product
 	function removeProductCategory(category) {
 		// first find category children
 		const children = $scope.categories.filter((child) => child.parent === category._id);
+
+		//remove children if there are any in product
 		if (!!children.length)
 			$scope.product.category = $scope.product.category.filter(
 				({ name, slug }) => !children.includesElem((child) => child.name === name && child.slug === slug)
 			);
 
+		//remove the required category
 		$scope.product.category = $scope.product.category.filter(
 			({ name, slug }) => category.name !== name || category.slug !== slug
 		);

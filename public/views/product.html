@@ -21,7 +21,6 @@
                         <label for="">description</label>
                         <input type="text" class="form-control" placeholder="" ng-model="product.description">
                     </div>
-                    <!-- <p>{{product.description}}</p> -->
                     <hr>
                     <div class="row">
                         <h3 class="col-12">Χαρακτηριστικά</h3>
@@ -50,7 +49,9 @@
                                     Επιλέξτε Κατηγορία
                                 </button>
                                 <div ng-class="categoriesDropDownOpen ? 'dropdown-menu show' : 'dropdown-menu'" aria-labelledby="dropdownMenuButton">
-                                    <span class="mouse-hand" ng-repeat="category in categories" ng-click="changeProductCategory(category)" ng-style="categoryIsInProduct(category) ? {color: 'red'} : {} ">{{category.name}}</span>
+                                    <div class="mouse-hand" ng-repeat="category in categories" ng-click="toggleProductCategory(category)" ng-style="categoryIsInProduct(category) ? {color: 'red'} : {} ">
+                                        {{category.name}}
+                                    </div>
                                 </div>
                             </div>
 
