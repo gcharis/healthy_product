@@ -28,6 +28,13 @@ categorySchema.pre('validate', function(next) {
 	next();
 });
 
+categorySchema.pre('save', async function(next) {
+	const parent = await this.constructor.findOne({ $or: [ { name: this.parent }, { slug: this.parent } ] });
+
+	this.parent = !!parent ? parent._id : '';
+	next();
+});
+
 const Category = mongoose.model('category', categorySchema);
 
 module.exports = Category;

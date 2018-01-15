@@ -5,13 +5,10 @@
 	"main": "server.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "nodemon server.js --ignore public/*",
+		"start": "nodemon server.js --ignore public",
 		"production": "set PORT=8080 && set SECRET_KEY='healthy_life' && nodemon server.js"
 	},
-	"keywords": [
-		"healthy",
-		"product"
-	],
+	"keywords": [ "healthy", "product" ],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {

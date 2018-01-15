@@ -14,7 +14,7 @@ app
 						.getVerification(localStorage.token)
 						.then((res) => {
 							$rootScope.$broadcast('admin logged in');
-							$location.path('/').replace();
+							$location.path('/products').replace();
 						})
 						.catch((res) => console.warn(res.data))
 				: console.warn('No token found');

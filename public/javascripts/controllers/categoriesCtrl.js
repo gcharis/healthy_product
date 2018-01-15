@@ -17,6 +17,9 @@ app.controller('categories', function($scope, $categories, $timeout, $location, 
 			.then((data) => showCategories())
 			.catch((res) => ($scope.message = res.data));
 
+	$scope.openModalById = $uiHandler.openModalById;
+	$scope.hideModalById = $uiHandler.hideModalById;
+
 	function showCategories() {
 		$categories.getAll().then((categories) => ($scope.categories = categories)).catch((err) => console.warn(err));
 	}

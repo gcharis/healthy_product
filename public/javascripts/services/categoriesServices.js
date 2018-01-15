@@ -9,7 +9,7 @@ app.service('$categories', function($http) {
 				})
 				.then((res) => res.data);
 		},
-		getBySlug(slug) {
+		getOneBySlug(slug) {
 			return $http.get(`/categories/one-slug/${slug}`).then((res) => res.data);
 		},
 		register(newCategory) {

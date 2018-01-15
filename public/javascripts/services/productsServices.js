@@ -3,7 +3,7 @@ app.service('$products', function($http) {
 		getAll() {
 			return $http.get('/products/all').then((res) => res.data);
 		},
-		getBySlug(slug) {
+		getOneBySlug(slug) {
 			return $http.get(`/products/one-slug/${slug}`).then((res) => res.data);
 		},
 		register(newProduct) {
