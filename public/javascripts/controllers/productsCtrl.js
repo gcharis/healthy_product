@@ -1,4 +1,4 @@
-app.controller('products', function($scope, $products, $categories, $timeout, $location, $uiHandler) {
+app.controller('products', function ($scope, $products, $categories, $timeout, $location, $uiHandler) {
 	showProducts();
 	showCategories();
 
@@ -21,7 +21,10 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 		!$scope.categoryIsInProduct(category) ? addProductCategory(category) : removeProductCategory(category);
 	};
 
-	$scope.categoryIsInProduct = ({ name, slug }) =>
+	$scope.categoryIsInProduct = ({
+			name,
+			slug
+		}) =>
 		!!$scope.product.category.find(
 			(productCategory) => productCategory.name === name && productCategory.slug === slug
 		);
@@ -43,8 +46,14 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 		$products.getAll().then((products) => ($scope.products = products)).catch((err) => console.warn(err));
 	}
 
+	function getCategories() {
+		return $categories.getAll();
+	}
+
 	function clearProductRegistrationForm() {
-		$scope.newProduct = { images: [] };
+		$scope.newProduct = {
+			images: []
+		};
 		$uiHandler.hideModalById('registerModal');
 	}
 

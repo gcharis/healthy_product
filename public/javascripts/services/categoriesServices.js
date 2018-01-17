@@ -1,4 +1,4 @@
-app.service('$categories', function($http) {
+app.service('$categories', function ($http) {
 	return {
 		getAll() {
 			return $http

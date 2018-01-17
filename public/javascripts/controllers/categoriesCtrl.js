@@ -1,4 +1,4 @@
-app.controller('categories', function($scope, $categories, $timeout, $location, $uiHandler) {
+app.controller('categories', function ($scope, $categories, $timeout, $location, $uiHandler) {
 	showCategories();
 
 	$scope.registerCategory = (newCategory) => {
@@ -13,9 +13,9 @@ app.controller('categories', function($scope, $categories, $timeout, $location, 
 
 	$scope.deleteCategory = (category) =>
 		$categories
-			.deleteOneById(category._id)
-			.then((data) => showCategories())
-			.catch((res) => ($scope.message = res.data));
+		.deleteOneById(category._id)
+		.then((data) => showCategories())
+		.catch((res) => ($scope.message = res.data));
 
 	function showCategories() {
 		$categories.getAll().then((categories) => ($scope.categories = categories)).catch((err) => console.warn(err));
