@@ -1,7 +1,7 @@
 <div class="container-fluid main-container product-listing">
     <div class="row add">
         <div class="col-md-12 text-right">
-            <button type="button" class="btn-fill" ng-click="openModalById('registerModal')">Νεο Προϊον</button>
+            <button type="button" class="btn-fill" ng-click="addNewProduct()">Νεο Προϊον</button>
         </div>
     </div>
     <div ui-message message="message"></div>
@@ -42,13 +42,13 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" ng-if="addingNewProduct">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                 <p ui-message message="message"></p>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="hideModalById('registerModal')">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="hideModalById('registerModal'); addingNewProduct = false">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
