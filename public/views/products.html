@@ -19,20 +19,20 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="product in products track by $index">
-                        <td scope="row">{{product.id}}</th>
-                            <td>
-                                <img style="height: 40px; width: 100px" ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg">
-                            </td>
-                            <td>{{product.name}}</td>
-                            <td>{{renderProductCategories(product)}}</td>
-                            <td>
-                                <a ng-href="#/products/{{product.slug}}" class="btn-outline">
-                                    <img src="/public/img/svg-icons/file-or.svg" class="img-fluid">
-                                </a>
-                                <button type="button" class="btn-fill" ng-click="deleteProduct(product)">
-                                    <img src="/public/img/svg-icons/dustbin-wh.svg" class="img-fluid">
-                                </button>
-                            </td>
+                        <td scope="row">{{product.id}}</td>
+                        <td>
+                            <img ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg">
+                        </td>
+                        <td>{{product.name}}</td>
+                        <td>{{renderProductCategories(product)}}</td>
+                        <td>
+                            <a ng-href="#/products/{{product.slug}}" class="btn-outline">
+                                <img src="/public/img/svg-icons/file-or.svg" class="img-fluid">
+                            </a>
+                            <button type="button" class="btn-fill" ng-click="deleteProduct(product)">
+                                <img src="/public/img/svg-icons/dustbin-wh.svg" class="img-fluid">
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -42,7 +42,8 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" ng-if="addingNewProduct">
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    ng-if="addingNewProduct">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

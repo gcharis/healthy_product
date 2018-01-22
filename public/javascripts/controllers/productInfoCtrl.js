@@ -1,5 +1,5 @@
-app.controller('productInfo', function($scope, $routeParams, $location, $products, $categories, $jsUtils) {
-	Promise.all([ getProductInfo(), getCategories() ])
+app.controller('productInfo', function ($scope, $routeParams, $location, $products, $categories, $jsUtils, $uiHandler) {
+	Promise.all([getProductInfo(), getCategories()])
 		.then((results) => {
 			$scope.$apply(() => {
 				$scope.product = results[0];
@@ -10,15 +10,18 @@ app.controller('productInfo', function($scope, $routeParams, $location, $product
 
 	$scope.updateProduct = (product) =>
 		$products
-			.updateOneById(product)
-			.then((data) => $location.path('/products'))
-			.catch((res) => ($scope.message = res.data));
+		.updateOneById(product)
+		.then((data) => $location.path('/products'))
+		.catch((res) => ($scope.message = res.data));
 
 	$scope.toggleProductCategory = (category) => {
 		!$scope.categoryIsInProduct(category) ? addProductCategory(category) : removeProductCategory(category);
 	};
 
-	$scope.categoryIsInProduct = ({ name, slug }) =>
+	$scope.categoryIsInProduct = ({
+			name,
+			slug
+		}) =>
 		!!$scope.product.category.find(
 			(productCategory) => productCategory.name === name && productCategory.slug === slug
 		);
@@ -41,13 +44,21 @@ app.controller('productInfo', function($scope, $routeParams, $location, $product
 		const parent = $scope.categories.find((parent) => parent._id === category.parent);
 
 		if (!!parent)
-			$scope.categoryIsInProduct(parent)
-				? null //do nothing;
-				: $scope.product.category.push({ name: parent.name, slug: parent.slug }); //push parent to product category
+			$scope.categoryIsInProduct(parent) ?
+			null //do nothing;
+			:
+			$scope.product.category.push({
+				name: parent.name,
+				slug: parent.slug
+			}); //push parent to product category
 
-		!!$scope.categoryIsInProduct(category)
-			? null //do nothing;
-			: $scope.product.category.push({ name: category.name, slug: category.slug }); //push category to product category
+		!!$scope.categoryIsInProduct(category) ?
+			null //do nothing;
+			:
+			$scope.product.category.push({
+				name: category.name,
+				slug: category.slug
+			}); //push category to product category
 	}
 
 	function removeProductCategory(category) {
@@ -57,12 +68,18 @@ app.controller('productInfo', function($scope, $routeParams, $location, $product
 		//remove children if there are any in product
 		if (!!children.length)
 			$scope.product.category = $scope.product.category.filter(
-				({ name, slug }) => !children.includesElem((child) => child.name === name && child.slug === slug)
+				({
+					name,
+					slug
+				}) => !children.includesElem((child) => child.name === name && child.slug === slug)
 			);
 
 		//remove the required category
 		$scope.product.category = $scope.product.category.filter(
-			({ name, slug }) => category.name !== name || category.slug !== slug
+			({
+				name,
+				slug
+			}) => category.name !== name || category.slug !== slug
 		);
 	}
 });
