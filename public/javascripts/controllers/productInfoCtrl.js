@@ -1,6 +1,7 @@
 app.controller('productInfo', function($scope, $routeParams, $location, $products, $categories, $jsUtils) {
 	Promise.all([ getProductInfo(), getCategories() ])
 		.then((results) => {
+			//Promise.all is vanilla js function. $apply is required
 			$scope.$apply(() => {
 				$scope.product = results[0];
 				$scope.categories = results[1];

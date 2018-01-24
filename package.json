@@ -5,8 +5,7 @@
 	"main": "server.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "nodemon server.js --ignore public",
-		"production": "set PORT=8080 && set SECRET_KEY='healthy_life' && nodemon server.js"
+		"start": "nodemon server.js --ignore public"
 	},
 	"keywords": [ "healthy", "product" ],
 	"author": "",
