@@ -1,7 +1,7 @@
 <div class="container-fluid main-container categories">
     <div class="row add">
         <div class="col-md-12 text-right">
-            <button type="button" class="btn-fill" ng-click="openModalById('registerModal')">Νέα Κατηγορία</button>
+            <button type="button" class="btn-fill" ng-click="addNewCategory()">Νέα Κατηγορία</button>
         </div>
     </div>
     <div class="container-fluid white-wrapper">
@@ -25,33 +25,34 @@
 
 
 <!-- Register Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModal" aria-hidden="true">
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModal" aria-hidden="true" ng-if="addingNewCategory">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Νέα Κατηγορία</h5>
-                <p ui-message message="message"></p>
-                <button type="button" class="close" ng-click="hideModalById('registerModal')" aria-label="Close">
+                <ui-message message="message" dur="3000"></ui-message>
+                <button type="button" class="close" ng-click="hideModalById('registerModal'); addingNewCategory = false" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form class="row " ng-submit="registerCategory(newCategory)">
+                <form class="row" ng-submit="registerCategory(newCategory)">
                     <div class="form-group col-md-6">
-                        <label for="">Name</label>
-                        <input type="text" class="form-control" placeholder="Name" ng-model="newCategory.name">
+                        <label>Τίτλος*</label>
+                        <input type="text" class="form-control" placeholder="Τίτλος" ng-model="newCategory.name" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="">parent</label>
-                        <input type="text" class="form-control" placeholder="parent" ng-model="newCategory.parent">
+                        <label>Υπέρ-Κατηγορία</label>
+                        <input type="text" class="form-control" placeholder="Κενό αν δεν υπάρχει" ng-model="newCategory.parent">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="">Description</label>
-                        <textarea type="text" class="form-control" placeholder="description" ng-model="newCategory.description"></textarea>
+                        <label>Περιγραφή</label>
+                        <textarea type="text" class="form-control" placeholder="Περιγραφή" ng-model="newCategory.description"></textarea>
                     </div>
 
+                    <span style="margin-left: 15px">Τα πεδία με αστερίσκο (*) είναι υποχρεωτικά</span>
                     <div class="form-group col-md-12 text-right">
-                        <button type="submit" class="btn-fill ">Submit</button>
+                        <button type="submit" class="btn-fill ">Αποθήκευση</button>
                     </div>
                 </form>
             </div>
@@ -65,7 +66,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Επεξεργασία Κατηγορία</h5>
-                <p ui-message message="message"></p>
+                <ui-message message="message" dur="3000"></ui-message>
                 <button type="button" class="close" ng-click="hideModalById('editModal')" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -73,20 +74,21 @@
             <div class="modal-body">
                 <form class="row " ng-submit="updateCategory(category)">
                     <div class="form-group col-md-6">
-                        <label for="">Name</label>
+                        <label>Τίτλος*</label>
                         <input type="text" class="form-control" placeholder="Name" ng-model="category.name">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="">parent</label>
-                        <input type="text" class="form-control" placeholder="parent" ng-model="category.parent">
+                        <label>Υπέρ-Κατηγορία</label>
+                        <input type="text" class="form-control" placeholder="Κενό αν δεν υπάρχει" ng-model="category.parent">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="">Description</label>
+                        <label>Περιγραφή</label>
                         <textarea type="text" class="form-control" placeholder="description" ng-model="category.description"></textarea>
                     </div>
 
+                    <span style="margin-left: 15px">Τα πεδία με αστερίσκο (*) είναι υποχρεωτικά</span>
                     <div class="form-group col-md-12 text-right">
-                        <button type="submit" class="btn-fill">Submit</button>
+                        <button type="submit" class="btn-fill">Αποθήκευση</button>
                     </div>
                     <ui-message message="message" dur="3000"></ui-message>
                 </form>

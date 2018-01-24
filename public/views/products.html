@@ -1,10 +1,10 @@
 <div class="container-fluid main-container product-listing">
     <div class="row add">
         <div class="col-md-12 text-right">
-            <button type="button" class="btn-fill" ng-click="addNewProduct()">Νεο Προϊον</button>
+            <button type="button" class="btn-fill" ng-click="addNewProduct()">Νέο Προϊον</button>
         </div>
     </div>
-    <div ui-message message="message"></div>
+    <ui-message message="message" dur="3000"></ui-message>
     <div class="row">
         <div class="col-md-12">
             <table class="table table-striped">
@@ -47,8 +47,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <p ui-message message="message"></p>
+                <h5 class="modal-title" id="exampleModalLabel">Δημιουργία Προϊόντος</h5>
+                <ui-message message="message" dur="3000"></ui-message>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="hideModalById('registerModal'); addingNewProduct = false">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -56,30 +56,30 @@
             <div class="modal-body">
                 <form class="row" ng-submit="registerProduct(newProduct)">
                     <div class="form-group col-md-6">
-                        <label for="">Name</label>
-                        <input type="text" class="form-control" placeholder="Name" ng-model="newProduct.name">
+                        <label>Τίτλος*</label>
+                        <input type="text" class="form-control" placeholder="Τίτλος" ng-model="newProduct.name" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="">Price</label>
-                        <input type="number" class="form-control" placeholder="Price" ng-model="newProduct.price">
+                        <label>Βάρος*</label>
+                        <input type="number" class="form-control" placeholder="Βάρος σε kg" ng-model="newProduct.weight" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="">Sales Price</label>
-                        <input type="number" class="form-control" placeholder="Sales Price" ng-model="newProduct.salesPrice">
+                        <label>Τιμή*</label>
+                        <input type="number" class="form-control" placeholder="Τιμή σε €" ng-model="newProduct.price" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="">Weight</label>
-                        <input type="number" class="form-control" placeholder="Weight" ng-model="newProduct.weight">
+                        <label>Τιμή Έκπτωσης</label>
+                        <input type="number" class="form-control" placeholder="Κενό για προϊόντα χωρίς έκπτωση" ng-model="newProduct.salesPrice">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="">Sku</label>
-                        <input type="text" class="form-control" placeholder="Sku" ng-model="newProduct.sku">
+                        <label>Κωδικός*</label>
+                        <input type="text" class="form-control" placeholder="Κωδικός" ng-model="newProduct.sku" required>
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label for="">categories</label>
+                        <label>Κατηγοριοποίηση</label>
 
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" ng-click="categoriesDropDownOpen = !categoriesDropDownOpen"
+                            <button class="btn btn-info btn-fill dropdown-toggle" type="button" id="dropdownMenuButton" ng-click="categoriesDropDownOpen = !categoriesDropDownOpen"
                                 aria-haspopup="true" aria-expanded="false">
                                 Επιλέξτε Κατηγορία
                             </button>
@@ -92,31 +92,40 @@
 
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="">Stock</label>
-                        <input type="number" class="form-control" placeholder="Stock" ng-model="newProduct.stock">
+                        <label>Απόθεμα</label>
+                        <input type="number" class="form-control" placeholder="Απόθεμα" ng-model="newProduct.stock">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Ποσότητα Προϊόντος ανά Πώληση</label>
+                        <input type="text" class="form-control" placeholder="Αριθμός τμχ / Ποσότητα (π.χ 100ml)" ng-model="newProduct.amountForSale">
                     </div>
                     <div class="form-group col-md-12">
-                        <label for="">Description</label>
-                        <textarea class="form-control" rows="3" ng-model="newProduct.description"></textarea>
+                        <label>Περιγραφή</label>
+                        <textarea class="form-control" rows="3" placeholder="Περιγραφή" ng-model="newProduct.description"></textarea>
                     </div>
                     <div class="form-group col-md-12">
-                        <label for="">Images</label>
-                        <input type="file" class="form-control" placeholder="Add new image" image-upload images="newProduct.images">
+                        <label>Εικόνες</label>
+                        <div>
+                            <button class="btn btn-info btn-sm btn-fill" type="button" ng-click="startUploadingPictures()">Ανέβασμα Εικόνας</button>
+                        </div>
+                        <input id="picture-input" style="display: none" type="file" class="form-control" placeholder="Add new image" image-upload images="newProduct.images" accept=".jpg, .jpeg, .png">
 
                         <div ng-if="newProduct.featuredImage">
-                            <label>Featured Image</label>
+                            <label>Προτεινόμενη Εικόνα</label>
                             <img ng-src="{{newProduct.featuredImage}}" style="height: 100px; width: 150px">
-                            <button class="btn btn-danger" type="button" ng-click="newProduct.featuredImage = ''">X</button>
+                            <button class="btn btn-danger" type="button" ng-click="newProduct.featuredImage = ''">Αφαίρεση Προτεινόμενης</button>
                         </div>
 
                         <div ng-repeat="image in newProduct.images track by $index">
                             <img ng-src="{{image}}" style="height: 100px; width: 150px">
-                            <button class="btn btn-default" type="button" ng-click="newProduct.featuredImage = image">featured</button>
-                            <button class="btn btn-danger" type="button" ng-click="newProduct.images.splice($index, 1)">X</button>
+                            <button class="btn btn-fill" type="button" ng-click="newProduct.featuredImage = image">Ορισμός Προτεινόμενης Εικόνας</button>
+                            <button class="btn btn-danger" type="button" ng-click="newProduct.images.splice($index, 1)">Αφαίρεση εικόνας</button>
                         </div>
                     </div>
-                    <div class="form-group col-md-12 text-right">
-                        <button type="submit" class="btn-fill">Submit</button>
+                    <span style="margin-left: 15px">Τα πεδία με αστερίσκο (*) είναι υποχρεωτικά</span>
+                    <div class="form-group col-md-12">
+                        <button type="button" class="btn btn-outline" ng-click="hideModalById('registerModal')">Ακύρωση</button>
+                        <button type="submit" class="btn btn-info">Αποθήκευση</button>
                     </div>
                 </form>
             </div>

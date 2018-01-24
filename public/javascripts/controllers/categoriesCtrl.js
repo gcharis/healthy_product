@@ -11,6 +11,12 @@ app.controller('categories', function($http, $scope, $categories, $timeout, $loc
 			.catch((res) => ($scope.message = res.data));
 	};
 
+	$scope.addNewCategory = () => {
+		initiateNewCategory();
+		$scope.addingNewCategory = true;
+		$timeout(() => $uiHandler.openModalById('registerModal'), 0);
+	};
+
 	$scope.updateCategory = (category) => {
 		$categories
 			.updateOneById(category)
@@ -51,6 +57,14 @@ app.controller('categories', function($http, $scope, $categories, $timeout, $loc
 	function clearCategoryEditingForm() {
 		$scope.category = {};
 		$uiHandler.hideModalById('editModal');
+	}
+
+	function initiateNewCategory() {
+		$scope.newProduct = {
+			name: '',
+			parent: '',
+			description: ''
+		};
 	}
 
 	$scope.openModalById = (id) => $uiHandler.openModalById(id);

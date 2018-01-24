@@ -34,7 +34,7 @@ let productSchema = new mongoose.Schema({
 		type: Number,
 		required: true
 	},
-	amountForSale: Number,
+	amountForSale: String,
 	stock: Number,
 	creationDate: {
 		type: Date,

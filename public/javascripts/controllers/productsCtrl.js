@@ -94,6 +94,7 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 		};
 	}
 
-	$scope.openModalById = $uiHandler.openModalById;
-	$scope.hideModalById = $uiHandler.hideModalById;
+	$scope.openModalById = (id) => $uiHandler.openModalById(id);
+	$scope.hideModalById = (id) => $uiHandler.hideModalById(id);
+	$scope.startUploadingPictures = () => document.getElementById('picture-input').click();
 });
