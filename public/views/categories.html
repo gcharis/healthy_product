@@ -43,7 +43,9 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Υπέρ-Κατηγορία</label>
-                        <input type="text" class="form-control" placeholder="Κενό αν δεν υπάρχει" ng-model="newCategory.parent">
+                        <select class="form-control" ng-model="newCategory.parent" ng-options="category.name as category.name for category in categories">
+                            <option value="">Καμία Υπέρ-Κατηγορία</option>
+                        </select>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Περιγραφή</label>
@@ -60,14 +62,15 @@
     </div>
 </div>
 
+
 <!-- Edit Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true" ng-if="editingCategory">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Επεξεργασία Κατηγορία</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Επεξεργασία Κατηγορίας</h5>
                 <ui-message message="message" dur="3000"></ui-message>
-                <button type="button" class="close" ng-click="hideModalById('editModal')" aria-label="Close">
+                <button type="button" class="close" ng-click="hideModalById('editModal'); editingCategory = false" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -79,7 +82,9 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Υπέρ-Κατηγορία</label>
-                        <input type="text" class="form-control" placeholder="Κενό αν δεν υπάρχει" ng-model="category.parent">
+                        <select class="form-control" ng-model="category.parent" ng-options="category.name as category.name for category in categories">
+                            <option value="">Καμία Υπέρ-Κατηγορία</option>
+                        </select>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Περιγραφή</label>
