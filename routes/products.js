@@ -40,15 +40,18 @@ router.get('/one-slug/:slug', (req, res) => {
 	});
 });
 
-router.get('/by-category/:category/', (req, res) => {
+router.post('/by-category/:category/', (req, res) => {
 	let searchCategory = req.params.category;
-	Product.find({ category: searchCategory }, (err, products) => {
-		if (err) {
-			console.error(`${new Date()}, Products could not get retrieved. ERROR, ${err}`);
-			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+	Product.find(
+		{ $or: [ { 'category.slug': searchCategory }, { 'category.name': searchCategory } ] },
+		(err, products) => {
+			if (err) {
+				console.error(`${new Date()}, Products could not get retrieved. ERROR, ${err}`);
+				return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+			}
+			res.send(products);
 		}
-		res.send(products);
-	});
+	);
 });
 
 router.post('/new/:admin', (req, res) => {

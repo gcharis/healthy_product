@@ -8,17 +8,11 @@
         <h3>Κατηγορίες</h3>
         <div class="container-fluid">
 
-
-            <!-- <div class="row">
-                <div class="col-md-12" ng-repeat="category in categories track by $index">
-                    {{category.name}}
-                    <span class="float-right">
-                        <img src="public/img/svg-icons/next.svg" alt="" style="width: 24px;">
-                    </span>
-                </div>
-            </div> -->
             <div class="category-wrapper" ng-repeat="category in categories track by $index">
                 <span>{{category.name}}</span>
+                <span ng-click="editCategory(category)">
+                    <b>edit</b>
+                </span>
                 <span ng-click="deleteCategory(category)">
                     <img src="/public/img/svg-icons/dustbin-or.svg" alt="" class="img-fluid" style="max-width:25px;">
                 </span>
@@ -30,8 +24,8 @@
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Register Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -59,6 +53,42 @@
                     <div class="form-group col-md-12 text-right">
                         <button type="submit" class="btn-fill ">Submit</button>
                     </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Επεξεργασία Κατηγορία</h5>
+                <p ui-message message="message"></p>
+                <button type="button" class="close" ng-click="hideModalById('editModal')" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="row " ng-submit="updateCategory(category)">
+                    <div class="form-group col-md-6">
+                        <label for="">Name</label>
+                        <input type="text" class="form-control" placeholder="Name" ng-model="category.name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">parent</label>
+                        <input type="text" class="form-control" placeholder="parent" ng-model="category.parent">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Description</label>
+                        <textarea type="text" class="form-control" placeholder="description" ng-model="category.description"></textarea>
+                    </div>
+
+                    <div class="form-group col-md-12 text-right">
+                        <button type="submit" class="btn-fill">Submit</button>
+                    </div>
+                    <ui-message message="message" dur="3000"></ui-message>
                 </form>
             </div>
         </div>

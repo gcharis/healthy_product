@@ -9,8 +9,14 @@ app.service('$categories', function($http) {
 				})
 				.then((res) => res.data);
 		},
-		getOneBySlug(slug) {
-			return $http.get(`/categories/one-slug/${slug}`).then((res) => res.data);
+		getOneById(id) {
+			return $http
+				.get(`/categories/one/${id}/admin`, {
+					headers: {
+						token: localStorage.token
+					}
+				})
+				.then((res) => res.data);
 		},
 		register(newCategory) {
 			return $http
@@ -20,6 +26,15 @@ app.service('$categories', function($http) {
 					}
 				})
 				.then((res) => res.data);
+		},
+		updateOneById(category) {
+			return $http
+				.put(`/categories/one/${category._id}/admin`, category, {
+					headers: {
+						token: localStorage.token
+					}
+				})
+				.then((res) => res.data.category);
 		},
 		deleteOneById(id) {
 			return $http

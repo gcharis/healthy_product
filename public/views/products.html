@@ -1,7 +1,7 @@
 <div class="container-fluid main-container product-listing">
     <div class="row add">
         <div class="col-md-12 text-right">
-            <button type="button" class="btn-fill" data-toggle="modal" ng-click="addNewProduct()">Νεο Προϊον</button>
+            <button type="button" class="btn-fill" ng-click="addNewProduct()">Νεο Προϊον</button>
         </div>
     </div>
     <div ui-message message="message"></div>
@@ -19,8 +19,10 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="product in products track by $index">
-                        <td scope="row">{{product.id}}</th>
-                        <td><img style="height: 40px; width: 100px" ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg"></td>
+                        <td scope="row">{{product.id}}</td>
+                        <td>
+                            <img ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg">
+                        </td>
                         <td>{{product.name}}</td>
                         <td>{{renderProductCategories(product)}}</td>
                         <td>
@@ -40,13 +42,14 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" ng-if="addingNewProduct">
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    ng-if="addingNewProduct">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                 <p ui-message message="message"></p>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"  ng-click="hideModalById('registerModal')">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="hideModalById('registerModal'); addingNewProduct = false">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -72,15 +75,9 @@
                         <label for="">Sku</label>
                         <input type="text" class="form-control" placeholder="Sku" ng-model="newProduct.sku">
                     </div>
-                    <!-- <div class="form-group col-md-6">
-                        <label for="">Category</label>
-                        <select class="form-control" ng-model="newProduct.category" ng-options="category as category.name for category in categories" multiple>
-                            <option value="">Επιλέξτε Κατηγορία</option>
-                        </select>
-                    </div> -->
                     <div class="col-sm-6 form-group">
                         <label for="">categories</label>
-                    
+
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" ng-click="categoriesDropDownOpen = !categoriesDropDownOpen"
                                 aria-haspopup="true" aria-expanded="false">
@@ -92,7 +89,7 @@
                                 </div>
                             </div>
                         </div>
-                    
+
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Stock</label>
@@ -105,7 +102,7 @@
                     <div class="form-group col-md-12">
                         <label for="">Images</label>
                         <input type="file" class="form-control" placeholder="Add new image" image-upload images="newProduct.images">
-                        
+
                         <div ng-if="newProduct.featuredImage">
                             <label>Featured Image</label>
                             <img ng-src="{{newProduct.featuredImage}}" style="height: 100px; width: 150px">

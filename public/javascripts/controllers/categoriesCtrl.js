@@ -1,4 +1,4 @@
-app.controller('categories', function($scope, $categories, $timeout, $location, $uiHandler) {
+app.controller('categories', function($http, $scope, $categories, $timeout, $location, $uiHandler) {
 	showCategories();
 
 	$scope.registerCategory = (newCategory) => {
@@ -11,6 +11,21 @@ app.controller('categories', function($scope, $categories, $timeout, $location, 
 			.catch((res) => ($scope.message = res.data));
 	};
 
+	$scope.updateCategory = (category) => {
+		$categories
+			.updateOneById(category)
+			.then((category) => {
+				clearCategoryEditingForm();
+				showCategories();
+			})
+			.catch((res) => ($scope.message = res.data));
+	};
+
+	$scope.editCategory = (category) => {
+		$scope.openModalById('editModal');
+		showCategoryInfo(category);
+	};
+
 	$scope.deleteCategory = (category) =>
 		$categories
 			.deleteOneById(category._id)
@@ -21,11 +36,23 @@ app.controller('categories', function($scope, $categories, $timeout, $location, 
 		$categories.getAll().then((categories) => ($scope.categories = categories)).catch((err) => console.warn(err));
 	}
 
+	function showCategoryInfo(category) {
+		$categories
+			.getOneById(category._id)
+			.then((category) => ($scope.category = category))
+			.catch((res) => console.warn(res.data));
+	}
+
 	function clearCategoryRegistrationForm() {
 		$scope.newCategory = {};
 		$uiHandler.hideModalById('registerModal');
 	}
 
-	$scope.openModalById = $uiHandler.openModalById;
-	$scope.hideModalById = $uiHandler.hideModalById;
+	function clearCategoryEditingForm() {
+		$scope.category = {};
+		$uiHandler.hideModalById('editModal');
+	}
+
+	$scope.openModalById = (id) => $uiHandler.openModalById(id);
+	$scope.hideModalById = (id) => $uiHandler.hideModalById(id);
 });

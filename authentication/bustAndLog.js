@@ -2,8 +2,7 @@ const authentication = require('./jwtAuthentication.js');
 const logger = require('../logs/logger.js');
 
 module.exports = function(req, res, next) {
-	let token = req.headers.token;
-
+	const token = req.headers.token;
 	if (!token) return res.send({ message: 'Χρείαζεστε έγκριση για αυτή την ενέργεια.' });
 
 	// Verify admin
@@ -11,7 +10,7 @@ module.exports = function(req, res, next) {
 		.verifyAdmin(token)
 		.then((results) => next()) // An err object is created when the authentication fails
 		.catch((err) => {
-			let intruderIP = req.headers['x-appengine-user-ip'] || req.connection.remoteAddress;
+			const intruderIP = req.headers['x-appengine-user-ip'] || req.connection.remoteAddress;
 
 			console.error(`Authentication failed for IP: ${intruderIP} on ${new Date()}`);
 

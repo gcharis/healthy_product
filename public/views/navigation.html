@@ -1,0 +1,42 @@
+<div class="container-fluid main-container">
+    <div class="white-wrapper">
+        <h3 class="text-center">Επιλογή Κατηγοριών</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <ul>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul>
+                    <li>1</li>
+                    <li>2</li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div ng-repeat="item in items track by $index" class="item-unchecked">
+        <div>
+            <!-- <b>amount:</b> {{item.amount}} -</div> -->
+            <b>name:</b> {{item.name}}
+            <button ng-click="toggleChecked($index)">check item</button>
+        </div>
+
+    </div>
+    <div>
+        <div>
+            <div>
+            </div>
+        </div>
+        hr
+        <div ng-repeat="item in checked track by $index" class="item-checked">
+
+            <div>
+                <b>name:</b> {{item.name}}
+                <button ng-click="removeChecked($index)">un item</button>
+            </div>
+        </div>
+    </div>
