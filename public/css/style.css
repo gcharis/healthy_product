@@ -2,6 +2,7 @@
                                              Main Styling
 ======================================================================================================= */
 
+
 /* XARIS CSS */
 
 .mouse-hand {
@@ -32,7 +33,9 @@ body {
 	background-color: rgba(0, 0, 0, .05);
 }
 
+
 /* Reset Stuff For Browser Compitabilities */
+
 
 /* Remove Spinners from Input type number */
 
@@ -53,6 +56,7 @@ input::-webkit-inner-spin-button {
 	border-color: #51493d;
 }
 
+
 /* All Pages Styling */
 
 .main-container {
@@ -64,6 +68,7 @@ input::-webkit-inner-spin-button {
 .row.add {
 	padding-bottom: 2rem;
 }
+
 
 /* Buttons */
 
@@ -83,6 +88,7 @@ input::-webkit-inner-spin-button {
 	color: white;
 }
 
+
 /* ======================================================================================================= 
                                              Nav Bar
 ======================================================================================================= */
@@ -99,6 +105,7 @@ input::-webkit-inner-spin-button {
 .navbar-light .navbar-nav .nav-link:hover {
 	color: #b9b8b8;
 }
+
 
 /* ======================================================================================================= 
                                              Login Page
@@ -154,10 +161,10 @@ input::-webkit-inner-spin-button {
 	-webkit-transition: 0.2s ease all;
 }
 
-.login-page .login-wrapper input:focus ~ .test,
-.login-page .login-wrapper input:valid ~ .test,
-.register-page .register-wrapper input:focus ~ .test,
-.register-page .register-wrapper input:valid ~ .test {
+.login-page .login-wrapper input:focus~.test,
+.login-page .login-wrapper input:valid~.test,
+.register-page .register-wrapper input:focus~.test,
+.register-page .register-wrapper input:valid~.test {
 	bottom: 30px;
 }
 
@@ -188,12 +195,14 @@ input::-webkit-inner-spin-button {
 	right: 50%;
 }
 
+
 /* active state */
 
-input:focus ~ .bar:before,
-input:focus ~ .bar:after {
+input:focus~.bar:before,
+input:focus~.bar:after {
 	width: 50%;
 }
+
 
 /* ======================================================================================================= 
                                              Login Page
@@ -211,6 +220,7 @@ input:focus ~ .bar:after {
 	left: 1rem;
 }
 
+
 /* ======================================================================================================= 
                                              Products Page
 ======================================================================================================= */
@@ -224,12 +234,13 @@ input:focus ~ .bar:after {
 	vertical-align: middle;
 }
 
-.product-listing table td:last-child {
-}
+.product-listing table td:last-child {}
 
-.product-listing table img {
+.product-listing table img,
+.shippings table img {
 	max-width: 25px;
 }
+
 
 /* New Product Page
 ======================== */
@@ -251,6 +262,7 @@ div#registerModal {
 	border-radius: 0;
 }
 
+
 /* ======================================================================================================= 
                                              Product Page
 ======================================================================================================= */
@@ -270,6 +282,7 @@ div#registerModal {
 	width: 100%;
 }
 
+
 /* ======================================================================================================= 
                                             Category Page
 ======================================================================================================= */
@@ -284,6 +297,7 @@ div#registerModal {
 	padding: .75rem;
 	margin-bottom: .5rem;
 }
+
 
 /* ======================================================================================================= 
                                              Footer
