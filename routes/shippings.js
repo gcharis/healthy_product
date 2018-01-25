@@ -8,13 +8,24 @@ const router = express.Router();
 // a log will be saved
 router.param('admin', checkAdmin);
 
-router.get('/all/:admin', (req, res) => {
+router.get('/all/', (req, res) => {
 	Shipping.find((err, shippings) => {
 		if (err) {
 			console.error(`${new Date()}, Shippings could not get retrieved. ERROR, ${err}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		res.send(shippings);
+	});
+});
+
+router.get('/one/:id/:admin', (req, res) => {
+	const id = req.params.id;
+	Shipping.findById(id, (err, shipping) => {
+		if (err) {
+			console.error(`${new Date()}, Shipping could not get retrieved. ERROR, ${err}`);
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+		}
+		res.send(shipping);
 	});
 });
 
@@ -43,7 +54,7 @@ router.put('/one/:id/:admin', (req, res) => {
 					`Τα στοιχεία του τρόπου αποστολής δεν ήταν δυνατόν να ανανεωθούν. Κωδικός σφάλματος: ${err.message}`
 				);
 		}
-		res.send({ message: 'Τα στοιχεία του τρόπου αποστολής ανανεώθηκαν επιτυχώς!', category });
+		res.send({ message: 'Τα στοιχεία του τρόπου αποστολής ανανεώθηκαν επιτυχώς!', shipping });
 	});
 });
 
