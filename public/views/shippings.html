@@ -1,0 +1,12 @@
+<div>
+    Shippings
+</div>
+
+<ul>
+    <li ng-repeat="shipping in shippings track by $index">
+        {{shipping.name}}
+
+        <span ng-click="">edit</span>
+        <span ng-click="deleteShipping()">delete</span>
+    </li>
+</ul>

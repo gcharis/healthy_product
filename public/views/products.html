@@ -21,15 +21,15 @@
                     <tr ng-repeat="product in products track by $index">
                         <td scope="row">{{product.id}}</td>
                         <td>
-                            <img ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg">
+                            <img ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg" style="max-width: 50px">
                         </td>
                         <td>{{product.name}}</td>
                         <td>{{renderProductCategories(product)}}</td>
                         <td>
-                            <a ng-href="#/products/{{product.slug}}" class="btn-outline">
+                            <a ng-href="#/products/{{product.slug}}" class="btn-outline" title="Επεξεργασία Προϊόντος">
                                 <img src="/public/img/svg-icons/file-or.svg" class="img-fluid">
                             </a>
-                            <button type="button" class="btn-fill" ng-click="deleteProduct(product)">
+                            <button type="button" class="btn-fill mouse-hand" ng-click="deleteProduct(product)" title="Διαγραφή Προϊόντος">
                                 <img src="/public/img/svg-icons/dustbin-wh.svg" class="img-fluid">
                             </button>
                         </td>
@@ -79,7 +79,7 @@
                         <label>Κατηγοριοποίηση</label>
 
                         <div class="dropdown">
-                            <button class="btn btn-info btn-fill dropdown-toggle" type="button" id="dropdownMenuButton" ng-click="categoriesDropDownOpen = !categoriesDropDownOpen"
+                            <button class="btn btn-sm btn-fill dropdown-toggle" type="button" id="dropdownMenuButton" ng-click="categoriesDropDownOpen = !categoriesDropDownOpen"
                                 aria-haspopup="true" aria-expanded="false">
                                 Επιλέξτε Κατηγορία
                             </button>
@@ -106,20 +106,20 @@
                     <div class="form-group col-md-12">
                         <label>Εικόνες</label>
                         <div>
-                            <button class="btn btn-info btn-sm btn-fill" type="button" ng-click="startUploadingPictures()">Ανέβασμα Εικόνας</button>
+                            <button class="btn btn-sm btn-fill" type="button" ng-click="startUploadingPictures()" style="margin-bottom: 5px">Ανέβασμα Εικόνας</button>
                         </div>
                         <input id="picture-input" style="display: none" type="file" class="form-control" placeholder="Add new image" image-upload images="newProduct.images" accept=".jpg, .jpeg, .png">
 
-                        <div ng-if="newProduct.featuredImage">
+                        <div>
                             <label>Προτεινόμενη Εικόνα</label>
-                            <img ng-src="{{newProduct.featuredImage}}" style="height: 100px; width: 150px">
-                            <button class="btn btn-danger" type="button" ng-click="newProduct.featuredImage = ''">Αφαίρεση Προτεινόμενης</button>
+                            <img class="product-img" ng-src="{{newProduct.featuredImage}}" ng-if="!!newProduct.featuredImage">
                         </div>
 
                         <div ng-repeat="image in newProduct.images track by $index">
-                            <img ng-src="{{image}}" style="height: 100px; width: 150px">
-                            <button class="btn btn-fill" type="button" ng-click="newProduct.featuredImage = image">Ορισμός Προτεινόμενης Εικόνας</button>
-                            <button class="btn btn-danger" type="button" ng-click="newProduct.images.splice($index, 1)">Αφαίρεση εικόνας</button>
+                            <img class="product-img" ng-src="{{image}}">
+                            <img class="img-featured mouse-hand" src="/public/img/svg-icons/star.svg" ng-if="newProduct.featuredImage !== image" ng-click="newProduct.featuredImage = image">
+                            <img class="img-featured mouse-hand" src="/public/img/svg-icons/star-fill.svg" ng-if="newProduct.featuredImage === image" ng-click="newProduct.featuredImage = ''">
+                            <img class="img-featured mouse-hand" src="/public/img/svg-icons/delete-photo.svg" ng-click="newProduct.images.splice($index, 1); newProduct.featuredImage === image ? newProduct.featuredImage = '' : null">
                         </div>
                     </div>
                     <span style="margin-left: 15px">Τα πεδία με αστερίσκο (*) είναι υποχρεωτικά</span>
