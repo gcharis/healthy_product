@@ -32,4 +32,30 @@ router.post('/new/:admin', (req, res) => {
 	});
 });
 
+router.put('/one/:id/:admin', (req, res) => {
+	const id = req.params.id;
+	Shipping.findByIdAndUpdate(id, req.body, { new: true }, (err, shipping) => {
+		if (err) {
+			console.error(`${new Date()}, Shipping could not be updated. ERROR, ${err}`);
+			return res
+				.status(500)
+				.send(
+					`Τα στοιχεία του τρόπου αποστολής δεν ήταν δυνατόν να ανανεωθούν. Κωδικός σφάλματος: ${err.message}`
+				);
+		}
+		res.send({ message: 'Τα στοιχεία του τρόπου αποστολής ανανεώθηκαν επιτυχώς!', category });
+	});
+});
+
+router.delete('/one/:id/:admin', (req, res) => {
+	const id = req.params.id;
+	Shipping.findByIdAndRemove(id, (err, shipping) => {
+		if (err) {
+			console.error(`${new Date()}, Shipping could not get deleted. ERROR, ${err}`);
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+		}
+		res.send(`Ο τρόπος αποστολής με όνομα ${shipping.name} διαγράφηκε επιτυχώς!`);
+	});
+});
+
 module.exports = router;

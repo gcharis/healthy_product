@@ -6,28 +6,11 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 let adminSchema = new mongoose.Schema({
-	firstname: {
-		type: String,
-		required: true
-	},
-	lastname: {
-		type: String,
-		required: true
-	},
-	username: {
-		type: String,
-		required: true,
-		unique: true
-	},
-	password: {
-		type: String,
-		required: true
-	},
-	email: {
-		type: Email,
-		required: true,
-		unique: true
-	}
+	firstname: { type: String, required: true },
+	lastname: { type: String, required: true },
+	username: { type: String, required: true, unique: true },
+	password: { type: String, required: true },
+	email: { type: Email, required: true, unique: true }
 });
 
 adminSchema.methods.comparePassword = function(candidatePassword, callBack) {
