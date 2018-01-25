@@ -7,22 +7,33 @@
                 <div class="col-md-6">
 
                     <h3>Featured Image</h3>
-                    <img class="img-fluid" ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg"
-                        style="max-width: 200px;">
-                    <div>
-                        <button class="btn btn-danger" ng-click="product.featuredImage = ''">remove featured</button>
-                    </div>
-
+                    <img class="img-fluid mb-2" ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg">
+                    <button class="btn btn-danger" ng-click="product.featuredImage = ''">remove featured</button>
                     <hr>
 
                     <div class="row">
-                        <div ng-repeat="image in product.images track by $index" class="col-md-6">
+                        <input type="file" class="form-control" placeholder="Add new image" image-upload images="product.images">
+                        <div ng-repeat="image in product.images track by $index" class="col-md-6 mb-2">
                             <img ng-src="{{image}}" class="img-fluid">
-                            <span class="featured-btn" ng-click="product.featuredImage = image">
+                            <!-- <span class="featured-btn" ng-click="product.featuredImage = image">
                                 <img src="/public/img/svg-icons/star.svg" alt="" class="img-fluid">
-                            </span>
-                            <button class="btn btn-danger" type="button" ng-click="removeProductImage(image, $index)">Αφαίρεση Εικόνας</button>
+                            </span> -->
+                            <div class="img-actions">
+                                <div class="row">
+                                    <div class="col-6 ">
+                                        <img class="img-featured mouse-hand" src="/public/img/svg-icons/star.svg" ng-if="product.featuredImage !== image" ng-click="product.featuredImage = image">
+                                        <img class="img-featured mouse-hand" src="/public/img/svg-icons/star-fill.svg" ng-if="product.featuredImage === image" ng-click="product.featuredImage = ''">
+                                    </div>
+                                    <div class="col-6">
+                                        <img src="/public/img/svg-icons/delete-cross.svg" alt="" class="remove-img mouse-hand" ng-click="removeProductImage(image, $index)">
+
+                                    </div>
+                                </div>
+
+                                <!-- <button class="btn btn-danger" type="button" ng-click="removeProductImage(image, $index)">Αφαίρεση Εικόνας</button> -->
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -73,22 +84,22 @@
                             <label for="">Απόθεμα</label>
                             <input type="number" class="form-control" placeholder="Stock" ng-model="product.stock">
                         </div>
-                        <div class="form-group col-md-12">
+                        <!-- <div class="form-group col-md-12">
                             <label for="">Εικόνες</label>
-                            <input type="file" class="form-control" placeholder="Add new image" image-upload images="newProduct.images">
+                            <input type="file" class="form-control" placeholder="Add new image" image-upload images="product.images">
 
-                            <div ng-if="newProduct.featuredImage">
+                            <div ng-if="product.featuredImage">
                                 <label>Featured Image</label>
-                                <img ng-src="{{newProduct.featuredImage}}" style="height: 100px; width: 150px">
-                                <button class="btn btn-danger" type="button" ng-click="newProduct.featuredImage = ''">X</button>
+                                <img ng-src="{{product.featuredImage}}" style="height: 100px; width: 150px">
+                                <button class="btn btn-danger" type="button" ng-click="product.featuredImage = ''">X</button>
                             </div>
 
-                            <div ng-repeat="image in newProduct.images track by $index">
+                            <div ng-repeat="image in product.images track by $index">
                                 <img ng-src="{{image}}" style="height: 100px; width: 150px">
-                                <button class="btn btn-default" type="button" ng-click="newProduct.featuredImage = image">featured</button>
-                                <button class="btn btn-danger" type="button" ng-click="newProduct.images.splice($index, 1)">X</button>
+                                <button class="btn btn-default" type="button" ng-click="product.featuredImage = image">featured</button>
+                                <button class="btn btn-danger" type="button" ng-click="product.images.splice($index, 1)">X</button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 

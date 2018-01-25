@@ -25,6 +25,22 @@ body {
 	color: #51493d;
 }
 
+.vert-align {
+	-ms-flex-align: center;
+	align-items: center;
+	display: -ms-flexbox;
+	display: flex
+}
+
+.center-da-shit {
+	-ms-flex-align: center;
+	align-items: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	display: -ms-flexbox;
+	display: flex;
+}
+
 .w-22 {
 	width: 22% !important;
 }
@@ -267,11 +283,34 @@ div#registerModal {
                                              Product Page
 ======================================================================================================= */
 
+.img-actions {
+	position: absolute;
+	bottom: 0;
+	right: 1rem;
+	left: 1rem;
+	/* width: 100%; */
+	background: #00000087;
+	padding: 0.5rem;
+}
+
+.img-actions [class^='col-']:first-child {
+	border-right: 1px solid white;
+}
+
+.img-actions [class^='col-'] {
+	text-align: center;
+}
+
 .featured-btn img {
 	position: absolute;
 	max-width: 25px;
 	top: 0;
 	right: 0;
+}
+
+.remove-img {
+	max-height: 18px;
+	max-width: 18px;
 }
 
 .product-page #dropdownMenuButton {

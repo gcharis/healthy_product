@@ -8,15 +8,18 @@
         <h3>Κατηγορίες</h3>
         <div class="container-fluid">
 
-            <div class="category-wrapper" ng-repeat="category in categories track by $index">
-                <span>{{category.name}}</span>
-                <span ng-click="editCategory(category)">
-                    <b>edit</b>
-                </span>
-                <span ng-click="deleteCategory(category)">
-                    <img src="/public/img/svg-icons/dustbin-or.svg" alt="" class="img-fluid" style="max-width:25px;">
-                </span>
-
+            <div class="row category-wrapper vert-align " ng-repeat="category in categories track by $index">
+                <div class="col">
+                    <span>{{category.name}}</span>
+                </div>
+                <div class="col text-right">
+                    <span class="btn-outline" ng-click="editCategory(category)">
+                        <img src="/public/img/svg-icons/file-or.svg" class="img-fluid" style="max-width:25px;">
+                    </span>
+                    <span class="btn-fill mouse-hand" ng-click="deleteCategory(category)">
+                        <img src="/public/img/svg-icons/dustbin-wh.svg" alt="" class="img-fluid" style="max-width:25px;">
+                    </span>
+                </div>
             </div>
         </div>
 
@@ -25,7 +28,8 @@
 
 
 <!-- Register Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModal" aria-hidden="true" ng-if="addingNewCategory">
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModal" aria-hidden="true"
+    ng-if="addingNewCategory">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
