@@ -1,12 +1,104 @@
-<div>
-    Shippings
-</div>
+<div class="container-fluid main-container shippings">
+    <div class="row add">
+        <div class="col-md-12 text-right">
+            <button type="button" class="btn-fill" ng-click="addNewShipping()">Νέα Shipping</button>
+        </div>
+    </div>
+    <div class="container-fluid white-wrapper">
+        <h3>Shipping</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Όνομα</th>
+                    <th scope="col">Χρέωση</th>
+                    <th scope="col">Μεχρι Kg</th>
+                    <th scope="col">Επιπλέον χρέωση για κάθε επιπλέον κιλό</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">{{shipping.name}}</th>
+                    <td>{{shipping.defaultPrice}}</td>
+                    <td>{{shipping.maxWeight}}</td>
+                    <td>{{shipping.priceAdded}}</td>
+                    <td>
+                        <a ng-href="#/products/{{product.slug}}" class="btn-outline" title="Επεξεργασία Προϊόντος">
+                            <img src="/public/img/svg-icons/file-or.svg" class="img-fluid">
+                        </a>
+                        <button type="button" class="btn-fill mouse-hand" ng-click="deleteProduct(product)" title="Διαγραφή Προϊόντος">
+                            <img src="/public/img/svg-icons/dustbin-wh.svg" class="img-fluid">
+                        </button>
+                    </td>
+                </tr>
 
-<ul>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- defaultPrice maxWeight startingSubtotal upToSubtotal priceAdded -->
+<!-- <ul>
     <li ng-repeat="shipping in shippings track by $index">
         {{shipping.name}}
 
         <span ng-click="">edit</span>
         <span ng-click="deleteShipping()">delete</span>
     </li>
-</ul>
+</ul> -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="newShippingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    ng-if="addingNewShipping">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Δημιουργία Shipping</h5>
+                <ui-message message="message" dur="3000"></ui-message>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="hideModalById('newShippingModal'); addingNewShipping = false">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="row" ng-submit="registerShipping(newShipping)">
+                    <div class="form-group col-md-12">
+                        <label>Όνομα*</label>
+                        <input type="text" class="form-control" placeholder="Τίτλος" ng-model="newShipping.name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Αρχικη Τιμη*</label>
+                        <input type="text" class="form-control" placeholder="Αρχικη Τιμη" ng-model="newShipping.defaultPrice" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Μεγιστο Βάρος Αρχικής Χρέωσης*</label>
+                        <input type="text" class="form-control" placeholder="Μεγιστο Βάρος" ng-model="newShipping.maxWeight" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Απο (Τιμή)*</label>
+                        <input type="text" class="form-control" placeholder="Απο (Τιμή)" ng-model="newShipping.startingSubtotal" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Εως (Τιμή)*</label>
+                        <input type="text" class="form-control" placeholder="Εως (Τιμή)" ng-model="newShipping.upToSubtotal" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Επιπλεον χρέωση για παραπανω κιλά*</label>
+                        <input type="text" class="form-control" placeholder="Επιπλεον χρέωση για παραπανω κιλά" ng-model="newShipping.priceAdded"
+                            required>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Περιγραφη *</label>
+                        <textarea class="form-control" cols="30" rows="10" ng-model="newShipping.description" required></textarea>
+                    </div>
+
+                    <!-- defaultPrice maxWeight startingSubtotal upToSubtotal priceAdded -->
+                    <span style="margin-left: 15px">Τα πεδία με αστερίσκο (*) είναι υποχρεωτικά</span>
+                    <div class="form-group col-md-12">
+                        <button type="button" class="btn btn-sm btn-outline" ng-click="hideModalById('newShippingModal')">Ακύρωση</button>
+                        <button type="submit" class="btn btn-fill">Αποθήκευση</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
