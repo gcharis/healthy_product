@@ -5,41 +5,17 @@ const autoIncrement = require('mongoose-auto-increment');
 autoIncrement.initialize(mongoose.connection);
 
 let productSchema = new mongoose.Schema({
-	name: {
-		type: String,
-		unique: true,
-		required: true
-	},
-	slug: {
-		type: String,
-		unique: true,
-		required: true
-	},
-	sku: {
-		type: String,
-		unique: true,
-		required: true
-	},
-	category: {
-		type: Array,
-		default: []
-	},
+	name: { type: String, unique: true, required: true },
+	slug: { type: String, unique: true, required: true },
+	sku: { type: String, unique: true, required: true },
+	category: { type: Array, default: [] },
 	description: String,
-	price: {
-		type: Number,
-		required: true
-	},
+	price: { type: Number, required: true },
 	salesPrice: Number,
-	weight: {
-		type: Number,
-		required: true
-	},
+	weight: { type: Number, required: true, default: 0 },
 	amountForSale: String,
 	stock: Number,
-	creationDate: {
-		type: Date,
-		default: Date.now
-	},
+	creationDate: { type: Date, default: Date.now },
 	expirationDate: Date,
 	images: [ String ],
 	featuredImage: String

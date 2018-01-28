@@ -20,7 +20,8 @@
                 <tr ng-repeat="shipping in shippings track by $index">
                     <th scope="row">{{shipping.company}}</th>
                     <td>{{shipping.defaultPrice | number: 2}}€</td>
-                    <td>{{shipping.maxWeight | number: 3}}kg</td>
+                    <td ng-if="shipping.maxWeight !== 999999999">{{shipping.maxWeight | number: 3}}kg</td>
+                    <td ng-if="shipping.maxWeight === 999999999">-</td>
                     <td>{{shipping.priceAdded | number: 2}}€</td>
                     <td>
                         <button class="btn-outline" ng-click="editShipping(shipping)" title="Επεξεργασία Τρόπου Αποστολής">
@@ -61,21 +62,20 @@
                         <input type="number" step="0.01" class="form-control" placeholder="Προκαθορισμένη Τιμή" ng-model="newShipping.defaultPrice" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Μέγιστο Βάρος *</label>
-                        <input type="number" step="0.01" class="form-control" placeholder="Μέγιστο Βάρος" ng-model="newShipping.maxWeight" required>
+                        <label>Μέγιστο Βάρος</label>
+                        <input type="number" step="0.01" class="form-control" placeholder="Μέγιστο Βάρος" ng-model="newShipping.maxWeight">
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Αρχική Τιμή *</label>
-                        <input type="number" step="0.01" class="form-control" placeholder="Αρχική Τιμή" ng-model="newShipping.startingSubtotal" required>
+                        <label>Αρχική Τιμή</label>
+                        <input type="number" step="0.01" class="form-control" placeholder="Αρχική Τιμή" ng-model="newShipping.startingSubtotal">
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Τελική Τιμή *</label>
-                        <input type="number" step="0.01" class="form-control" placeholder="Τελική Τιμή" ng-model="newShipping.upToSubtotal" required>
+                        <label>Τελική Τιμή</label>
+                        <input type="number" step="0.01" class="form-control" placeholder="Τελική Τιμή" ng-model="newShipping.upToSubtotal">
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Επιπλέον Χρέωση *</label>
-                        <input type="number" step="0.01" class="form-control" placeholder="Επιπλέον χρέωση ανά κιλό" ng-model="newShipping.priceAdded"
-                            required>
+                        <label>Επιπλέον Χρέωση</label>
+                        <input type="number" step="0.01" class="form-control" placeholder="Επιπλέον χρέωση ανά κιλό" ng-model="newShipping.priceAdded">
                     </div>
                     <div class="form-group col-md-12">
                         <label>Περιγραφή</label>
@@ -115,20 +115,20 @@
                         <input type="text" class="form-control" placeholder="Προκαθορισμένη Τιμή" ng-model="shipping.defaultPrice" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Μέγιστο Βάρος *</label>
-                        <input type="text" class="form-control" placeholder="Μέγιστο Βάρος" ng-model="shipping.maxWeight" required>
+                        <label>Μέγιστο Βάρος</label>
+                        <input type="text" class="form-control" placeholder="Μέγιστο Βάρος" ng-model="shipping.maxWeight">
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Αρχική Τιμή *</label>
-                        <input type="text" class="form-control" placeholder="Αρχική Τιμή" ng-model="shipping.startingSubtotal" required>
+                        <label>Αρχική Τιμή</label>
+                        <input type="text" class="form-control" placeholder="Αρχική Τιμή" ng-model="shipping.startingSubtotal">
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Τελική Τιμή *</label>
-                        <input type="text" class="form-control" placeholder="Τελική Τιμή" ng-model="shipping.upToSubtotal" required>
+                        <label>Τελική Τιμή</label>
+                        <input type="text" class="form-control" placeholder="Τελική Τιμή" ng-model="shipping.upToSubtotal">
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Επιπλέον Χρέωση *</label>
-                        <input type="text" class="form-control" placeholder="Επιπλέον χρέωση ανά κιλό" ng-model="shipping.priceAdded" required>
+                        <label>Επιπλέον Χρέωση</label>
+                        <input type="text" class="form-control" placeholder="Επιπλέον χρέωση ανά κιλό" ng-model="shipping.priceAdded">
                     </div>
                     <div class="form-group col-md-12">
                         <label>Περιγραφή</label>
