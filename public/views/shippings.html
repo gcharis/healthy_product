@@ -58,23 +58,23 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Προκαθορισμένη Τιμή *</label>
-                        <input type="text" class="form-control" placeholder="Προκαθορισμένη Τιμή" ng-model="newShipping.defaultPrice" required>
+                        <input type="number" step="0.01" class="form-control" placeholder="Προκαθορισμένη Τιμή" ng-model="newShipping.defaultPrice" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Μέγιστο Βάρος *</label>
-                        <input type="text" class="form-control" placeholder="Μέγιστο Βάρος" ng-model="newShipping.maxWeight" required>
+                        <input type="number" step="0.01" class="form-control" placeholder="Μέγιστο Βάρος" ng-model="newShipping.maxWeight" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Αρχική Τιμή *</label>
-                        <input type="text" class="form-control" placeholder="Αρχική Τιμή" ng-model="newShipping.startingSubtotal" required>
+                        <input type="number" step="0.01" class="form-control" placeholder="Αρχική Τιμή" ng-model="newShipping.startingSubtotal" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Τελική Τιμή *</label>
-                        <input type="text" class="form-control" placeholder="Τελική Τιμή" ng-model="newShipping.upToSubtotal" required>
+                        <input type="number" step="0.01" class="form-control" placeholder="Τελική Τιμή" ng-model="newShipping.upToSubtotal" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Επιπλέον Χρέωση *</label>
-                        <input type="text" class="form-control" placeholder="Επιπλέον χρέωση ανά κιλό" ng-model="newShipping.priceAdded"
+                        <input type="number" step="0.01" class="form-control" placeholder="Επιπλέον χρέωση ανά κιλό" ng-model="newShipping.priceAdded"
                             required>
                     </div>
                     <div class="form-group col-md-12">
@@ -84,7 +84,7 @@
 
                     <span style="margin-left: 15px">Τα πεδία με αστερίσκο (*) είναι υποχρεωτικά</span>
                     <div class="form-group col-md-12">
-                        <button type="button" class="btn btn-sm btn-outline" ng-click="hideModalById('newShippingModal')">Ακύρωση</button>
+                        <button type="button" class="btn btn-sm btn-outline" ng-click="hideModalById('newShippingModal'); addingNewShipping = false">Ακύρωση</button>
                         <button type="submit" class="btn btn-fill">Αποθήκευση</button>
                     </div>
                 </form>
@@ -137,6 +137,7 @@
 
                     <span style="margin-left: 15px">Τα πεδία με αστερίσκο (*) είναι υποχρεωτικά</span>
                     <div class="form-group col-md-12 text-right">
+                        <button type="button" class="btn btn-sm btn-outline" ng-click="hideModalById('editShippingModal'); editingShipping = false">Ακύρωση</button>
                         <button type="submit" class="btn-fill">Αποθήκευση</button>
                     </div>
                     <ui-message message="message" dur="3000"></ui-message>

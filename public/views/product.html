@@ -6,18 +6,18 @@
 
                 <div class="col-md-6">
 
-                    <h3>Featured Image</h3>
-                    <img class="img-fluid mb-2" ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg">
-                    <button class="btn btn-danger" ng-click="product.featuredImage = ''">remove featured</button>
+                    <h3>Προτεινόμενη Εικόνα</h3>
+                    <img class="img-fluid mb-2 featured-image" ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg">
                     <hr>
 
                     <div class="row">
-                        <input type="file" class="form-control" placeholder="Add new image" image-upload images="product.images">
+
+                    <div>
+                        <button class="btn btn-sm btn-fill" type="button" ng-click="startUploadingPictures()" style="margin-bottom: 5px">Ανέβασμα Εικόνας</button>
+                    </div>
+                    <input id="picture-input" style="display: none" type="file" class="form-control" placeholder="Add new image" image-upload images="product.images" accept=".jpg, .jpeg, .png">
                         <div ng-repeat="image in product.images track by $index" class="col-md-6 mb-2">
                             <img ng-src="{{image}}" class="img-fluid">
-                            <!-- <span class="featured-btn" ng-click="product.featuredImage = image">
-                                <img src="/public/img/svg-icons/star.svg" alt="" class="img-fluid">
-                            </span> -->
                             <div class="img-actions">
                                 <div class="row">
                                     <div class="col-6 ">
@@ -25,15 +25,11 @@
                                         <img class="img-featured mouse-hand" src="/public/img/svg-icons/star-fill.svg" ng-if="product.featuredImage === image" ng-click="product.featuredImage = ''">
                                     </div>
                                     <div class="col-6">
-                                        <img src="/public/img/svg-icons/delete-cross.svg" alt="" class="remove-img mouse-hand" ng-click="removeProductImage(image, $index)">
-
+                                        <img src="/public/img/svg-icons/delete-cross.svg" alt="" class="remove-img mouse-hand" ng-click="product.images.splice($index, 1); product.featuredImage === image ? product.featuredImage = '' : null">
                                     </div>
                                 </div>
-
-                                <!-- <button class="btn btn-danger" type="button" ng-click="removeProductImage(image, $index)">Αφαίρεση Εικόνας</button> -->
                             </div>
                         </div>
-
                     </div>
 
                 </div>
@@ -52,11 +48,11 @@
                         <h3 class="col-12">Χαρακτηριστικά</h3>
                         <div class="col-sm-6 form-group">
                             <label for="">Τιμή</label>
-                            <input type="number" class="form-control" placeholder="Price" ng-model="product.price">
+                            <input type="number" step="0.01" class="form-control" placeholder="Price" ng-model="product.price">
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="">Τιμή με έκπτωση</label>
-                            <input type="number" class="form-control" placeholder="Sales Price" ng-model="product.salesPrice">
+                            <input type="number" step="0.01" class="form-control" placeholder="Sales Price" ng-model="product.salesPrice">
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="">Βάρος</label>
@@ -69,7 +65,7 @@
                         <div class="col-sm-6 form-group">
                             <label for="">Κατηγορίες</label>
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" ng-click="categoriesDropDownOpen = !categoriesDropDownOpen"
+                                <button class="btn btn-fill dropdown-toggle" type="button" id="dropdownMenuButton" ng-click="categoriesDropDownOpen = !categoriesDropDownOpen"
                                     aria-haspopup="true" aria-expanded="false">
                                     Επιλέξτε Κατηγορία
                                 </button>
@@ -84,22 +80,6 @@
                             <label for="">Απόθεμα</label>
                             <input type="number" class="form-control" placeholder="Stock" ng-model="product.stock">
                         </div>
-                        <!-- <div class="form-group col-md-12">
-                            <label for="">Εικόνες</label>
-                            <input type="file" class="form-control" placeholder="Add new image" image-upload images="product.images">
-
-                            <div ng-if="product.featuredImage">
-                                <label>Featured Image</label>
-                                <img ng-src="{{product.featuredImage}}" style="height: 100px; width: 150px">
-                                <button class="btn btn-danger" type="button" ng-click="product.featuredImage = ''">X</button>
-                            </div>
-
-                            <div ng-repeat="image in product.images track by $index">
-                                <img ng-src="{{image}}" style="height: 100px; width: 150px">
-                                <button class="btn btn-default" type="button" ng-click="product.featuredImage = image">featured</button>
-                                <button class="btn btn-danger" type="button" ng-click="product.images.splice($index, 1)">X</button>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
 
@@ -108,8 +88,8 @@
 
             <div class="row text-right">
                 <div class="col-12">
-                    <button type="submit" class="btn-fill">Submit</button>
-                    <a class="btn-fill" ng-href="/#/products">Cancel</a>
+                    <button type="submit" class="btn-fill mouse-hand">Αποθήκευση</button>
+                    <a class="btn-outline unstyled-link" ng-href="#/products">Ακύρωση</a>
                 </div>
             </div>
 

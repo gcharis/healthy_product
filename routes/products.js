@@ -40,18 +40,25 @@ router.get('/one-slug/:slug', (req, res) => {
 	});
 });
 
-router.post('/by-category/:category/', (req, res) => {
-	let searchCategory = req.params.category;
-	Product.find(
-		{ $or: [ { 'category.slug': searchCategory }, { 'category.name': searchCategory } ] },
-		(err, products) => {
-			if (err) {
-				console.error(`${new Date()}, Products could not get retrieved. ERROR, ${err}`);
-				return res.status(500).send('Κάποιο σφάλμα συνέβη.');
-			}
-			res.send(products);
-		}
-	);
+router.post('/by-category/:category/', async (req, res) => {
+	const searchCategory = req.params.category;
+	const productsPerPage = 24;
+	const page = req.body.page;
+	try {
+		const products = await Product.find({
+			$or: [ { 'category.slug': searchCategory }, { 'category.name': searchCategory } ]
+		})
+			.select('-images, -creationDate')
+			.skip((page - 1) * productsPerPage)
+			.limit(productsPerPage);
+		const totalProducts = await Product.count();
+		const pages = Math.ceil(totalProducts / productsPerPage);
+
+		res.send({ products, pages });
+	} catch (err) {
+		console.error(`${new Date()}, Products could not get retrieved. ERROR, ${err}`);
+		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+	}
 });
 
 router.post('/new/:admin', (req, res) => {

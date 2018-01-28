@@ -30,6 +30,8 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 		showCategories();
 		initiateNewProduct();
 		$scope.addingNewProduct = true;
+
+		// timeout does not immidiatelly puts the statement on top of the stack
 		$timeout(() => $uiHandler.openModalById('registerModal'), 0);
 	};
 

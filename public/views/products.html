@@ -56,23 +56,23 @@
             <div class="modal-body">
                 <form class="row" ng-submit="registerProduct(newProduct)">
                     <div class="form-group col-md-6">
-                        <label>Τίτλος*</label>
+                        <label>Τίτλος *</label>
                         <input type="text" class="form-control" placeholder="Τίτλος" ng-model="newProduct.name" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Βάρος*</label>
+                        <label>Βάρος *</label>
                         <input type="number" class="form-control" placeholder="Βάρος σε kg" ng-model="newProduct.weight" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Τιμή*</label>
-                        <input type="number" class="form-control" placeholder="Τιμή σε €" ng-model="newProduct.price" required>
+                        <label>Τιμή *</label>
+                        <input type="number" step="0.01" class="form-control" placeholder="Τιμή σε €" ng-model="newProduct.price" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Τιμή Έκπτωσης</label>
-                        <input type="number" class="form-control" placeholder="Κενό για προϊόντα χωρίς έκπτωση" ng-model="newProduct.salesPrice">
+                        <input type="number" step="0.01" class="form-control" placeholder="Κενό για προϊόντα χωρίς έκπτωση" ng-model="newProduct.salesPrice">
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Κωδικός*</label>
+                        <label>Κωδικός *</label>
                         <input type="text" class="form-control" placeholder="Κωδικός" ng-model="newProduct.sku" required>
                     </div>
                     <div class="col-sm-6 form-group">
@@ -124,8 +124,8 @@
                     </div>
                     <span style="margin-left: 15px">Τα πεδία με αστερίσκο (*) είναι υποχρεωτικά</span>
                     <div class="form-group col-md-12">
-                        <button type="button" class="btn btn-sm btn-outline" ng-click="hideModalById('registerModal')">Ακύρωση</button>
-                        <button type="submit" class="btn btn-fill">Αποθήκευση</button>
+                        <button type="button" class="btn-outline" ng-click="hideModalById('registerModal')">Ακύρωση</button>
+                        <button type="submit" class="btn-fill">Αποθήκευση</button>
                     </div>
                 </form>
             </div>
