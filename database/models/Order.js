@@ -26,6 +26,11 @@ let orderSchema = new mongoose.Schema({
 			amount: { type: String, required: true }
 		}
 	],
+	payment: {
+		method: { type: String, required: true },
+		price: { type: Number, required: true },
+		bank: String
+	},
 	total: { type: Number, required: true }
 });
 

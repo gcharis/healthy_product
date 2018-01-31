@@ -7,7 +7,7 @@
                 <div class="col-md-6">
 
                     <h3>Προτεινόμενη Εικόνα</h3>
-                    <img class="img-fluid mb-2 featured-image" ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg">
+                    <img class="img-fluid mb-2 featured-image" ng-src="{{product.featuredImage}}" err-src="public/img/error-image.jpg">
                     <hr>
 
                     <div class="row">
@@ -63,7 +63,7 @@
                             <input type="text" class="form-control" placeholder="Sku" ng-model="product.sku">
                         </div>
                         <div class="col-sm-6 form-group">
-                            <label for="">Κατηγορίες</label>
+                            <label>Κατηγοριοποίηση</label>
                             <div class="dropdown">
                                 <button class="btn btn-fill dropdown-toggle" type="button" id="dropdownMenuButton" ng-click="categoriesDropDownOpen = !categoriesDropDownOpen"
                                     aria-haspopup="true" aria-expanded="false">
@@ -78,7 +78,11 @@
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="">Απόθεμα</label>
-                            <input type="number" class="form-control" placeholder="Stock" ng-model="product.stock">
+                            <input type="number" class="form-control" placeholder="Απόθεμα" ng-model="product.stock">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="">Προτεραιότητα</label>
+                            <input type="number" class="form-control" placeholder="Προτεραιότητα εμφάνισης (αριθμός)" ng-model="product.priority">
                         </div>
                     </div>
                 </div>

@@ -19,12 +19,20 @@ let productSchema = new mongoose.Schema({
 	expirationDate: Date,
 	images: [ String ],
 	featuredImage: String,
-	priority: Number
+	premium: { type: Boolean, default: false },
+	priority: { type: Number, default: null }
 });
 
 productSchema.pre('validate', function(next) {
 	if (!this.name) throw new ReferenceError(`Το πεδίο 'Όνομα' είναι υποχρεωτικό`);
 	this.slug = this.name.toGreeklish();
+
+	if (!!this.priority) this.premium = true;
+	next();
+});
+
+productSchema.pre('update', function(next) {
+	this._update.$set.premium = !!this._update.$set.priority;
 	next();
 });
 

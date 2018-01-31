@@ -49,7 +49,7 @@ router.post('/by-category/:category/', async (req, res) => {
 			$or: [ { 'category.slug': searchCategory }, { 'category.name': searchCategory } ]
 		})
 			.select('-images, -creationDate')
-			.sort({ priority: 1 })
+			.sort({ premium: -1, priority: 1 })
 			.skip((page - 1) * productsPerPage)
 			.limit(productsPerPage);
 		const totalProducts = await Product.count();
@@ -74,8 +74,8 @@ router.post('/new/:admin', (req, res) => {
 });
 
 router.put('/one/:id/:admin', (req, res) => {
-	let id = req.params.id;
-	Product.findByIdAndUpdate(id, req.body, { new: true }, (err, product) => {
+	const id = req.params.id;
+	Product.update({ _id: id }, req.body, { new: true }, (err, product) => {
 		if (err) {
 			console.error(`${new Date()}, Product could not be updated. ERROR, ${err.message}`);
 			return res

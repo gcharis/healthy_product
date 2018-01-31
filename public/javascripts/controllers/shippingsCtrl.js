@@ -52,13 +52,7 @@ app.controller('shippings', function($scope, $shippings, $uiHandler, $timeout) {
 	}
 
 	function showShippings() {
-		$shippings
-			.getAll()
-			.then((shippings) => {
-				console.log(shippings);
-				$scope.shippings = shippings;
-			})
-			.catch((err) => console.warn(err));
+		$shippings.getAll().then((shippings) => ($scope.shippings = shippings)).catch((err) => console.warn(err));
 	}
 
 	function showShippingInfo(shipping) {

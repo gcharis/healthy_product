@@ -21,7 +21,7 @@
                     <tr ng-repeat="product in products track by $index">
                         <td scope="row">{{product.id}}</td>
                         <td>
-                            <img ng-src="{{product.featuredImage}}" err-src="http://lorempixel.com/output/nature-h-g-640-1027-10.jpg" style="max-width: 50px">
+                            <img ng-src="{{product.featuredImage}}" err-src="public/img/error-image.jpg" style="max-width: 50px">
                         </td>
                         <td>{{product.name}}</td>
                         <td>{{renderProductCategories(product)}}</td>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Βάρος *</label>
-                        <input type="number" class="form-control" placeholder="Βάρος σε kg" ng-model="newProduct.weight" required>
+                        <input type="number" step="0.01" class="form-control" placeholder="Βάρος σε kg" ng-model="newProduct.weight" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Τιμή *</label>
@@ -96,6 +96,10 @@
                         <input type="number" class="form-control" placeholder="Απόθεμα" ng-model="newProduct.stock">
                     </div>
                     <div class="form-group col-md-6">
+                        <label>Προτεραιότητα</label>
+                        <input type="number" class="form-control" placeholder="Προτεραιότητα εμφάνισης (αριθμός)" ng-model="newProduct.priority">
+                    </div>
+                    <div class="form-group col-md-6">
                         <label>Ποσότητα Προϊόντος ανά Πώληση</label>
                         <input type="text" class="form-control" placeholder="Αριθμός τμχ / Ποσότητα (π.χ 100ml)" ng-model="newProduct.amountForSale">
                     </div>
@@ -111,7 +115,7 @@
                         <input id="picture-input" style="display: none" type="file" class="form-control" placeholder="Add new image" image-upload
                             images="newProduct.images" accept=".jpg, .jpeg, .png">
 
-                        <div>
+                        <div ng-if="!!newProduct.featuredImage">
                             <h5>Προτεινόμενη Εικόνα</h5>
                             <img class="img-fluid" ng-src="{{newProduct.featuredImage}}" ng-if="!!newProduct.featuredImage" style="margin-bottom:1rem;">
                         </div>
