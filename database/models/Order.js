@@ -31,8 +31,18 @@ let orderSchema = new mongoose.Schema({
 		price: { type: Number, required: true },
 		bank: String
 	},
-	total: { type: Number, required: true }
+	total: { type: Number, required: true },
+	comments: String,
+	creationDate: { type: Date, default: Date.now },
+	lastUpdate: { type: Date, default: Date.now }
 });
 
-const Shipping = mongoose.model('shipping', shippingSchema);
-module.exports = Shipping;
+orderSchema.pre('update', function(next) {
+	this._update.$set.lastUpdate = new Date();
+	next();
+});
+
+orderSchema.plugin(autoIncrement.plugin, { model: 'order', field: 'id', startAt: 100000 });
+
+const Order = mongoose.model('order', orderSchema);
+module.exports = Order;

@@ -36,7 +36,7 @@ productSchema.pre('update', function(next) {
 	next();
 });
 
-productSchema.plugin(autoIncrement.plugin, { model: 'product', field: 'id', startAt: 1000 });
+productSchema.plugin(autoIncrement.plugin, { model: 'product', field: 'id', startAt: 100000 });
 const Product = mongoose.model('product', productSchema);
 
 module.exports = Product;
