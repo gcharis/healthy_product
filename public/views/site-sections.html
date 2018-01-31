@@ -1,0 +1,87 @@
+<div class="container-fluid main-container site-sections">
+    <div class="row tabs tab-nav" ng-init="tab = 1">
+        <div class="col-md-3" ng-class="{active:tab===1}" ng-click="tab = 1"> Navigation</div>
+        <div class="col-md-3" ng-class="{active:tab===2}" ng-click="tab = 2"> Intro Text</div>
+        <div class="col-md-3" ng-class="{active:tab===3}" ng-click="tab = 3"> Banks</div>
+        <div class="col-md-3" ng-class="{active:tab===4}" ng-click="tab = 4"> Slider</div>
+        <!-- <div ng-class="da-line"></div> -->
+    </div>
+    <!-- <div class="row add">
+        <div class="col-md-12 text-right">
+            <button type="button" class="btn-fill" ng-click="addNewCategory()">Νέα Κατηγορία</button>
+        </div>
+    </div> -->
+    <div class="row tab-content">
+        <div ng-if="tab === 1" class="col-12">
+            <h3 class="text-center">Navigation
+
+            </h3>
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="text-center">Categories</h3>
+                    <div class="category-wrapper">
+                        Cat
+                        <span class="float-right action add">+</span>
+                    </div>
+                    <div class="category-wrapper">
+                        Cat
+                    </div>
+                    <div class="category-wrapper">
+                        Cat
+                    </div>
+                </div>
+                <div class="col-6">
+                    <h3 class="text-center">Navigation</h3>
+                    <div class="category-wrapper">
+                        Nav
+                        <span class="float-right action remove">-</span>
+                    </div>
+                    <div class="category-wrapper">
+                        Nav
+                    </div>
+                    <div class="category-wrapper">
+                        Nav
+                    </div>
+                </div>
+                <div class="col-12 text-right" style=" margin-top: 1rem;">
+                    <button class="btn-fill">Αποθήκευση</button>
+                </div>
+            </div>
+        </div>
+        <div ng-if="tab === 2" class="col-12">
+            <h3 class="text-center">Intro Text</h3>
+            <text-angular ng-model="htmlVariable"></text-angular>
+            <div class="col-12 text-right" style="padding:0;margin-top: 1rem;">
+                <button class="btn-fill">Αποθήκευση</button>
+            </div>
+        </div>
+        <div ng-if="tab === 3" class="col-12">
+            <h3 class="text-center">Banks</h3>
+            <text-angular ng-model="htmlVariable"></text-angular>
+            <div class="col-12 text-right" style="padding:0;margin-top: 1rem;">
+                <button class="btn-fill">Αποθήκευση</button>
+            </div>
+        </div>
+        <div ng-if="tab === 4" class="col-12 slider-tab">
+            <h3 class="text-center" style="padding-left: 162px;">Slider
+                <button ng-click="startUploadingPictures()" class="btn-fill float-right">Προσθήκη Εικόνας</button>
+                <input id="picture-input" style="display: none" type="file" class="form-control ng-isolate-scope" placeholder="Add new image">
+            </h3>
+            <div class="row">
+                <div class="col-md-4 slider-photo-col">
+                    <img src="http://via.placeholder.com/350x150" alt="" class="img-fluid">
+                </div>
+                <div class="col-md-4 slider-photo-col">
+                    <img src="http://via.placeholder.com/350x150" alt="" class="img-fluid">
+                </div>
+                <div class="col-md-4 slider-photo-col">
+                    <img src="http://via.placeholder.com/350x150" alt="" class="img-fluid">
+                </div>
+                <div class="col-md-4 slider-photo-col">
+                    <img src="http://via.placeholder.com/350x150" alt="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

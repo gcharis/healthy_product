@@ -108,18 +108,29 @@
                         <div>
                             <button class="btn btn-sm btn-fill" type="button" ng-click="startUploadingPictures()" style="margin-bottom: 5px">Ανέβασμα Εικόνας</button>
                         </div>
-                        <input id="picture-input" style="display: none" type="file" class="form-control" placeholder="Add new image" image-upload images="newProduct.images" accept=".jpg, .jpeg, .png">
+                        <input id="picture-input" style="display: none" type="file" class="form-control" placeholder="Add new image" image-upload
+                            images="newProduct.images" accept=".jpg, .jpeg, .png">
 
                         <div>
-                            <label>Προτεινόμενη Εικόνα</label>
-                            <img class="product-img" ng-src="{{newProduct.featuredImage}}" ng-if="!!newProduct.featuredImage">
+                            <h5>Προτεινόμενη Εικόνα</h5>
+                            <img class="img-fluid" ng-src="{{newProduct.featuredImage}}" ng-if="!!newProduct.featuredImage" style="margin-bottom:1rem;">
                         </div>
-
-                        <div ng-repeat="image in newProduct.images track by $index">
-                            <img class="product-img" ng-src="{{image}}">
-                            <img class="img-featured mouse-hand" src="/public/img/svg-icons/star.svg" ng-if="newProduct.featuredImage !== image" ng-click="newProduct.featuredImage = image">
-                            <img class="img-featured mouse-hand" src="/public/img/svg-icons/star-fill.svg" ng-if="newProduct.featuredImage === image" ng-click="newProduct.featuredImage = ''">
-                            <img class="img-featured mouse-hand" src="/public/img/svg-icons/delete-photo.svg" ng-click="newProduct.images.splice($index, 1); newProduct.featuredImage === image ? newProduct.featuredImage = '' : null">
+                        <div class="row">
+                            <div class="col-md-4" ng-repeat="image in newProduct.images track by $index">
+                                <img class=" img-fluid" ng-src="{{image}}">
+                                <div class="img-actions">
+                                    <div class="row">
+                                        <div class="col-6 ">
+                                            <img class="img-featured mouse-hand" src="/public/img/svg-icons/star-wh.svg" ng-if="newProduct.featuredImage !== image" ng-click="newProduct.featuredImage = image">
+                                            <img class="img-featured mouse-hand" src="/public/img/svg-icons/star-fill.svg" ng-if="newProduct.featuredImage === image"
+                                                ng-click="newProduct.featuredImage = ''">
+                                        </div>
+                                        <div class="col-6">
+                                            <img class="img-featured mouse-hand" src="/public/img/svg-icons/delete-cross.svg" ng-click="newProduct.images.splice($index, 1); newProduct.featuredImage === image ? newProduct.featuredImage = '' : null">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <span style="margin-left: 15px">Τα πεδία με αστερίσκο (*) είναι υποχρεωτικά</span>
