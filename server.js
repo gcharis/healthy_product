@@ -7,6 +7,7 @@ const connection = require('./database/connection.js');
 const products = require('./routes/products.js');
 const categories = require('./routes/categories.js');
 const shippings = require('./routes/shippings.js');
+const orders = require('./routes/orders.js');
 const admin = require('./routes/admin.js');
 const logger = require('./logs/logger.js');
 const config = require('./config.js');
@@ -40,5 +41,6 @@ app.use('/products', products);
 app.use('/categories', categories);
 app.use('/shippings', shippings);
 app.use('/admin', admin);
+app.use('/orders', orders);
 
 app.listen(config.port, () => console.log(`Healthy Product started on port ${config.port}`));
