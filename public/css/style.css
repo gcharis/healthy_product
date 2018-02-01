@@ -428,3 +428,46 @@ text-angular button .btn {
 	float: right;
 	font-size: 16px;
 }
+
+/* ======================================================================================================= 
+                                            Order Page
+======================================================================================================= */
+
+.order .col-md-8 {
+	padding-right: .5rem;
+}
+
+.order .col-md-4 {
+	padding-left: .5rem;
+}
+
+.order .white-wrapper {
+	padding: 2rem 2rem 2rem;
+}
+
+.order-section {
+	margin-top: 1rem
+}
+
+.order tr.total1,
+.order tr.total2,
+.order tr.total3,
+.order tr.total4 {
+	border: 1px solid black;
+}
+
+.order tr.total1 th,
+.order tr.total1 td {
+	border-top: 1px solid black;
+	border-bottom: none;
+}
+
+.order tr.total2 th,
+.order tr.total2 td,
+.order tr.total3 th,
+.order tr.total3 td,
+.order tr.total4 th,
+.order tr.total4 td {
+	border-top: none;
+	border-bottom: none;
+}
