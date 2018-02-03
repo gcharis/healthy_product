@@ -1,6 +1,7 @@
 const express = require('express');
 const Order = require('../database/models/Order.js');
 const checkAdmin = require('../authentication/bustAndLog.js');
+const axios = require('axios');
 
 const router = express.Router();
 
@@ -40,7 +41,16 @@ router.get('/one/:id/', (req, res) => {
 	});
 });
 
-router.post('/new/', (req, res) => {
+router.post('/new/', async (req, res) => {
+	if (!req.body.recaptcha || req.body.recaptcha === ' ') return res.status(403).send('no captcha');
+	const secretKey = process.env.CAPTCHA_KEY;
+	console.log(secretKey);
+	const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body
+		.recaptcha}&remoteip=${req.connection.remoteAddress}`;
+
+	const googleRes = await axios.post(verifyUrl);
+	if (!googleRes.data || !googleRes.data.success) return res.status(403).send('No successfull captcha');
+
 	const newOrder = new Order(req.body);
 	newOrder.save((err, order) => {
 		if (err) {

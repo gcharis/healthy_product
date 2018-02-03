@@ -33,7 +33,8 @@ let orderSchema = new mongoose.Schema({
 		bank: String
 	},
 	total: { type: Number, required: true },
-	comments: String,
+	comments: { type: String, default: '' },
+	status: { type: String, default: 'Νέα Παραγγελία' },
 	creationDate: { type: Date, default: Date.now },
 	lastUpdate: { type: Date, default: Date.now }
 });
