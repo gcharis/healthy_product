@@ -60,8 +60,14 @@ app
 				templateUrl: '/public/views/site-sections.html',
 				controller: 'siteSections'
 			})
-			.when('/navigation-bar', {
-				templateUrl: '/public/views/navigation.html',
-				controller: 'nav-menu'
-			});
+			.when('/orders', {
+				templateUrl: '/public/views/orders.html'
+			})
+			.when('/order', {
+				templateUrl: '/public/views/order.html'
+			})
+		// .when('/navigation-bar', {
+		// 	templateUrl: '/public/views/navigation.html',
+		// 	controller: 'nav-menu'
+		// });
 	});
