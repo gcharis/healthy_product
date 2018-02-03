@@ -1,9 +1,5 @@
 <div class="container-fluid main-container orders">
-    <!-- <div class="row add">
-        <div class="col-md-12 text-right">
-            <button type="button" class="btn-fill">Νέα Κατηγορία</button>
-        </div>
-    </div> -->
+
     <div class="container-fluid white-wrapper">
 
         <div class="container-fluid table-responsive">
@@ -18,40 +14,18 @@
                         <th scope="col">Επώνυμο</th>
                         <th scope="col">Τιμή</th>
                         <th scope="col">Τρόπος Πληρωμής</th>
+                        <th scope="col">Επιλογές</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr onclick="window.location='#/order';">
-                        <th scope="row">1</th>
-                        <td>15/05/2017</td>
-                        <td>Νίκος</td>
-                        <td>Κάλαντας</td>
-                        <td>13€</td>
-                        <td>Αντικαταβολή</td>
-                    </tr>
-                    <tr onclick="window.location='#/order';">
-                        <th scope="row">1</th>
-                        <td>15/05/2017</td>
-                        <td>Νίκος</td>
-                        <td>Κάλαντας</td>
-                        <td>13€</td>
-                        <td>Αντικαταβολή</td>
-                    </tr>
-                    <tr onclick="window.location='#/order';">
-                        <th scope="row">1</th>
-                        <td>15/05/2017</td>
-                        <td>Νίκος</td>
-                        <td>Κάλαντας</td>
-                        <td>13</td>
-                        <td>Αντικαταβολή</td>
-                    </tr>
-                    <tr onclick="window.location='#/order';">
-                        <th scope="row">1</th>
-                        <td>15/05/2017</td>
-                        <td>Νίκος</td>
-                        <td>Κάλαντας</td>
-                        <td>13€</td>
-                        <td>Αντικαταβολή</td>
+                    <tr ng-repeat="order in orders track by $index">
+                        <th scope="row">{{order.id}}</th>
+                        <td>{{order.creationDate | date: 'dd-MM-yyyy'}}</td>
+                        <td>{{order.customer.firstname}}</td>
+                        <td>{{order.customer.lastname}}</td>
+                        <td>{{order.total | number: 2}}€</td>
+                        <td>{{order.payment.method}}</td>
+                        <td><a ng-href="#/orders/{{order.id}}">edit</a></td>
                     </tr>
 
                 </tbody>

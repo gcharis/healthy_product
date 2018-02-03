@@ -1,30 +1,30 @@
-const app = angular.module('healthy_product_app', ['ngRoute', 'ngSanitize', 'textAngular']);
+const app = angular.module('healthy_product_app', [ 'ngRoute', 'ngSanitize', 'textAngular' ]);
 
 app
-	.run(function ($rootScope, $admin, $location, $location) {
-		$rootScope.$on('$routeChangeStart', function ($event, next, current) {
+	.run(function($rootScope, $admin, $location, $location) {
+		$rootScope.$on('$routeChangeStart', function($event, next, current) {
 			if ($location.path() !== '/login' && $location.path() !== '/register')
 				return $admin
 					.getVerification(localStorage.token)
 					.then(() => $rootScope.$broadcast('admin logged in'))
 					.catch((res) => $location.path('/login').replace());
 
-			!!localStorage.token ?
-				$admin
-				.getVerification(localStorage.token)
-				.then((res) => {
-					$rootScope.$broadcast('admin logged in');
-					$location.path('/products').replace();
-				})
-				.catch((res) => console.warn(res.data)) :
-				console.warn('No token found');
+			!!localStorage.token
+				? $admin
+						.getVerification(localStorage.token)
+						.then((res) => {
+							$rootScope.$broadcast('admin logged in');
+							$location.path('/products').replace();
+						})
+						.catch((res) => console.warn(res.data))
+				: console.warn('No token found');
 		});
 
-		$rootScope.$on('admin logged out', function () {
+		$rootScope.$on('admin logged out', function() {
 			$location.path('/login').replace();
 		});
 	})
-	.config(function ($locationProvider, $routeProvider) {
+	.config(function($locationProvider, $routeProvider) {
 		$locationProvider.hashPrefix('');
 
 		$routeProvider
@@ -61,11 +61,12 @@ app
 				controller: 'siteSections'
 			})
 			.when('/orders', {
-				templateUrl: '/public/views/orders.html'
+				templateUrl: '/public/views/orders.html',
+				controller: 'orders'
 			})
 			.when('/order', {
 				templateUrl: '/public/views/order.html'
-			})
+			});
 		// .when('/navigation-bar', {
 		// 	templateUrl: '/public/views/navigation.html',
 		// 	controller: 'nav-menu'

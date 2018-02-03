@@ -40,7 +40,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="row" ng-submit="registerCategory(newCategory)">
+                <form class="row" ng-submit="registerCategory(newCategory); newCategory={}">
                     <div class="form-group col-md-6">
                         <label>Τίτλος*</label>
                         <input type="text" class="form-control" placeholder="Τίτλος" ng-model="newCategory.name" required>

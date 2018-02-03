@@ -5,7 +5,7 @@ app.controller('categories', function($http, $scope, $categories, $timeout, $loc
 		$categories
 			.register(newCategory)
 			.then((product) => {
-				clearCategoryRegistrationForm();
+				$uiHandler.hideModalById('registerModal');
 				showCategories();
 			})
 			.catch((res) => ($scope.message = res.data));
@@ -51,11 +51,6 @@ app.controller('categories', function($http, $scope, $categories, $timeout, $loc
 			.getOneById(category._id)
 			.then((category) => ($scope.category = category))
 			.catch((res) => console.warn(res.data));
-	}
-
-	function clearCategoryRegistrationForm() {
-		$scope.newCategory = {};
-		$uiHandler.hideModalById('registerModal');
 	}
 
 	function clearCategoryEditingForm() {
