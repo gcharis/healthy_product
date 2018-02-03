@@ -11,7 +11,7 @@ router.param('admin', checkAdmin);
 router.get('/all/', (req, res) => {
 	Shipping.find((err, shippings) => {
 		if (err) {
-			console.error(`${new Date()}, Shippings could not get retrieved. ERROR, ${err}`);
+			console.error(`${new Date()}, Shippings could not get retrieved. ERROR, ${err.message}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		res.send(shippings);
@@ -22,7 +22,7 @@ router.get('/one/:id/:admin', (req, res) => {
 	const id = req.params.id;
 	Shipping.findById(id, (err, shipping) => {
 		if (err) {
-			console.error(`${new Date()}, Shipping could not get retrieved. ERROR, ${err}`);
+			console.error(`${new Date()}, Shipping could not get retrieved. ERROR, ${err.message}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		res.send(shipping);
@@ -33,7 +33,7 @@ router.post('/new/:admin', (req, res) => {
 	const newShipping = new Shipping(req.body);
 	newShipping.save((err, shipping) => {
 		if (err) {
-			console.error(`${new Date()}, Shipping could not be saved. ERROR, ${err}`);
+			console.error(`${new Date()}, Shipping could not be saved. ERROR, ${err.message}`);
 			return res
 				.status(500)
 				.send(`Ο τρόπος αποστολής δεν ήταν δυνατόν να αποθηκευτεί. Κωδικός σφάλματος: ${err.message}`);
@@ -47,7 +47,7 @@ router.put('/one/:id/:admin', (req, res) => {
 	const id = req.params.id;
 	Shipping.findByIdAndUpdate(id, req.body, { new: true }, (err, shipping) => {
 		if (err) {
-			console.error(`${new Date()}, Shipping could not be updated. ERROR, ${err}`);
+			console.error(`${new Date()}, Shipping could not be updated. ERROR, ${err.message}`);
 			return res
 				.status(500)
 				.send(
@@ -62,7 +62,7 @@ router.delete('/one/:id/:admin', (req, res) => {
 	const id = req.params.id;
 	Shipping.findByIdAndRemove(id, (err, shipping) => {
 		if (err) {
-			console.error(`${new Date()}, Shipping could not get deleted. ERROR, ${err}`);
+			console.error(`${new Date()}, Shipping could not get deleted. ERROR, ${err.message}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		res.send(`Ο τρόπος αποστολής με όνομα ${shipping.name} διαγράφηκε επιτυχώς!`);
