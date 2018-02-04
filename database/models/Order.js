@@ -24,13 +24,14 @@ let orderSchema = new mongoose.Schema({
 			id: { type: String, required: true },
 			name: { type: String, required: true },
 			price: { type: Number, required: true },
-			amount: { type: Number, required: true }
+			amount: { type: Number, required: true },
+			weight: { type: Number, required: true }
 		}
 	],
 	payment: {
 		method: { type: String, required: true },
 		cost: { type: Number, required: true },
-		bank: String
+		bank: { type: String, default: '' }
 	},
 	total: { type: Number, required: true },
 	comments: { type: String, default: '' },

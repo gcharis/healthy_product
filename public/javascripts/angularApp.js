@@ -1,4 +1,4 @@
-const app = angular.module('healthy_product_app', [ 'ngRoute', 'ngSanitize', 'textAngular' ]);
+const app = angular.module('healthy_product_app', [ 'ngRoute', 'ngSanitize', 'textAngular', 'angularMoment' ]);
 
 app
 	.run(function($rootScope, $admin, $location, $location) {
@@ -60,12 +60,13 @@ app
 				templateUrl: '/public/views/site-sections.html',
 				controller: 'siteSections'
 			})
-			.when('/orders', {
+			.when('/orders/page/:page', {
 				templateUrl: '/public/views/orders.html',
 				controller: 'orders'
 			})
-			.when('/order', {
-				templateUrl: '/public/views/order.html'
+			.when('/orders/:id', {
+				templateUrl: '/public/views/order.html',
+				controller: 'orderInfo'
 			});
 		// .when('/navigation-bar', {
 		// 	templateUrl: '/public/views/navigation.html',

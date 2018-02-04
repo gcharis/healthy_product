@@ -9,19 +9,27 @@ const router = express.Router();
 // a log will be saved
 router.param('admin', checkAdmin);
 
-router.get('/all/:admin', (req, res) => {
-	Order.find((err, orders) => {
-		if (err) {
-			console.error(`${new Date()}, Orders could not get retrieved. ERROR, ${err.message}`);
-			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
-		}
-		res.send(orders);
-	});
+router.post('/all/:admin', async (req, res) => {
+	const ordersPerPage = 30;
+	const page = req.body.page;
+	try {
+		const orders = await Order.find()
+			.sort({ creationDate: -1 })
+			.skip((page - 1) * ordersPerPage)
+			.limit(ordersPerPage);
+		const totalOrders = await Order.count();
+		const pages = Math.ceil(totalOrders / ordersPerPage);
+
+		res.send({ orders, pages });
+	} catch (err) {
+		console.error(`${new Date()}, Orders could not get retrieved. ERROR, ${err.message}`);
+		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+	}
 });
 
 router.get('/one/:id/:admin', (req, res) => {
 	const id = req.params.id;
-	Order.findById(id, (err, order) => {
+	Order.findOne({ id }, (err, order) => {
 		if (err) {
 			console.error(`${new Date()}, Order could not get retrieved. ERROR, ${err.message}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
@@ -44,7 +52,6 @@ router.get('/one/:id/', (req, res) => {
 router.post('/new/', async (req, res) => {
 	if (!req.body.recaptcha || req.body.recaptcha === ' ') return res.status(403).send('no captcha');
 	const secretKey = process.env.CAPTCHA_KEY;
-	console.log(secretKey);
 	const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body
 		.recaptcha}&remoteip=${req.connection.remoteAddress}`;
 
@@ -75,7 +82,7 @@ router.put('/one/:id/:admin', (req, res) => {
 				.status(500)
 				.send(`Τα στοιχεία της παραγγελίας δεν ήταν δυνατόν να ανανεωθούν. Κωδικός σφάλματος: ${err.message}`);
 		}
-		res.send({ message: 'Τα στοιχεία παραγγελίας ανανεώθηκαν επιτυχώς!', order });
+		res.send({ message: `Τα στοιχεία παραγγελίας ${order.id} ανανεώθηκαν επιτυχώς!`, order });
 	});
 });
 

@@ -1,117 +1,120 @@
 <div class="container-fluid main-container order">
-    <!-- <div class="row add">
-            <div class="col-md-12 text-right">
-                <button type="button" class="btn-fill">Νέα Κατηγορία</button>
-            </div>
-        </div> -->
-    <div class="row">
-        <div class="col-md-8">
-            <div class="customer-information white-wrapper">
-                <h5>Στοιχεία Πελάτη</h5>
-                <div class="row">
-                    <div class="col-md-6">
-                        <span>Όνομα:</span>
-                        <span>Νικος</span>
-                    </div>
-                    <div class="col-md-6">
-                        <span>Επώνυμο:</span>
-                        <span>Κάλαντας</span>
-                    </div>
-                    <div class="col-md-6">
-                        <span>Email:</span>
-                        <span>nikos@gmail.com</span>
-                    </div>
-                    <div class="col-md-6">
-                        <span>Τηλέφωνο:</span>
-                        <span>6972501863</span>
-                    </div>
-                    <div class="col-md-6">
-                        <span>Χώρα :</span>
-                        <span>Ελλάδα</span>
-                    </div>
-                    <div class="col-md-6">
-                        <span>Πόλη :</span>
-                        <span>Πάτρα</span>
-                    </div>
-                    <div class="col-md-6">
-                        <span>Διεύθυνση Αποστολής:</span>
-                        <span>Ασημάκη Φωτήλα 39</span>
-                    </div>
-                    <div class="col-md-6">
-                        <span>Ταχυδρομικός Κώδικας:</span>
-                        <span>26 500</span>
+    <form ng-submit="updateOrder(order)">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="customer-information white-wrapper">
+                    <h5>Στοιχεία Πελάτη</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span>Όνομα:</span>
+                            <span>{{order.customer.firstname}}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span>Επώνυμο:</span>
+                            <span>{{order.customer.lastname}}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span>Email:</span>
+                            <span>{{order.customer.email}}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span>Τηλέφωνο:</span>
+                            <span>{{order.customer.phone}}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span>Χώρα:</span>
+                            <span>{{order.shipping.country}}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span>Πόλη:</span>
+                            <span>{{order.shipping.city}}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span>Διεύθυνση Αποστολής:</span>
+                            <span>{{order.shipping.address}}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span>Ταχυδρομικός Κώδικας:</span>
+                            <span>{{order.shipping.zip}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="order-information white-wrapper">
-                <h5>Στοιχεία Παραγγελίας</h5>
-                <strong>Αριθμός Παραγγελίας: </strong>
-                <span>1</span>
-                <br>
-                <strong>Ημερομηνία: </strong>
-                <span>15/07/2017</span>
-                <h5>Στοιχεία Αποστολής</h5>
-                <strong>Αποστολή:</strong>
-                <span>Γενική Ταχυδρομική - 10.00€</span>
-                <h5>Στοιχεία Πληρωμής</h5>
-                <strong>Πληρωμή:</strong>
-                <span>Τραπεζικη Κατάθεση - Alphbank</span>
+            <div class="col-md-4">
+                <div class="order-information white-wrapper">
+                    <h5>Στοιχεία Παραγγελίας</h5>
+                    <strong>Αριθμός Παραγγελίας: </strong>
+                    <span>#{{order.id}}</span>
+                    <strong>Κατάσταση: </strong>
+                    <span>{{order.status}}</span>
+                    <br>
+                    <strong>Ημερομηνία Δημιουργίας: </strong>
+                    <span>{{order.creationDate | date: 'dd-MM-yyyy'}}</span>
+                    <br>
+                    <strong>Τελευταία Ανανέωση: </strong>
+                    <span am-time-ago="order.lastUpdate"></span>
+                    <br>
+                    <h5>Στοιχεία Αποστολής</h5>
+                    <strong>Αποστολή:</strong>
+                    <span>{{order.shipping.company}} - {{order.shipping.price | number: 2}}€</span>
+                    <h5>Στοιχεία Πληρωμής</h5>
+                    <strong>Πληρωμή:</strong>
+                    <span>{{order.payment.method}}</span>
+                    <br>
+                    <div ng-if="order.payment.method === 'Αντικαταβολή'">
+                        <strong>Κόστος Αντικαταβολής</strong>
+                        <span>{{order.payment.cost | number: 2}}€</span>
+                    </div>
+                    <strong ng-if="order.payment.method === 'Τραπεζική Κατάθεση'">Τράπεζα:</strong>
+                    <span>{{order.payment.bank}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 order-section">
+                <div class="order-items white-wrapper">
+                    <h5>Προϊόντα Παραγγελίας</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Προϊόν</th>
+                                <th scope="col">Βάρος</th>
+                                <th scope="col">Ποσότητα</th>
+                                <th scope="col">Τιμή Μονάδας</th>
+                                <th scope="col" class="text-right">Σύνολο</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in order.items track by $index">
+                                <th scope="row">{{item.name}}</th>
+                                <td>{{item.weight | number: 2}}€</td>
+                                <td>x{{item.amount}}</td>
+                                <td>{{item.price | number: 2}}€</td>
+                                <td class="text-right">{{(item.price * item.amount) | number: 2}}€</td>
+                            </tr>
+                            
+                            <tr class="total1">
+                                <th scope="row" colspan="4">Σύνολο Προϊόντων</th>
+                                <td class="text-right">{{(getSubTotal(order.items)) | number: 2}}€</td>
+                            </tr>
+                            <tr class="total2">
+                                <th scope="row" colspan="4">Εξόδα Αποστολής</th>
+                                <td class="text-right">{{order.shipping.price | number: 2}}€</td>
+                            </tr>
+                            <tr class="total3">
+                                <th scope="row" colspan="4">Έξοδα Πληρωμής</th>
+                                <td class="text-right">{{order.payment.cost | number: 2}}€</td>
+                            </tr>
+                            <tr class="total4">
+                                <th scope="row" colspan="4">Τελική Τιμή</th>
+                                <td class="text-right">{{order.total | number: 2}}€</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="col-md-12 order-section">
-            <div class="order-items white-wrapper">
-                <h5>Προϊόντα Παραγγελίας</h5>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Προϊόν</th>
-                            <th scope="col">Βάρος</th>
-                            <th scope="col">Ποσότητα</th>
-                            <th scope="col" class="text-right">Τιμή Μονάδας</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">Προίόν 1</th>
-                            <td>10kg</td>
-                            <td>χ5</td>
-                            <td class="text-right">10.00€</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Προίόν 2</th>
-                            <td>10kg</td>
-                            <td>χ5</td>
-                            <td class="text-right">10.00€</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Προίόν 3</th>
-                            <td>10kg</td>
-                            <td>χ5</td>
-                            <td class="text-right">10.00€</td>
-                        </tr>
+        <button type="submit" class="btn-fill float-right">Αποθήκευση Αλλαγών</button>
+        <a ng-href="#/orders/page/1"><button type="submit" class="btn-outline float-right">Ακύρωση</button></a>
 
-                        <tr class="total1">
-                            <th scope="row" colspan="3">Σύνολο Προϊόντων</th>
-                            <td class="text-right">30€</td>
-                        </tr>
-                        <tr class="total2">
-                            <th scope="row" colspan="3">Εξόδα Αποστολής</th>
-                            <td class="text-right">10€</td>
-                        </tr>
-                        <tr class="total3">
-                            <th scope="row" colspan="3">Έξοδα Πληρωμής</th>
-                            <td class="text-right">0€</td>
-                        </tr>
-                        <tr class="total4">
-                            <th scope="row" colspan="3">Τελική Τιμή</th>
-                            <td class="text-right">40€</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    </form>
 
 </div>

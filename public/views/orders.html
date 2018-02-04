@@ -9,7 +9,8 @@
                 <thead>
                     <tr>
                         <th scope="col">Α/Α</th>
-                        <th scope="col">Ημερομηνία</th>
+                        <th scope="col">Ημερομηνία Δημιουργίας</th>
+                        <th scope="col">Τελευταία Ανανέωση: </th>
                         <th scope="col">'Ονομα</th>
                         <th scope="col">Επώνυμο</th>
                         <th scope="col">Τιμή</th>
@@ -21,31 +22,46 @@
                     <tr ng-repeat="order in orders track by $index">
                         <th scope="row">{{order.id}}</th>
                         <td>{{order.creationDate | date: 'dd-MM-yyyy'}}</td>
+                        <td am-time-ago="order.lastUpdate"></td>
                         <td>{{order.customer.firstname}}</td>
                         <td>{{order.customer.lastname}}</td>
                         <td>{{order.total | number: 2}}€</td>
                         <td>{{order.payment.method}}</td>
-                        <td><a ng-href="#/orders/{{order.id}}">edit</a></td>
+                        <td>
+                            <a ng-href="#/orders/{{order.id}}">edit</a>
+                            <span ng-click="deleteOrder(order)">delete</span>
+                        </td>
                     </tr>
-
                 </tbody>
             </table>
 
+
             <ul class="pagination justify-content-end">
-                <li class="page-item">
-                    <a class="page-link" href="#">Previous</a>
+                <li ng-class="currentPage === 1 ? 'active' : null" class="page-item">
+                    <a class="page-link" ng-href="#/orders/page/1">
+                        1
+                    </a>
                 </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">1</a>
+                <li class="page-item" ng-if="currentPage - 1 >= 3">
+                    <a class="page-link">...</a>
                 </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
+                <li ng-class="currentPage === ($index + 1) ? 'active' : null" class="page-item" ng-repeat="page in pages track by $index"
+                    ng-if="(currentPage - ($index + 1) === 1 
+                                    || ($index + 1) - currentPage === 1
+                                    || currentPage === ($index + 1))
+                                    &&  ($index + 1) !== 1
+                                    && ($index + 1) !== pages.length">
+                    <a class="page-link" ng-href="#/orders/page/{{$index + 1}}">
+                        {{$index + 1}}
+                    </a>
                 </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
+                <li class="page-item" ng-if="totalPages - currentPage >= 3">
+                    <a class="page-link">...</a>
                 </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
+                <li ng-class="currentPage === pages.length ? 'active' : null" class="page-item" ng-if="pages.length !== 1">
+                    <a class="page-link" ng-href="#/orders/page/{{pages.length}}">
+                        {{pages.length}}
+                    </a>
                 </li>
             </ul>
 
