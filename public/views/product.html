@@ -37,30 +37,30 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">Όνομα </label>
+                        <label>Όνομα </label>
                         <input type="text" class="form-control" placeholder="" ng-model="product.name">
                     </div>
                     <div class="form-group">
-                        <label for="">Περιγραφή</label>
+                        <label>Περιγραφή</label>
                         <textarea class="form-control" rows="3" ng-model="product.description"></textarea>
                     </div>
                     <hr>
                     <div class="row">
                         <h3 class="col-12">Χαρακτηριστικά</h3>
                         <div class="col-sm-6 form-group">
-                            <label for="">Τιμή</label>
+                            <label>Τιμή</label>
                             <input type="number" step="0.01" class="form-control" placeholder="Price" ng-model="product.price">
                         </div>
                         <div class="col-sm-6 form-group">
-                            <label for="">Τιμή με έκπτωση</label>
+                            <label>Τιμή με έκπτωση</label>
                             <input type="number" step="0.01" class="form-control" placeholder="Sales Price" ng-model="product.salesPrice">
                         </div>
                         <div class="col-sm-6 form-group">
-                            <label for="">Βάρος</label>
+                            <label>Βάρος</label>
                             <input type="number" step="0.01" class="form-control" placeholder="Weight" ng-model="product.weight">
                         </div>
                         <div class="col-sm-6 form-group">
-                            <label for="">SKU</label>
+                            <label>SKU</label>
                             <input type="text" class="form-control" placeholder="Sku" ng-model="product.sku">
                         </div>
                         <div class="col-sm-6 form-group">
@@ -78,15 +78,15 @@
                             </div>
                         </div>
                         <div class="col-sm-6 form-group">
-                            <label for="">Απόθεμα</label>
+                            <label>Απόθεμα</label>
                             <input type="number" class="form-control" placeholder="Απόθεμα" ng-model="product.stock">
                         </div>
                         <div class="col-sm-6 form-group">
-                            <label for="">Ποσότητα Προϊόντος ανά Πώληση</label>
+                            <label>Ποσότητα Προϊόντος ανά Πώληση</label>
                             <input type="text" class="form-control" placeholder="Αριθμός τμχ / Ποσότητα (π.χ 100ml)" ng-model="product.amountForSale">
                         </div>
                         <div class="col-sm-6 form-group">
-                            <label for="">Προτεραιότητα</label>
+                            <label>Προτεραιότητα</label>
                             <input type="number" class="form-control" placeholder="Προτεραιότητα εμφάνισης (αριθμός)" ng-model="product.priority">
                         </div>
                     </div>
@@ -96,6 +96,7 @@
             <!-- ./Product Info Row -->
 
             <div class="row text-right">
+                <div><strong>Αριθμός Προβολών:</strong> {{product.viewCounter}}</div>
                 <div class="col-12">
                     <button type="submit" class="btn-fill mouse-hand">Αποθήκευση</button>
                     <a class="btn-outline unstyled-link" ng-href="#/products">Ακύρωση</a>

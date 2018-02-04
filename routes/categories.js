@@ -57,13 +57,23 @@ router.put('/one/:id/:admin', async (req, res) => {
 
 	Category.findByIdAndUpdate(id, updatedCategory, { new: true }, (err, category) => {
 		if (err) {
-			console.error(`${new Date()}, Category could not be updated. ERROR, ${err}`);
+			console.error(`${new Date()}, Category could not be updated. ERROR, ${err.message}`);
 			return res
 				.status(500)
 				.send(`Τα στοιχεία της κατηγορίας δεν ήταν δυνατόν να ανανεωθούν. Κωδικός σφάλματος: ${err.message}`);
 		}
 		res.send({ message: 'Τα στοιχεία της κατηγορίας ανανεώθηκαν επιτυχώς!', category });
 	});
+});
+
+router.put('/multiple/:admin', (req, res) => {
+	const { categories } = req.body;
+	try {
+		categories.forEach(async (category) => await Category.findByIdAndUpdate(category._id, category));
+	} catch (err) {
+		console.error(`${new Date()}, Multiple categories could not be updated. ERROR, ${err.message}`);
+		return res.status(500).send('Ένα σφάλμα συνέβη.');
+	}
 });
 
 router.delete('/one/:id/:admin', (req, res) => {
@@ -76,4 +86,34 @@ router.delete('/one/:id/:admin', (req, res) => {
 		res.send(`Η κατηγορία με όνομα ${category.name} διαγράφηκε επιτυχώς!`);
 	});
 });
+
+router.put('/clear-navbar', async (req, res) => {
+	try {
+		const categories = await Category.find();
+		categories.forEach(async (category) => {
+			category.navigationBarOrder = null;
+			category.isInNavigationBar = false;
+			await category.save();
+		});
+
+		res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');
+	} catch (err) {
+		console.error(`${new Date()}, Navigation bar could not get deleted. ERROR, ${err.message}`);
+		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+	}
+});
+
+router.get('/navigation-bar', (req, res) => {
+	Category.find({ isInNavigationBar: true })
+		.sort({ navigationBarOrder: 1 })
+		.select({ name: 1, slug: 1 })
+		.exec((err, navBar) => {
+			if (err) {
+				console.error(`${new Date()}, Navigation bar could not get retrieved. ERROR, ${err.message}`);
+				return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+			}
+			res.send(navBar);
+		});
+});
+
 module.exports = router;

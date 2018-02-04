@@ -9,8 +9,9 @@ const categories = require('./routes/categories.js');
 const shippings = require('./routes/shippings.js');
 const orders = require('./routes/orders.js');
 const admin = require('./routes/admin.js');
-const logger = require('./logs/logger.js');
 const config = require('./config.js');
+
+require('./schedule_jobs/productViewCounterReset.js');
 
 const app = express();
 

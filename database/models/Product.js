@@ -20,7 +20,8 @@ let productSchema = new mongoose.Schema({
 	images: [ String ],
 	featuredImage: String,
 	premium: { type: Boolean, default: false },
-	priority: { type: Number, default: null }
+	priority: { type: Number, default: null },
+	viewCounter: { type: Number, default: 0 }
 });
 
 productSchema.pre('validate', function(next) {

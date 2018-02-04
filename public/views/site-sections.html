@@ -13,40 +13,39 @@
     </div> -->
     <div class="row tab-content">
         <div ng-if="tab === 1" class="col-12">
-            <h3 class="text-center">Navigation
-
-            </h3>
-            <div class="row">
-                <div class="col-6">
-                    <h3 class="text-center">Categories</h3>
-                    <div class="category-wrapper">
-                        Cat
-                        <span class="float-right action add">+</span>
+            <h3 class="text-center">Navigation</h3>
+            <form ng-submit="updateNavigationBar(navCategories)">
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="text-center">Categories</h3>
+                        
+                        <input type="text" ng-model="categorySearchText" ng-change="filterCategories(categorySearchText)">
+                        <div ng-repeat="category in filteredCategories track by $index" ng-click="toggleCategoryFromNav(category)">{{category.name}}</div>
+                        
+                        <div ng-repeat="category in navCategories track by $index" class="category-wrapper">
+                            {{category.name}}
+                            <!-- <span class="float-right action add">+</span> -->
+                        </div>
+                        
                     </div>
-                    <div class="category-wrapper">
-                        Cat
-                    </div>
-                    <div class="category-wrapper">
-                        Cat
+                    <!-- <div class="col-6">
+                        <h3 class="text-center">Navigation</h3>
+                        <div class="category-wrapper">
+                            Nav
+                            <span class="float-right action remove">-</span>
+                        </div>
+                        <div class="category-wrapper">
+                            Nav
+                        </div>
+                        <div class="category-wrapper">
+                            Nav
+                        </div>
+                    </div> -->
+                    <div class="col-12 text-right" style=" margin-top: 1rem;">
+                        <button type="submit" class="btn-fill">Αποθήκευση</button>
                     </div>
                 </div>
-                <div class="col-6">
-                    <h3 class="text-center">Navigation</h3>
-                    <div class="category-wrapper">
-                        Nav
-                        <span class="float-right action remove">-</span>
-                    </div>
-                    <div class="category-wrapper">
-                        Nav
-                    </div>
-                    <div class="category-wrapper">
-                        Nav
-                    </div>
-                </div>
-                <div class="col-12 text-right" style=" margin-top: 1rem;">
-                    <button class="btn-fill">Αποθήκευση</button>
-                </div>
-            </div>
+            </form>
         </div>
         <div ng-if="tab === 2" class="col-12">
             <h3 class="text-center">Intro Text</h3>

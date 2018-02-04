@@ -36,9 +36,31 @@ app.service('$categories', function($http) {
 				})
 				.then((res) => res.data.category);
 		},
+		updateMultiple(categories) {
+			return $http
+				.put(
+					'/categories/multiple/admin',
+					{ categories },
+					{
+						headers: {
+							token: localStorage.token
+						}
+					}
+				)
+				.then((res) => res.data);
+		},
 		deleteOneById(id) {
 			return $http
 				.delete(`/categories/one/${id}/admin`, {
+					headers: {
+						token: localStorage.token
+					}
+				})
+				.then((res) => res.data);
+		},
+		clearNavBar() {
+			return $http
+				.put(`/categories/clear-navbar`, {
 					headers: {
 						token: localStorage.token
 					}

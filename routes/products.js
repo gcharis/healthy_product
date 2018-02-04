@@ -9,7 +9,7 @@ const router = express.Router();
 router.param('admin', checkAdmin);
 
 router.get('/all', (req, res) => {
-	Product.find({}, (err, products) => {
+	Product.find({}).select('-images').exec((err, products) => {
 		if (err) {
 			console.error(`${new Date()}, Products could not get retrieved. ERROR, ${err.message}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
@@ -37,6 +37,17 @@ router.get('/one-slug/:slug', (req, res) => {
 			return res.status(500).send('Κάποιο σφάλμα συνέβη');
 		}
 		res.send(product);
+
+		if (req.query.guest) {
+			product.viewCounter++;
+			try {
+				product.save();
+			} catch (err) {
+				console.error(
+					`${new Date()}, Product ${product.name} view counter could not get updated. ERROR, ${err.message}`
+				);
+			}
+		}
 	});
 });
 
