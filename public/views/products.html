@@ -117,7 +117,7 @@
 
                         <div ng-if="!!newProduct.featuredImage">
                             <h5>Προτεινόμενη Εικόνα</h5>
-                            <img class="img-fluid" ng-src="{{newProduct.featuredImage}}" ng-if="!!newProduct.featuredImage" style="margin-bottom:1rem;">
+                            <img class="img-fluid" ng-src="{{newProduct.featuredImage}}" ng-if="!!newProduct.featuredImage" style="margin-bottom:1rem;max-width:30.3333%">
                         </div>
                         <div class="row">
                             <div class="col-md-4" ng-repeat="image in newProduct.images track by $index">

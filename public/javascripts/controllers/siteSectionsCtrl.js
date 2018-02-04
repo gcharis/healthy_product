@@ -1,4 +1,4 @@
-app.controller('siteSections', function($scope, $categories, $http) {
+app.controller('siteSections', function ($scope, $categories, $http) {
 	$scope.navCategories = [];
 	getCategories();
 	$scope.startUploadingPictures = () => document.getElementById('picture-input').click();

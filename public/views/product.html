@@ -7,7 +7,7 @@
                 <div class="col-md-6">
 
                     <h3>Προτεινόμενη Εικόνα</h3>
-                    <img class="img-fluid mb-2 featured-image" ng-src="{{product.featuredImage}}" err-src="public/img/error-image.jpg">
+                    <img class="img-fluid mb-2 featured-image" ng-src="{{product.featuredImage}}" err-src="public/img/error-image.jpg" style="max-height:200px;">
                     <hr>
 
                     <div class="row">
@@ -17,7 +17,7 @@
                         </div>
                         <input id="picture-input" style="display: none" type="file" class="form-control" placeholder="Add new image" image-upload
                             images="product.images" accept=".jpg, .jpeg, .png">
-                        <div ng-repeat="image in product.images track by $index" class="col-md-6 mb-2">
+                        <div ng-repeat="image in product.images track by $index" class="col-md-4 mb-2">
                             <img ng-src="{{image}}" class="img-fluid">
                             <div class="img-actions">
                                 <div class="row">
@@ -96,7 +96,8 @@
             <!-- ./Product Info Row -->
 
             <div class="row text-right">
-                <div><strong>Αριθμός Προβολών:</strong> {{product.viewCounter}}</div>
+                <div>
+                    <strong>Αριθμός Προβολών:</strong> {{product.viewCounter}}</div>
                 <div class="col-12">
                     <button type="submit" class="btn-fill mouse-hand">Αποθήκευση</button>
                     <a class="btn-outline unstyled-link" ng-href="#/products">Ακύρωση</a>
