@@ -74,6 +74,25 @@ input::-webkit-inner-spin-button {
 	border-color: #51493d;
 }
 
+/* Border */
+
+.brdr-right {
+	border-right: 1px solid #ccc;
+}
+
+/* Add/Remove */
+
+.add-remove {
+	width: 25px;
+	margin: .75rem 0;
+}
+
+.remove-cross {
+	color: red;
+	font-size: 1.9rem;
+	font-weight: 300;
+}
+
 /* All Pages Styling */
 
 .main-container {
@@ -267,7 +286,7 @@ div#registerModal {
 }
 
 #registerModal input.form-control {
-	height: 50px;
+	height: 3rem;
 	border: 1px solid #ccc;
 	border-radius: 0;
 }
@@ -324,8 +343,8 @@ div#registerModal {
 }
 
 .category-wrapper.ng-scope {
-	background: whitesmoke;
-	padding: .75rem;
+	/* background: whitesmoke; */
+	padding: 0 .75rem 0 0;
 	margin-bottom: .5rem;
 }
 
@@ -433,6 +452,10 @@ text-angular button .btn {
                                             Order Page
 ======================================================================================================= */
 
+.order form {
+	padding: 0 1rem;
+}
+
 .order .col-md-8 {
 	padding-right: .5rem;
 }
@@ -442,7 +465,12 @@ text-angular button .btn {
 }
 
 .order .white-wrapper {
-	padding: 2rem 2rem 2rem;
+	padding: 2rem 2rem;
+	max-width: 900px;
+	margin: 0 auto;
+	margin-bottom: 1rem;
+	border-radius: 2px;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
 }
 
 .order-section {

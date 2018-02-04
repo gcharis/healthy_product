@@ -16,31 +16,31 @@
             <h3 class="text-center">Navigation</h3>
             <form ng-submit="updateNavigationBar(navCategories)">
                 <div class="row">
-                    <div class="col-6">
-                        <h3 class="text-center">Categories</h3>
+                    <div class="col-12 mat-section-padding mb-2">
+                        <label> Αναζήτηση Κατηγορίας</label>
+                        <input type="text" ng-model="categorySearchText" ng-change="filterCategories(categorySearchText)" class="form-control material-input-form"
+                            placeholder="Φρέσκια Γυρη">
 
-                        <input type="text" ng-model="categorySearchText" ng-change="filterCategories(categorySearchText)">
-                        <div ng-repeat="category in filteredCategories track by $index" ng-click="toggleCategoryFromNav(category)">{{category.name}}</div>
-
-                        <div ng-repeat="category in navCategories track by $index" class="category-wrapper">
-                            {{category.name}}
-                            <!-- <span class="float-right action add">+</span> -->
+                    </div>
+                    <div class="col-sm-6 brdr-right">
+                        <h3 class="text-center">Κατηγορίες</h3>
+                        <div ng-repeat="category in filteredCategories track by $index" ng-click="toggleCategoryFromNav(category); isInNav = !isInNav"
+                            class="category-wrapper">{{category.name}}
+                            <span class="float-right" ng-if="!isInNav">
+                                <img src="/public/img/svg-icons/add.svg" alt="" class="img-fluid add-remove">
+                            </span>
+                            <span class="float-right" ng-if="isInNav">
+                                <img src="/public/img/svg-icons/substract.svg" alt="" class="img-fluid add-remove">
+                            </span>
                         </div>
 
                     </div>
-                    <!-- <div class="col-6">
-                        <h3 class="text-center">Navigation</h3>
-                        <div class="category-wrapper">
-                            Nav
-                            <span class="float-right action remove">-</span>
+                    <div class="col-sm-6">
+                        <h3 class="text-center">Μπάρα Πλοήγησης</h3>
+                        <div ng-repeat="category in navCategories track by $index" class="category-wrapper">
+                            {{category.name}}
                         </div>
-                        <div class="category-wrapper">
-                            Nav
-                        </div>
-                        <div class="category-wrapper">
-                            Nav
-                        </div>
-                    </div> -->
+                    </div>
                     <div class="col-12 text-right" style=" margin-top: 1rem;">
                         <button type="submit" class="btn-fill">Αποθήκευση</button>
                     </div>
