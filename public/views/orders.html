@@ -21,7 +21,7 @@
                 <tbody>
                     <tr ng-repeat="order in orders track by $index">
                         <th scope="row">{{order.id}}</th>
-                        <td>{{order.creationDate | date: 'dd-MM-yyyy'}}</td>
+                        <td>{{order.creationDate | date: 'dd/MM/yyyy HH:mm'}}</td>
                         <td am-time-ago="order.lastUpdate"></td>
                         <td>{{order.customer.firstname}}</td>
                         <td>{{order.customer.lastname}}</td>
@@ -58,7 +58,7 @@
                 <li class="page-item" ng-if="totalPages - currentPage >= 3">
                     <a class="page-link">...</a>
                 </li>
-                <li ng-class="currentPage === pages.length ? 'active' : null" class="page-item" ng-if="pages.length !== 1">
+                <li ng-class="currentPage === pages.length ? 'active' : null" class="page-item" ng-if="pages.length !== 1 && !!pages.length">
                     <a class="page-link" ng-href="#/orders/page/{{pages.length}}">
                         {{pages.length}}
                     </a>

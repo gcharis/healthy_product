@@ -84,8 +84,8 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in order.items track by $index">
-                                <th scope="row">{{item.name}}</th>
-                                <td>{{item.weight | number: 2}}€</td>
+                                <th scope="row">{{item.name}} {{item.amountForSale}}</th>
+                                <td>{{item.weight | number: 2}}</td>
                                 <td>x{{item.amount}}</td>
                                 <td>{{item.price | number: 2}}€</td>
                                 <td class="text-right">{{(item.price * item.amount) | number: 2}}€</td>
