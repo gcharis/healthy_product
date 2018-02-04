@@ -6,8 +6,8 @@ let categorySchema = new mongoose.Schema({
 	slug: { type: String, unique: true, required: true },
 	description: { type: String, default: '' },
 	parent: { type: String, default: '' },
-	navigationBarOrder: { type: Number, default: null },
-	isInNavigationBar: { type: Boolean, default: false }
+	orderInNavBar: { type: Number, default: null },
+	isInNavBar: { type: Boolean, default: false }
 });
 
 categorySchema.pre('validate', function(next) {

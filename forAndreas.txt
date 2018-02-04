@@ -7,3 +7,8 @@
     - Νέα παραγγελία
     - Εκτελεσμένη
     - Ακυρωμένη
+
+
+REGISTER_KEY
+SECRET_KEY (auth)
+CAPTCHA_KEY

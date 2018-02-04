@@ -91,8 +91,8 @@ router.put('/clear-navbar', async (req, res) => {
 	try {
 		const categories = await Category.find();
 		categories.forEach(async (category) => {
-			category.navigationBarOrder = null;
-			category.isInNavigationBar = false;
+			category.orderInNavBar = null;
+			category.isInNavBar = false;
 			await category.save();
 		});
 
@@ -104,16 +104,13 @@ router.put('/clear-navbar', async (req, res) => {
 });
 
 router.get('/navigation-bar', (req, res) => {
-	Category.find({ isInNavigationBar: true })
-		.sort({ navigationBarOrder: 1 })
-		.select({ name: 1, slug: 1 })
-		.exec((err, navBar) => {
-			if (err) {
-				console.error(`${new Date()}, Navigation bar could not get retrieved. ERROR, ${err.message}`);
-				return res.status(500).send('Κάποιο σφάλμα συνέβη.');
-			}
-			res.send(navBar);
-		});
+	Category.find({ isInNavBar: true }).sort({ orderInNavBar: 1 }).select({ name: 1, slug: 1 }).exec((err, navBar) => {
+		if (err) {
+			console.error(`${new Date()}, Navigation bar could not get retrieved. ERROR, ${err.message}`);
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+		}
+		res.send(navBar);
+	});
 });
 
 module.exports = router;

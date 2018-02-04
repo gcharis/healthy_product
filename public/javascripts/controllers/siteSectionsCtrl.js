@@ -17,11 +17,12 @@ app.controller('siteSections', function ($scope, $categories, $http) {
 
 	$scope.updateNavigationBar = async (navCategories) => {
 		navCategories.forEach((cat, i) => {
-			cat.navigationBarOrder = i;
-			cat.isInNavigationBar = true;
+			cat.orderInNavBar = i;
+			cat.isInNavBar = true;
 		});
 		try {
 			await $categories.clearNavBar();
+			console.log(navCategories);
 			$categories.updateMultiple(navCategories).then((res) => console.log(res));
 		} catch (err) {
 			console.warn(err);
@@ -32,6 +33,10 @@ app.controller('siteSections', function ($scope, $categories, $http) {
 		$categories.getAll().then((categories) => {
 			$scope.categories = categories;
 			$scope.filteredCategories = categories;
+
+			$scope.navCategories = $scope.categories
+				.filter((category) => !!category.isInNavBar)
+				.sort((a, b) => a.orderInNavBar > b.orderInNavBar);
 		});
 	}
 });
