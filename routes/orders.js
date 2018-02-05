@@ -14,18 +14,14 @@ router.post('/all/:admin', async (req, res) => {
 	const page = req.body.page;
 	try {
 		const orders = await Order.find()
-			.sort({
-				creationDate: -1
-			})
+			.sort({ creationDate: -1 })
 			.skip((page - 1) * ordersPerPage)
 			.limit(ordersPerPage);
+
 		const totalOrders = await Order.count();
 		const pages = Math.ceil(totalOrders / ordersPerPage);
 
-		res.send({
-			orders,
-			pages
-		});
+		res.send({ orders, pages });
 	} catch (err) {
 		console.error(`${new Date()}, Orders could not get retrieved. ERROR, ${err.message}`);
 		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
@@ -34,9 +30,7 @@ router.post('/all/:admin', async (req, res) => {
 
 router.get('/one/:id/:admin', (req, res) => {
 	const id = req.params.id;
-	Order.findOne({
-		id
-	}, (err, order) => {
+	Order.findOne({ id }, (err, order) => {
 		if (err) {
 			console.error(`${new Date()}, Order could not get retrieved. ERROR, ${err.message}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
@@ -58,10 +52,11 @@ router.get('/one/:id/', (req, res) => {
 
 router.post('/new/', async (req, res) => {
 	if (!req.body.recaptcha || req.body.recaptcha === ' ') return res.status(403).send('no captcha');
+
 	const secretKey = process.env.CAPTCHA_KEY;
 	const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body
 		.recaptcha}&remoteip=${req.connection.remoteAddress}`;
-	console.log(secretKey)
+
 	const googleRes = await axios.post(verifyUrl);
 	if (!googleRes.data || !googleRes.data.success) return res.status(403).send('No successfull captcha');
 
@@ -82,21 +77,14 @@ router.post('/new/', async (req, res) => {
 
 router.put('/one/:id/:admin', (req, res) => {
 	const id = req.params.id;
-	Order.update({
-		_id: id
-	}, req.body, {
-		new: true
-	}, (err, order) => {
+	Order.update({ _id: id }, req.body, (err) => {
 		if (err) {
 			console.error(`${new Date()}, Order could not be updated. ERROR, ${err.message}`);
 			return res
 				.status(500)
 				.send(`Τα στοιχεία της παραγγελίας δεν ήταν δυνατόν να ανανεωθούν. Κωδικός σφάλματος: ${err.message}`);
 		}
-		res.send({
-			message: `Τα στοιχεία παραγγελίας ${order.id} ανανεώθηκαν επιτυχώς!`,
-			order
-		});
+		res.send(`Τα στοιχεία της παραγγελίας ${req.body.id} ανανεώθηκαν επιτυχώς!`);
 	});
 });
 
