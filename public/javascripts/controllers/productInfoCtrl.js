@@ -10,7 +10,7 @@ app.controller('productInfo', function($scope, $routeParams, $location, $product
 		.catch((res) => ($scope.message = res.data));
 
 	$scope.updateProduct = (product) => {
-		$products.resizeImages(product);
+		$jsUtils.resizeImages(product.images);
 		$products
 			.updateOneById(product)
 			.then((data) => $location.path('/products'))

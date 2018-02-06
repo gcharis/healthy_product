@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const Data = require('../database/models/Data.js');
 const checkAdmin = require('../authentication/bustAndLog.js');
 
@@ -8,25 +9,36 @@ const router = express.Router();
 // a log will be saved
 router.param('admin', checkAdmin);
 
-router.get('/:admin', (req, res) => {
-	Data.findOne({ label: req.query.label }, (err, data) => {
+router.get('/:label/:admin', (req, res) => {
+	Data.findOne({ label: req.params.label }, (err, data) => {
 		if (err) {
-			console.error(`${new Date()}, New data could not get retrieved. ERROR, ${err.message}`);
+			console.error(`${new Date()}, Datum could not get retrieved. ERROR, ${err.message}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		res.send(data);
 	});
 });
 
-router.put('/:admin', (req, res) => {
-	Data.update({ _id: req.body._id }, req.body, { upsert: true }, (err) => {
-		if (err) {
-			console.error(`${new Date()}, New data could not be saved. ERROR, ${err.message}`);
-			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
-		}
+router.put('/:admin', async (req, res) => {
+	if (!req.body._id) {
+		const newData = new Data(req.body);
+		newData.save((err, input) => {
+			if (err) {
+				console.error(`${new Date()}, New data could not be saved. ERROR, ${err.message}`);
+				return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+			}
 
-		res.send('Η νέα πληροφορία αποθηκεύτηκε επιτυχώς!');
-	});
+			res.send({ message: 'Η νέα πληροφορία αποθηκεύτηκε επιτυχώς!', input });
+		});
+	} else {
+		Data.findByIdAndUpdate(req.body._id, req.body, { new: true }, (err, input) => {
+			if (err) {
+				console.error(`${new Date()}, New data could not be saved. ERROR, ${err.message}`);
+				return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+			}
+			res.send({ message: 'Η νέα πληροφορία αποθηκεύτηκε επιτυχώς!', input });
+		});
+	}
 });
 
 module.exports = router;
