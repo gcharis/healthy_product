@@ -1,5 +1,8 @@
 <nav class="navbar navbar-expand-md navbar-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#/">
+        <img src="/public/img/logo.png" alt="" class="img-fluid">
+
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -7,9 +10,9 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="#/">Αρχική</a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link" href="#/products">Προϊόντα</a>
             </li>
@@ -26,8 +29,16 @@
             <li class="nav-item">
                 <a class="nav-link" href="#/orders/page/1">Παραγγελίες</a>
             </li>
-            <li class="nav-item" ng-controller="login" ng-show="isLoggedIn">
-                <a class="nav-link" href="" ng-click="onLogout()" style="color:white">Logout</a>
+
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item" ng-controller="login" ng-show="isLoggedIn" style="min-width: 100px;">
+                <a class="nav-link" href="" ng-click="onLogout()" style="color:white">
+                    <span>Logout</span>
+                    <img src="/public/img/exit.svg" alt="" class="img-fluid" style="display: inline-block;
+                    max-width: 20px;
+                    margin-left: .5rem;">
+                </a>
             </li>
         </ul>
     </div>
