@@ -1,4 +1,4 @@
-app.controller('siteSections', function($scope, $categories, $http) {
+app.controller('siteSections', function($scope, $categories, $http, $jsUtils) {
 	$scope.navCategories = [];
 	getCategories();
 	$scope.startUploadingPictures = () => document.getElementById('picture-input').click();
@@ -52,19 +52,47 @@ app.controller('siteSections', function($scope, $categories, $http) {
 					token: localStorage.token
 				}
 			})
-			.then((res) => console.log(res))
+			.then(({ message, data }) => {
+				$scope.introText = data.input;
+			})
 			.catch((err) => console.warn(err));
 
 	function getIntroText() {
 		$http
-			.get('/datum/admin?label=intro', {
+			.get('/datum/intro/admin', {
 				headers: {
 					token: localStorage.token
 				}
 			})
-			.then((res) => {
-				$scope.introText = res.data;
+			.then(({ message, data }) => {
+				$scope.introText = data || { label: 'intro', content: '' };
 			})
+			.catch((err) => console.warn(err));
+	}
+
+	getSlider();
+
+	$scope.updateSlider = (sliderImages) => {
+		const resizedImages = $jsUtils.resizeImages(sliderImages);
+
+		$http
+			.put('/images/slider/admin', resizedImages, {
+				headers: {
+					token: localStorage.token
+				}
+			})
+			.then((res) => console.log(res.data))
+			.catch((err) => console.warn(err));
+	};
+
+	function getSlider() {
+		$http
+			.get('/images/slider/admin', {
+				headers: {
+					token: localStorage.token
+				}
+			})
+			.then((res) => ($scope.slider = res.data))
 			.catch((err) => console.warn(err));
 	}
 });

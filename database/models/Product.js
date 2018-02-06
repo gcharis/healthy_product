@@ -18,7 +18,7 @@ let productSchema = new mongoose.Schema({
 	creationDate: { type: Date, default: Date.now },
 	expirationDate: Date,
 	images: [ String ],
-	featuredImage: String,
+	featuredImage: { type: String, default: '' },
 	premium: { type: Boolean, default: false },
 	priority: { type: Number, default: null },
 	viewCounter: { type: Number, default: 0 }
