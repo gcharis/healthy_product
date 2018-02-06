@@ -22,7 +22,6 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils) {
 		});
 		try {
 			await $categories.clearNavBar();
-			console.log(navCategories);
 			$categories.updateMultiple(navCategories).then((res) => console.log(res));
 		} catch (err) {
 			console.warn(err);
@@ -72,27 +71,19 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils) {
 
 	getSlider();
 
-	$scope.updateSlider = (sliderImages) => {
-		const resizedImages = $jsUtils.resizeImages(sliderImages);
+	$scope.updateSlider = (slider) => {
+		slider.images = $jsUtils.resizeImages(slider.images);
 
 		$http
-			.put('/images/slider/admin', resizedImages, {
-				headers: {
-					token: localStorage.token
-				}
-			})
+			.put('/images/slider/admin', slider, { headers: { token: localStorage.token } })
 			.then((res) => console.log(res.data))
 			.catch((err) => console.warn(err));
 	};
 
 	function getSlider() {
 		$http
-			.get('/images/slider/admin', {
-				headers: {
-					token: localStorage.token
-				}
-			})
-			.then((res) => ($scope.slider = res.data))
+			.get('/images/slider', { headers: { token: localStorage.token } })
+			.then((res) => ($scope.slider = res.data[0] || { images: [] }))
 			.catch((err) => console.warn(err));
 	}
 });

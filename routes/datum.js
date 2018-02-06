@@ -33,7 +33,7 @@ router.put('/:admin', async (req, res) => {
 	} else {
 		Data.findByIdAndUpdate(req.body._id, req.body, { new: true }, (err, input) => {
 			if (err) {
-				console.error(`${new Date()}, New data could not be saved. ERROR, ${err.message}`);
+				console.error(`${new Date()}, Data could not be updated. ERROR, ${err.message}`);
 				return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 			}
 			res.send({ message: 'Η νέα πληροφορία αποθηκεύτηκε επιτυχώς!', input });

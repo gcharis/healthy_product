@@ -8,25 +8,37 @@ const router = express.Router();
 // a log will be saved
 router.param('admin', checkAdmin);
 
-router.get('/slider/:admin', (req, res) => {
-	Slider.find((err, slider) => {
+router.get('/slider', (req, res) => {
+	Slider.find((err, sliders) => {
 		if (err) {
 			console.error(`${new Date()}, Slider could not get retrieved. ERROR, ${err.message}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
-		res.send(slider);
+		res.send(sliders);
 	});
 });
 
 router.put('/slider/:admin', (req, res) => {
-	Slider.update({ _id: req.body._id }, req.body, { upsert: true }, (err) => {
-		if (err) {
-			console.error(`${new Date()}, Slider could not be saved. ERROR, ${err.message}`);
-			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
-		}
+	console.log(req.body._id);
+	if (!req.body._id) {
+		const newSlider = new Slider(req.body);
+		newSlider.save((err, slider) => {
+			if (err) {
+				console.error(`${new Date()}, New slider could not be saved. ERROR, ${err.message}`);
+				return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+			}
 
-		res.send('Το νέο slider αποθηκεύτηκε επιτυχώς!');
-	});
+			res.send({ message: 'Το νέο slider αποθηκεύτηκε επιτυχώς!', slider });
+		});
+	} else {
+		Slider.findByIdAndUpdate(req.body._id, req.body, { new: true }, (err, slider) => {
+			if (err) {
+				console.error(`${new Date()}, Slider could not be updated. ERROR, ${err.message}`);
+				return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+			}
+			res.send({ message: 'Το νέο slider αποθηκεύτηκε επιτυχώς!', slider });
+		});
+	}
 });
 
 module.exports = router;

@@ -64,13 +64,13 @@
             </div>
         </div>
         <div ng-show="tab === 4" class="col-12 slider-tab">
-            <form ng-submit="updateSlider(sliderImages)">
+            <form ng-submit="updateSlider(slider)">
                 <h3 class="text-center" style="padding-left: 162px;">Slider
                     <button type="button" ng-click="startUploadingPictures()" class="btn-fill float-right">Προσθήκη Εικόνας</button>
-                    <input id="picture-input" style="display: none" type="file" class="form-control" placeholder="Add new image" image-upload images="sliderImages" accept=".jpg, .jpeg, .png">
+                    <input id="picture-input" style="display: none" type="file" class="form-control" placeholder="Add new image" image-upload images="slider.images" accept=".jpg, .jpeg, .png">
                 </h3>
                 <div class="row">
-                    <div class="col-md-4 slider-photo-col" ng-repeat="image in sliderImages track by $index">
+                    <div class="col-md-4 slider-photo-col" ng-repeat="image in slider.images track by $index">
                         <img ng-src="{{image}}" class="img-fluid">
                     </div>
                 </div>
