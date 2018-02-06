@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 let shippingSchema = new mongoose.Schema({
 	company: { type: String, required: true, unique: true },
 	defaultPrice: { type: Number, required: true },
-	maxWeight: { type: Number, default: 999999999 },
+	maxWeight: { type: Number, default: null },
 	startingSubtotal: { type: Number, default: 0 },
 	upToSubtotal: { type: Number, default: null },
 	priceAdded: { type: Number, default: 0 },

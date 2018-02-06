@@ -1,4 +1,4 @@
-app.controller('siteSections', function ($scope, $categories, $http) {
+app.controller('siteSections', function($scope, $categories, $http) {
 	$scope.navCategories = [];
 	getCategories();
 	$scope.startUploadingPictures = () => document.getElementById('picture-input').click();
@@ -29,6 +29,9 @@ app.controller('siteSections', function ($scope, $categories, $http) {
 		}
 	};
 
+	$scope.categoryIsInNavBar = (category) =>
+		!!$scope.navCategories.find((navCategory) => navCategory._id === category._id);
+
 	function getCategories() {
 		$categories.getAll().then((categories) => {
 			$scope.categories = categories;
@@ -38,5 +41,30 @@ app.controller('siteSections', function ($scope, $categories, $http) {
 				.filter((category) => !!category.isInNavBar)
 				.sort((a, b) => a.orderInNavBar > b.orderInNavBar);
 		});
+	}
+
+	getIntroText();
+
+	$scope.updateIntroText = (newData) =>
+		$http
+			.put('/datum/admin', newData, {
+				headers: {
+					token: localStorage.token
+				}
+			})
+			.then((res) => console.log(res))
+			.catch((err) => console.warn(err));
+
+	function getIntroText() {
+		$http
+			.get('/datum/admin?label=intro', {
+				headers: {
+					token: localStorage.token
+				}
+			})
+			.then((res) => {
+				$scope.introText = res.data;
+			})
+			.catch((err) => console.warn(err));
 	}
 });
