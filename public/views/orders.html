@@ -28,8 +28,13 @@
                         <td>{{order.total | number: 2}}€</td>
                         <td>{{order.payment.method}}</td>
                         <td>
-                            <a ng-href="#/orders/{{order.id}}">edit</a>
-                            <span ng-click="deleteOrder(order)">delete</span>
+                            <a ng-href="#/orders/{{order.id}}" class="btn-outline">
+                                <img src="/public/img/svg-icons/file-or.svg" class="img-fluid">
+                            </a>
+                            <button class="btn-fill">
+                                <img src="/public/img/svg-icons/dustbin-wh.svg" ng-click="deleteOrder(order)" class="img-fluid">
+                            </button>
+                            <!-- <span >delete</span> -->
                         </td>
                     </tr>
                 </tbody>
