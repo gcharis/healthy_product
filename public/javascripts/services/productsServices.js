@@ -41,10 +41,8 @@ app.service('$products', function($http) {
 				const canvas = document.createElement('canvas');
 				const ctx = canvas.getContext('2d');
 
-				const maxWidth = 600;
-				const maxHeight = 600;
-				let width = img.width;
-				let height = img.height;
+				const maxWidth = 800;
+				const maxHeight = 800;
 
 				if (img.width > img.height) {
 					if (img.width > maxWidth) {

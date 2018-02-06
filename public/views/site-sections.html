@@ -12,7 +12,7 @@
         </div>
     </div> -->
     <div class="row tab-content">
-        <div ng-if="tab === 1" class="col-12">
+        <div ng-show="tab === 1" class="col-12">
             <h3 class="text-center">Navigation</h3>
             <form ng-submit="updateNavigationBar(navCategories)">
                 <div class="row">
@@ -26,11 +26,11 @@
                         <h3 class="text-center">Κατηγορίες</h3>
                         <div ng-repeat="category in filteredCategories track by $index" ng-click="toggleCategoryFromNav(category); isInNav = !isInNav"
                             class="category-wrapper">{{category.name}}
-                            <span class="float-right" ng-if="!isInNav">
-                                <img src="/public/img/svg-icons/add.svg" alt="" class="img-fluid add-remove">
+                            <span class="float-right" ng-if="!categoryIsInNavBar(category)">
+                                <img src="/public/img/svg-icons/add.svg" class="img-fluid add-remove">
                             </span>
-                            <span class="float-right" ng-if="isInNav">
-                                <img src="/public/img/svg-icons/substract.svg" alt="" class="img-fluid add-remove">
+                            <span class="float-right" ng-if="categoryIsInNavBar(category)">
+                                <img src="/public/img/svg-icons/substract.svg" class="img-fluid add-remove">
                             </span>
                         </div>
 
@@ -47,21 +47,23 @@
                 </div>
             </form>
         </div>
-        <div ng-if="tab === 2" class="col-12">
-            <h3 class="text-center">Intro Text</h3>
-            <text-angular ng-model="htmlVariable"></text-angular>
-            <div class="col-12 text-right" style="padding:0;margin-top: 1rem;">
-                <button class="btn-fill">Αποθήκευση</button>
-            </div>
+        <div ng-show="tab === 2" class="col-12" ng-init="introText = {label: 'intro'}">
+            <form ng-submit="updateIntroText(introText)">
+                <h3 class="text-center">Intro Text</h3>
+                <text-angular ng-model="introText.content"></text-angular>
+                <div class="col-12 text-right" style="padding:0;margin-top: 1rem;">
+                    <button type="submit" class="btn-fill">Αποθήκευση</button>
+                </div>
+            </form>
         </div>
-        <div ng-if="tab === 3" class="col-12">
+        <div ng-show="tab === 3" class="col-12">
             <h3 class="text-center">Banks</h3>
             <text-angular ng-model="htmlVariable"></text-angular>
             <div class="col-12 text-right" style="padding:0;margin-top: 1rem;">
                 <button class="btn-fill">Αποθήκευση</button>
             </div>
         </div>
-        <div ng-if="tab === 4" class="col-12 slider-tab">
+        <div ng-show="tab === 4" class="col-12 slider-tab">
             <h3 class="text-center" style="padding-left: 162px;">Slider
                 <button ng-click="startUploadingPictures()" class="btn-fill float-right">Προσθήκη Εικόνας</button>
                 <input id="picture-input" style="display: none" type="file" class="form-control ng-isolate-scope" placeholder="Add new image">

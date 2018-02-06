@@ -2,7 +2,7 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 	showProducts();
 
 	$scope.registerProduct = (newProduct) => {
-		$products.resizeImages(product);
+		$products.resizeImages(newProduct);
 		$products
 			.register(newProduct)
 			.then((product) => {

@@ -20,8 +20,8 @@
                 <tr ng-repeat="shipping in shippings track by $index">
                     <th scope="row">{{shipping.company}}</th>
                     <td>{{shipping.defaultPrice | number: 2}}€</td>
-                    <td ng-if="shipping.maxWeight !== 999999999">{{shipping.maxWeight | number: 3}}kg</td>
-                    <td ng-if="shipping.maxWeight === 999999999">-</td>
+                    <td ng-if="!!shipping.maxWeight">{{shipping.maxWeight | number: 2}}kg</td>
+                    <td ng-if="!shipping.maxWeight">-</td>
                     <td>{{shipping.priceAdded | number: 2}}€</td>
                     <td>
                         <button class="btn-outline" ng-click="editShipping(shipping)" title="Επεξεργασία Τρόπου Αποστολής">
