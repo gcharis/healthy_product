@@ -123,6 +123,11 @@ input::-webkit-inner-spin-button {
 	color: white;
 }
 
+.btn-outline img,
+.btn-fill img {
+	max-width: 25px;
+}
+
 /* ======================================================================================================= 
                                              Nav Bar
 ======================================================================================================= */
@@ -498,4 +503,8 @@ text-angular button .btn {
 .order tr.total4 td {
 	border-top: none;
 	border-bottom: none;
+}
+
+.orders table td:last-child {
+	min-width: 130px;
 }
