@@ -16,8 +16,8 @@ module.exports = function(req, res, next) {
 
 			const newLog = { date: new Date(), content: `Αποτυχημένη προσπάθεια σύνδεσης για την IP: ${intruderIP}` };
 
-			logger.updateLogs(newLog).catch((err) => res.status(500));
+			logger.updateLogs(newLog).catch((err) => res.status(401));
 
-			res.status(500).send(err.message);
+			res.status(401).send(err.message);
 		});
 };

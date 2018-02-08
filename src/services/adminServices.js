@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.service('$admin', function($http, $rootScope) {
 	function saveToken(token) {
 		localStorage.setItem('token', token);
@@ -11,11 +13,7 @@ app.service('$admin', function($http, $rootScope) {
 
 	return {
 		getVerification(token) {
-			return $http.post('/admin/verify', null, {
-				headers: {
-					token
-				}
-			});
+			return $http.post('/admin/verify', null, { headers: { token } });
 		},
 		register(data) {
 			return $http.post('/admin/register', data).then((res) => {

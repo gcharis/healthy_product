@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.controller('orderInfo', function($scope, $orders, $routeParams, $location) {
 	$orders.getByOrderId($routeParams.id).then((order) => ($scope.order = order)).catch((err) => console.warn(err));
 

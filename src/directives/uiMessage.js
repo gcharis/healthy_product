@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.directive('uiMessage', function($timeout) {
 	return {
 		restrict: 'EA',

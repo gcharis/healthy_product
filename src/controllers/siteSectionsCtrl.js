@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.controller('siteSections', function($scope, $categories, $http, $jsUtils) {
 	$scope.navCategories = [];
 	getCategories();

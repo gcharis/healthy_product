@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.directive('imageUpload', function() {
 	return {
 		restrict: 'EA',

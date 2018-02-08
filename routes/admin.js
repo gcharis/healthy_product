@@ -7,12 +7,12 @@ const authentication = require('../authentication/jwtAuthentication.js');
 const router = express.Router();
 
 router.post('/verify', (req, res) => {
-	if (!req.headers.token) return res.status(500).send('No token found');
+	if (!req.headers.token) return res.status(401).send('No token found');
 
 	authentication
 		.verifyAdmin(req.headers.token)
 		.then((results) => res.send('Admin verified'))
-		.catch((err) => res.status(500).send(err.message));
+		.catch((err) => res.status(401).send(err.message));
 });
 
 router.post('/register', (req, res, next) => {

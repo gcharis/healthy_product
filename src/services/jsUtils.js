@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.service('$jsUtils', function() {
 	Object.defineProperties(Array.prototype, {
 		includesElem: {

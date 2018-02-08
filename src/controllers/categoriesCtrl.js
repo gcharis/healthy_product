@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.controller('categories', function($http, $scope, $categories, $timeout, $location, $uiHandler) {
 	showCategories();
 
@@ -8,7 +10,7 @@ app.controller('categories', function($http, $scope, $categories, $timeout, $loc
 				$uiHandler.hideModalById('registerModal');
 				showCategories();
 			})
-			.catch((res) => ($scope.message = res.data));
+			.catch((err) => ($scope.message = err));
 	};
 
 	$scope.addNewCategory = () => {
@@ -25,7 +27,7 @@ app.controller('categories', function($http, $scope, $categories, $timeout, $loc
 
 				showCategories();
 			})
-			.catch((res) => ($scope.message = res.data));
+			.catch((err) => ($scope.message = err));
 	};
 
 	$scope.editCategory = (category) => {
@@ -37,10 +39,7 @@ app.controller('categories', function($http, $scope, $categories, $timeout, $loc
 	};
 
 	$scope.deleteCategory = (category) =>
-		$categories
-			.deleteOneById(category._id)
-			.then((data) => showCategories())
-			.catch((res) => ($scope.message = res.data));
+		$categories.deleteOneById(category._id).then((data) => showCategories()).catch((err) => ($scope.message = err));
 
 	function showCategories() {
 		$categories.getAll().then((categories) => ($scope.categories = categories)).catch((err) => console.warn(err));
@@ -50,7 +49,7 @@ app.controller('categories', function($http, $scope, $categories, $timeout, $loc
 		$categories
 			.getOneById(category._id)
 			.then((category) => ($scope.category = category))
-			.catch((res) => console.warn(res.data));
+			.catch((err) => console.warn(err));
 	}
 
 	function clearCategoryEditingForm() {

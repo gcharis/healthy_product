@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.controller('productInfo', function($scope, $routeParams, $location, $products, $categories, $jsUtils, $uiHandler) {
 	Promise.all([ getProductInfo(), getCategories() ])
 		.then((results) => {
@@ -7,14 +9,14 @@ app.controller('productInfo', function($scope, $routeParams, $location, $product
 				$scope.categories = results[1];
 			});
 		})
-		.catch((res) => ($scope.message = res.data));
+		.catch((err) => ($scope.message = err));
 
 	$scope.updateProduct = (product) => {
 		$jsUtils.resizeImages(product.images);
 		$products
 			.updateOneById(product)
 			.then((data) => $location.path('/products'))
-			.catch((res) => ($scope.message = res.data));
+			.catch((err) => ($scope.message = err));
 	};
 
 	$scope.toggleProductCategory = (category) => {

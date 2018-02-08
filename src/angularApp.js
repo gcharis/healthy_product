@@ -1,18 +1,22 @@
 const app = angular.module('healthy_product_app', [ 'ngRoute', 'ngSanitize', 'textAngular', 'angularMoment' ]);
 
 app
-	.run(function($rootScope, $admin, $location, $location) {
-		$rootScope.$on('$routeChangeStart', function($event, next, current) {
+	.run(function($rootScope, $admin, $location) {
+		$rootScope.$on('$locationChangeStart', async function($event) {
 			if ($location.path() !== '/login' && $location.path() !== '/register')
-				return $admin
+				return await $admin
 					.getVerification(localStorage.token)
 					.then(() => $rootScope.$broadcast('admin logged in'))
-					.catch((res) => $location.path('/login').replace());
+					.catch((res) => {
+						$event.preventDefault();
+						$location.path('/login').replace();
+					});
 
 			!!localStorage.token
-				? $admin
+				? await $admin
 						.getVerification(localStorage.token)
 						.then((res) => {
+							$event.preventDefault();
 							$rootScope.$broadcast('admin logged in');
 							$location.path('/products').replace();
 						})
@@ -29,8 +33,7 @@ app
 
 		$routeProvider
 			.when('/', {
-				template: '',
-				controller: 'homepage'
+				template: ''
 			})
 			.when('/register', {
 				templateUrl: '/public/views/register.html',
@@ -68,8 +71,6 @@ app
 				templateUrl: '/public/views/order.html',
 				controller: 'orderInfo'
 			});
-		// .when('/navigation-bar', {
-		// 	templateUrl: '/public/views/navigation.html',
-		// 	controller: 'nav-menu'
-		// });
 	});
+
+export default app;

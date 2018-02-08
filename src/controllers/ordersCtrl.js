@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.controller('orders', function($scope, $routeParams, $orders) {
 	getPageOrders();
 	function getPageOrders() {

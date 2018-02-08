@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.directive('errSrc', function() {
 	return {
 		link: function(scope, element, attrs) {

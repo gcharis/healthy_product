@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.service('$uiHandler', function() {
 	return {
 		openModalById(modalId) {

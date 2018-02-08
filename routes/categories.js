@@ -87,7 +87,7 @@ router.delete('/one/:id/:admin', (req, res) => {
 	});
 });
 
-router.put('/clear-navbar', async (req, res) => {
+router.put('/clear-navbar/:admin', async (req, res) => {
 	try {
 		const categories = await Category.find();
 		categories.forEach(async (category) => {

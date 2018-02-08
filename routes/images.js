@@ -19,7 +19,6 @@ router.get('/slider', (req, res) => {
 });
 
 router.put('/slider/:admin', (req, res) => {
-	console.log(req.body._id);
 	if (!req.body._id) {
 		const newSlider = new Slider(req.body);
 		newSlider.save((err, slider) => {

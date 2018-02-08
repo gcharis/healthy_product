@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.controller('products', function($scope, $products, $categories, $timeout, $location, $uiHandler, $jsUtils) {
 	showProducts();
 
@@ -12,11 +14,11 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 				clearProductRegistrationForm();
 				showProducts();
 			})
-			.catch((res) => ($scope.message = res.data));
+			.catch((err) => ($scope.message = err));
 	};
 
 	$scope.deleteProduct = (product) =>
-		$products.deleteOneById(product._id).then((data) => showProducts()).catch((res) => ($scope.message = res.data));
+		$products.deleteOneById(product._id).then((data) => showProducts()).catch((err) => ($scope.message = err));
 
 	$scope.renderProductCategories = (product) => product.category.map((category) => category.name).toString();
 
@@ -47,7 +49,7 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 		$categories
 			.getAll()
 			.then((categories) => ($scope.categories = categories))
-			.catch((res) => ($scope.message = res.data));
+			.catch((err) => ($scope.message = err));
 	}
 
 	function clearProductRegistrationForm() {

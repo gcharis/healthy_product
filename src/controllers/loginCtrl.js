@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.controller('login', function($scope, $rootScope, $admin, $location) {
 	$scope.isLoggedIn = !!localStorage.token;
 	$rootScope.$on('admin logged in', ($event) => ($scope.isLoggedIn = true));

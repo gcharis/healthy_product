@@ -1,3 +1,5 @@
+import app from 'angularApp';
+
 app.controller('shippings', function($scope, $shippings, $uiHandler, $timeout) {
 	showShippings();
 
@@ -8,7 +10,7 @@ app.controller('shippings', function($scope, $shippings, $uiHandler, $timeout) {
 				clearShippingRegistrationForm();
 				showShippings();
 			})
-			.catch((res) => ($scope.message = res.data));
+			.catch((err) => ($scope.message = err));
 	};
 
 	$scope.addNewShipping = () => {
@@ -25,7 +27,7 @@ app.controller('shippings', function($scope, $shippings, $uiHandler, $timeout) {
 
 				showShippings();
 			})
-			.catch((res) => ($scope.message = res.data));
+			.catch((err) => ($scope.message = err));
 	};
 
 	$scope.editShipping = (shipping) => {
@@ -36,10 +38,7 @@ app.controller('shippings', function($scope, $shippings, $uiHandler, $timeout) {
 	};
 
 	$scope.deleteShipping = (shipping) =>
-		$shippings
-			.deleteOneById(shipping._id)
-			.then((data) => showShippings())
-			.catch((res) => ($scope.message = res.data));
+		$shippings.deleteOneById(shipping._id).then((data) => showShippings()).catch((err) => ($scope.message = err));
 
 	function clearShippingRegistrationForm() {
 		$scope.newShipping = {};
@@ -59,7 +58,7 @@ app.controller('shippings', function($scope, $shippings, $uiHandler, $timeout) {
 		$shippings
 			.getOneById(shipping._id)
 			.then((shipping) => ($scope.shipping = shipping))
-			.catch((res) => console.warn(res.data));
+			.catch((err) => console.warn(err));
 	}
 
 	$scope.openModalById = (id) => $uiHandler.openModalById(id);
