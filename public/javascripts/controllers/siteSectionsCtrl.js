@@ -1,4 +1,4 @@
-app.controller('siteSections', function ($scope, $categories, $http, $jsUtils) {
+app.controller('siteSections', function($scope, $categories, $http, $jsUtils) {
 	$scope.navCategories = [];
 	getCategories();
 	$scope.startUploadingPictures = () => document.getElementById('picture-input').click();
@@ -46,34 +46,17 @@ app.controller('siteSections', function ($scope, $categories, $http, $jsUtils) {
 
 	$scope.updateIntroText = (newData) =>
 		$http
-		.put('/datum/admin', newData, {
-			headers: {
-				token: localStorage.token
-			}
-		})
-		.then(({
-			message,
-			data
-		}) => {
-			$scope.introText = data.input;
-		})
-		.catch((err) => console.warn(err));
+			.put('/datum/admin', newData, { headers: { token: localStorage.token } })
+			.then(({ message, data }) => {
+				$scope.introText = data.input;
+			})
+			.catch((err) => console.warn(err));
 
 	function getIntroText() {
 		$http
-			.get('/datum/intro', {
-				headers: {
-					token: localStorage.token
-				}
-			})
-			.then(({
-				message,
-				data
-			}) => {
-				$scope.introText = data || {
-					label: 'intro',
-					content: ''
-				};
+			.get('/datum/intro', { headers: { token: localStorage.token } })
+			.then(({ message, data }) => {
+				$scope.introText = data || { label: 'intro', content: '' };
 			})
 			.catch((err) => console.warn(err));
 	}
