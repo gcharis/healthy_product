@@ -52,7 +52,7 @@ router.get('/one-slug/:slug', (req, res) => {
 });
 
 router.get('/featured', (req, res) => {
-	Product.find({ isFeatured: true }, (err, products) => {
+	Product.find({ isFeatured: true }).select('name slug price featuredImage').exec((err, products) => {
 		if (err) {
 			console.error(`${new Date()}, Featured products could not get retrieved. ERROR, ${err.message}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη');

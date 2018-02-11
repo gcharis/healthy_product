@@ -12,10 +12,8 @@ app.controller('productInfo', function($scope, $routeParams, $location, $product
 		.catch((err) => ($scope.message = err));
 
 	$scope.updateProduct = (product) => {
-		const resizedImages = $jsUtils.resizeImages(product.images);
-
-		product.featuredImage === resizedImages.find((resizedImg) => resizedImg === product.featuredImage);
-		product.images = resizedImages;
+		product.images = product.images.map((image) => $jsUtils.resizeImage(image));
+		product.featuredImage = $jsUtils.resizeImage(product.featuredImage);
 
 		$products
 			.updateOneById(product)

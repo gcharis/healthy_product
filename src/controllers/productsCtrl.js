@@ -4,9 +4,8 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 	showProducts();
 
 	$scope.registerProduct = (newProduct) => {
-		const resizedImages = $jsUtils.resizeImages(newProduct.images);
-		newProduct.featuredImage === resizedImages.find((resizedImg) => resizedImg === newProduct.featuredImage);
-		newProduct.images = resizedImages;
+		newProduct.images = newProduct.images.map((image) => $jsUtils.resizeImage(image));
+		newProduct.featuredImage = $jsUtils.resizeImage(newProduct.featuredImage);
 
 		$products
 			.register(newProduct)

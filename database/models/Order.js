@@ -50,3 +50,4 @@ orderSchema.plugin(autoIncrement.plugin, { model: 'order', field: 'id', startAt:
 
 const Order = mongoose.model('order', orderSchema);
 module.exports = Order;
+exports.orderSchema = orderSchema;
