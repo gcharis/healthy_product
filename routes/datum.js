@@ -10,9 +10,7 @@ const router = express.Router();
 router.param('admin', checkAdmin);
 
 router.get('/:label', (req, res) => {
-	Data.findOne({
-		label: req.params.label
-	}, (err, data) => {
+	Data.findOne({ label: req.params.label }, (err, data) => {
 		if (err) {
 			console.error(`${new Date()}, Datum could not get retrieved. ERROR, ${err.message}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
@@ -30,25 +28,16 @@ router.put('/:admin', async (req, res) => {
 				return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 			}
 
-			res.send({
-				message: 'Η νέα πληροφορία αποθηκεύτηκε επιτυχώς!',
-				input
-			});
+			res.send({ message: 'Η νέα πληροφορία αποθηκεύτηκε επιτυχώς!', input });
 		});
 	} else {
-		Data.findByIdAndUpdate(req.body._id, req.body, {
-			new: true
-		}, (err, input) => {
+		Data.findByIdAndUpdate(req.body._id, req.body, { new: true }, (err, input) => {
 			if (err) {
 				console.error(`${new Date()}, Data could not be updated. ERROR, ${err.message}`);
 				return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 			}
-			res.send({
-				message: 'Η νέα πληροφορία αποθηκεύτηκε επιτυχώς!',
-				input
-			});
+			res.send({ message: 'Η νέα πληροφορία αποθηκεύτηκε επιτυχώς!', input });
 		});
 	}
 });
-
 module.exports = router;

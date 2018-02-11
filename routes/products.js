@@ -51,6 +51,16 @@ router.get('/one-slug/:slug', (req, res) => {
 	});
 });
 
+router.get('/featured', (req, res) => {
+	Product.find({ isFeatured: true }, (err, products) => {
+		if (err) {
+			console.error(`${new Date()}, Featured products could not get retrieved. ERROR, ${err.message}`);
+			return res.status(500).send('Κάποιο σφάλμα συνέβη');
+		}
+		res.send(products);
+	});
+});
+
 router.post('/by-category/:category/', async (req, res) => {
 	const searchCategory = req.params.category;
 	const productsPerPage = 24;

@@ -11,6 +11,7 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Προτεινόμενο</th>
                         <th scope="col">Εικόνα</th>
                         <th scope="col">Όνομα Προϊόντος</th>
                         <th scope="col">Κατηγορία</th>
@@ -20,6 +21,10 @@
                 <tbody>
                     <tr ng-repeat="product in products track by $index">
                         <td scope="row">{{product.id}}</td>
+                        <td scope="row">
+                            <img class="img-featured mouse-hand" src="/public/img/svg-icons/star-wh.svg" ng-if="!product.isFeatured" ng-click="toggleFeatured(product)">
+                            <img class="img-featured mouse-hand" src="/public/img/svg-icons/star-fill.svg" ng-if="product.isFeatured" ng-click="toggleFeatured(product)">
+                        </td>
                         <td>
                             <img ng-src="{{product.featuredImage}}" err-src="public/img/error-image.jpg" style="max-width: 50px">
                         </td>

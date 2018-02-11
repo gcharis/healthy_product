@@ -5,7 +5,7 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 
 	$scope.registerProduct = (newProduct) => {
 		const resizedImages = $jsUtils.resizeImages(newProduct.images);
-		newProduct.featuredImage === resizedImages.find((resizedImg) => resizedImg === product.featuredImage);
+		newProduct.featuredImage === resizedImages.find((resizedImg) => resizedImg === newProduct.featuredImage);
 		newProduct.images = resizedImages;
 
 		$products
@@ -39,6 +39,11 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 
 		// timeout does not immidiatelly puts the statement on top of the stack
 		$timeout(() => $uiHandler.openModalById('registerModal'), 0);
+	};
+
+	$scope.toggleFeatured = (product) => {
+		product.isFeatured = !product.isFeatured;
+		$products.updateOneById(product).then(() => showProducts()).catch((err) => console.warn(err));
 	};
 
 	function showProducts() {
