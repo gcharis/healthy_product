@@ -1,13 +1,21 @@
 import app from 'angularApp';
 
 app.service('$orders', function($http, $location) {
+	function deleteToken() {
+		localStorage.removeItem('token');
+		$rootScope.$broadcast('admin logged out');
+	}
+
 	return {
 		getPage(page) {
 			return $http
 				.post('/orders/all/admin', { page }, { headers: { token: localStorage.token } })
 				.then((res) => res.data)
 				.catch((res) => {
-					res.status === 401 ? $location.path('/login') : null;
+					if (res.status === 401) {
+						deleteToken();
+						$location.path('/login');
+					}
 					return res.data;
 				});
 		},
@@ -16,7 +24,10 @@ app.service('$orders', function($http, $location) {
 				.get(`/orders/one/${id}/admin`, { headers: { token: localStorage.token } })
 				.then((res) => res.data)
 				.catch((res) => {
-					res.status === 401 ? $location.path('/login') : null;
+					if (res.status === 401) {
+						deleteToken();
+						$location.path('/login');
+					}
 					return res.data;
 				});
 		},
@@ -25,7 +36,10 @@ app.service('$orders', function($http, $location) {
 				.put(`/orders/one/${order._id}/admin`, order, { headers: { token: localStorage.token } })
 				.then((res) => res.data)
 				.catch((res) => {
-					res.status === 401 ? $location.path('/login') : null;
+					if (res.status === 401) {
+						deleteToken();
+						$location.path('/login');
+					}
 					return res.data;
 				});
 		},
@@ -34,7 +48,10 @@ app.service('$orders', function($http, $location) {
 				.delete(`/orders/one/${_id}/admin`, { headers: { token: localStorage.token } })
 				.then((res) => res.data)
 				.catch((res) => {
-					res.status === 401 ? $location.path('/login') : null;
+					if (res.status === 401) {
+						deleteToken();
+						$location.path('/login');
+					}
 					return res.data;
 				});
 		}

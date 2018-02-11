@@ -12,16 +12,7 @@ app
 						$location.path('/login').replace();
 					});
 
-			!!localStorage.token
-				? await $admin
-						.getVerification(localStorage.token)
-						.then((res) => {
-							$event.preventDefault();
-							$rootScope.$broadcast('admin logged in');
-							$location.path('/products').replace();
-						})
-						.catch((res) => console.warn(res.data))
-				: console.warn('No token found');
+			!!localStorage.token ? $location.path('/products').replace() : null;
 		});
 
 		$rootScope.$on('admin logged out', function() {

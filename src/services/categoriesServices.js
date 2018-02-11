@@ -1,6 +1,10 @@
 import app from 'angularApp';
 
 app.service('$categories', function($http, $location) {
+	function deleteToken() {
+		localStorage.removeItem('token');
+		$rootScope.$broadcast('admin logged out');
+	}
 	return {
 		getAll() {
 			return $http
@@ -11,7 +15,10 @@ app.service('$categories', function($http, $location) {
 				})
 				.then((res) => res.data)
 				.catch((res) => {
-					res.status === 401 ? $location.path('/login') : null;
+					if (res.status === 401) {
+						deleteToken();
+						$location.path('/login');
+					}
 					return res.data;
 				});
 		},
@@ -20,7 +27,10 @@ app.service('$categories', function($http, $location) {
 				.get(`/categories/one/${id}/admin`, { headers: { token: localStorage.token } })
 				.then((res) => res.data)
 				.catch((res) => {
-					res.status === 401 ? $location.path('/login') : null;
+					if (res.status === 401) {
+						deleteToken();
+						$location.path('/login');
+					}
 					return res.data;
 				});
 		},
@@ -29,7 +39,10 @@ app.service('$categories', function($http, $location) {
 				.post('/categories/new/admin', newCategory, { headers: { token: localStorage.token } })
 				.then((res) => res.data)
 				.catch((res) => {
-					res.status === 401 ? $location.path('/login') : null;
+					if (res.status === 401) {
+						deleteToken();
+						$location.path('/login');
+					}
 					return res.data;
 				});
 		},
@@ -38,7 +51,10 @@ app.service('$categories', function($http, $location) {
 				.put(`/categories/one/${category._id}/admin`, category, { headers: { token: localStorage.token } })
 				.then((res) => res.data.category)
 				.catch((res) => {
-					res.status === 401 ? $location.path('/login') : null;
+					if (res.status === 401) {
+						deleteToken();
+						$location.path('/login');
+					}
 					return res.data;
 				});
 		},
@@ -47,7 +63,10 @@ app.service('$categories', function($http, $location) {
 				.put('/categories/multiple/admin', { categories }, { headers: { token: localStorage.token } })
 				.then((res) => res.data)
 				.catch((res) => {
-					res.status === 401 ? $location.path('/login') : null;
+					if (res.status === 401) {
+						deleteToken();
+						$location.path('/login');
+					}
 					return res.data;
 				});
 		},
@@ -56,7 +75,10 @@ app.service('$categories', function($http, $location) {
 				.delete(`/categories/one/${id}/admin`, { headers: { token: localStorage.token } })
 				.then((res) => res.data)
 				.catch((res) => {
-					res.status === 401 ? $location.path('/login') : null;
+					if (res.status === 401) {
+						deleteToken();
+						$location.path('/login');
+					}
 					return res.data;
 				});
 		},
@@ -65,7 +87,10 @@ app.service('$categories', function($http, $location) {
 				.put(`/categories/clear-navbar/admin`, { headers: { token: localStorage.token } })
 				.then((res) => res.data)
 				.catch((res) => {
-					res.status === 401 ? $location.path('/login') : null;
+					if (res.status === 401) {
+						deleteToken();
+						$location.path('/login');
+					}
 					return res.data;
 				});
 		}

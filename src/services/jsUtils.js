@@ -24,8 +24,8 @@ app.service('$jsUtils', function() {
 				const canvas = document.createElement('canvas');
 				const ctx = canvas.getContext('2d');
 
-				const maxWidth = 800;
-				const maxHeight = 800;
+				const maxWidth = 600;
+				const maxHeight = 600;
 
 				if (img.width > img.height) {
 					if (img.width > maxWidth) {
