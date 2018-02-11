@@ -74,10 +74,23 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils) {
 			.catch((err) => console.warn(err));
 	};
 
+	$scope.removeFormSLider = (i) => {
+		$scope.slider.images.splice(i, 1);
+	};
 	function getSlider() {
 		$http
 			.get('/images/slider', { headers: { token: localStorage.token } })
 			.then((res) => ($scope.slider = res.data[0] || { images: [] }))
+			.catch((err) => console.warn(err));
+	}
+
+	getBanks();
+	function getBanks() {
+		$http
+			.post('/datum/banks/admin', { headers: { token: localStorage.token } })
+			.then((res) => {
+				$scope.bank = bank || { label: 'intro', content: '' };
+			})
 			.catch((err) => console.warn(err));
 	}
 });

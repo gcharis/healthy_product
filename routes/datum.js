@@ -52,7 +52,7 @@ router.get('/banks', (req, res) => {
 	});
 });
 
-router.post('/banks', (req, res) => {
+router.post('/banks/:admin', (req, res) => {
 	const newBank = req.body;
 	newBank.save((err, bank) => {
 		if (err) {

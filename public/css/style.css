@@ -199,10 +199,10 @@ input::-webkit-inner-spin-button {
 	-webkit-transition: 0.2s ease all;
 }
 
-.login-page .login-wrapper input:focus~.test,
-.login-page .login-wrapper input:valid~.test,
-.register-page .register-wrapper input:focus~.test,
-.register-page .register-wrapper input:valid~.test {
+.login-page .login-wrapper input:focus ~ .test,
+.login-page .login-wrapper input:valid ~ .test,
+.register-page .register-wrapper input:focus ~ .test,
+.register-page .register-wrapper input:valid ~ .test {
 	bottom: 30px;
 }
 
@@ -235,8 +235,8 @@ input::-webkit-inner-spin-button {
 
 /* active state */
 
-input:focus~.bar:before,
-input:focus~.bar:after {
+input:focus ~ .bar:before,
+input:focus ~ .bar:after {
 	width: 50%;
 }
 
@@ -269,7 +269,8 @@ input:focus~.bar:after {
 	vertical-align: middle;
 }
 
-.product-listing table td:last-child {}
+.product-listing table td:last-child {
+}
 
 .product-listing table img,
 .shippings table img {
@@ -395,7 +396,7 @@ footer {
 	position: absolute;
 	bottom: 0;
 	height: 2px;
-	width: 33.333333%
+	width: 33.333333%;
 }
 
 .row.tab-content {
@@ -475,11 +476,11 @@ text-angular button .btn {
 	margin: 0 auto;
 	margin-bottom: 1rem;
 	border-radius: 2px;
-	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .order-section {
-	margin-top: 1rem
+	margin-top: 1rem;
 }
 
 .order tr.total1,
@@ -507,4 +508,7 @@ text-angular button .btn {
 
 .orders table td:last-child {
 	min-width: 130px;
+}
+.bank-tab {
+	padding-bottom: 2rem;
 }

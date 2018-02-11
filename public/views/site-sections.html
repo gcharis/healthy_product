@@ -1,9 +1,10 @@
 <div class="container-fluid main-container site-sections">
     <div class="row tabs tab-nav" ng-init="tab = 1">
-        <div class="col-md-3" ng-class="{active:tab===1}" ng-click="tab = 1"> Navigation</div>
-        <div class="col-md-3" ng-class="{active:tab===2}" ng-click="tab = 2"> Intro Text</div>
-        <div class="col-md-3" ng-class="{active:tab===3}" ng-click="tab = 3"> Banks</div>
-        <div class="col-md-3" ng-class="{active:tab===4}" ng-click="tab = 4"> Slider</div>
+        <div class="col" ng-class="{active:tab===1}" ng-click="tab = 1"> Navigation</div>
+        <div class="col" ng-class="{active:tab===2}" ng-click="tab = 2"> Intro Text</div>
+        <div class="col" ng-class="{active:tab===3}" ng-click="tab = 3"> Banks</div>
+        <div class="col" ng-class="{active:tab===4}" ng-click="tab = 4"> Slider</div>
+        <div class="col" ng-class="{active:tab===5}" ng-click="tab = 5"> Banks</div>
         <!-- <div ng-class="da-line"></div> -->
     </div>
     <!-- <div class="row add">
@@ -72,11 +73,78 @@
                 <div class="row">
                     <div class="col-md-4 slider-photo-col" ng-repeat="image in slider.images track by $index">
                         <img ng-src="{{image}}" class="img-fluid">
+                        <span ng-click="removeFormSLider($index)">X</span>
                     </div>
                 </div>
                 <button type="submit" class="btn-fill">Αποθήκευση</button>
             </form>
         </div>
+        <div ng-show="tab === 5" class="col-12 bank-tab">
+           <div class="row">
+               <div class="col-12 text-right">
+                   <button class="btn-fill mb-4" data-toggle="modal" data-target="#exampleModal">Προσθήκη Νέας Τράπεζας</button>
+               </div>
+               <!-- <div class=""> -->
+                    <div class="category-wrapper col-12">Bank
+                    <span class="float-right" ng-if="!categoryIsInNavBar(category)">
+                        <img src="/public/img/svg-icons/add.svg" class="img-fluid add-remove">
+                    </span>
+                    <span class="float-right" ng-if="categoryIsInNavBar(category)">
+                        <img src="/public/img/svg-icons/substract.svg" class="img-fluid add-remove">
+                    </span>
+                <!-- </div> -->
+               </div>
+               <div class="category-wrapper col-12">Bank
+                    <span class="float-right" ng-if="!categoryIsInNavBar(category)">
+                        <img src="/public/img/svg-icons/add.svg" class="img-fluid add-remove">
+                    </span>
+                    <span class="float-right" ng-if="categoryIsInNavBar(category)">
+                        <img src="/public/img/svg-icons/substract.svg" class="img-fluid add-remove">
+                    </span>
+                <!-- </div> -->
+               </div>
+           </div>
+        </div>
     </div>
 
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Δημιουργία Τραπεζικού Λογαριασμου</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="createBank(slider)">
+              <div class="form-group">
+                <label>Όνομα Τράπεζας</label>
+                <input class="form-control" type="text" ng-model="name">
+              </div>
+                  <div class="form-group">
+                    <label>Αριθμός Τραπεζικού Λογαριασμου</label>
+                    <input class="form-control" type="text" ng-model="iban">
+                </div>
+                <div class="form-group">
+                    <label>iBan</label>
+                    <input class="form-control" type="text" ng-model="swift">
+                </div>
+                <div class="form-group">
+                    <label>SWIFT</label>
+                    <input class="form-control" type="text" ng-model="accountNumber">
+                </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
