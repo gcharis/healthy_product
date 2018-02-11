@@ -32,9 +32,8 @@ app.controller('categories', function($http, $scope, $categories, $timeout, $loc
 
 	$scope.editCategory = (category) => {
 		$scope.editingCategory = true;
-		$scope.categories = $scope.categories.filter((cat) => cat._id !== category._id);
+		$scope.restCategories = $scope.categories.filter((cat) => cat._id !== category._id);
 		$timeout(() => $uiHandler.openModalById('editModal'), 0);
-
 		showCategoryInfo(category);
 	};
 
