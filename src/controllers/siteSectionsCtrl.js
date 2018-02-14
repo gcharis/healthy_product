@@ -66,7 +66,7 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils) {
 	getSlider();
 
 	$scope.updateSlider = (slider) => {
-		slider.images = $jsUtils.resizeImages(slider.images);
+		slider.images = slider.images.map((image) => $jsUtils.resizeImage(image));
 
 		$http
 			.put('/images/slider/admin', slider, { headers: { token: localStorage.token } })

@@ -3,7 +3,7 @@ const logger = require('../logs/logger.js');
 
 module.exports = function(req, res, next) {
 	const token = req.headers.token;
-	if (!token) return res.send({ message: 'Χρείαζεστε έγκριση για αυτή την ενέργεια.' });
+	if (!token) return res.status(401).send({ message: 'Χρείαζεστε έγκριση για αυτή την ενέργεια.' });
 
 	// Verify admin
 	authentication

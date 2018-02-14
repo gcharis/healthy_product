@@ -84,7 +84,7 @@ app.service('$categories', function($http, $location, $rootScope) {
 		},
 		clearNavBar() {
 			return $http
-				.put(`/categories/clear-navbar/admin`, { headers: { token: localStorage.token } })
+				.put(`/categories/clear-navbar/admin`, null, { headers: { token: localStorage.token } })
 				.then((res) => res.data)
 				.catch((res) => {
 					if (res.status === 401) {

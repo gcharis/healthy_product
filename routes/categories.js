@@ -70,6 +70,7 @@ router.put('/multiple/:admin', (req, res) => {
 	const { categories } = req.body;
 	try {
 		categories.forEach(async (category) => await Category.findByIdAndUpdate(category._id, category));
+		res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');
 	} catch (err) {
 		console.error(`${new Date()}, Multiple categories could not be updated. ERROR, ${err.message}`);
 		return res.status(500).send('Ένα σφάλμα συνέβη.');
