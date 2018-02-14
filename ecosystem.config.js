@@ -1,6 +1,9 @@
 module.exports = {
 	apps: [
 		{
+			name: 'myapp',
+			script: './server.js',
+			watch: true,
 			env: {
 				SECRET_KEY: 'super-secret',
 				PORT: 4000,
