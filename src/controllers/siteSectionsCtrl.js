@@ -84,13 +84,13 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils) {
 			.catch((err) => console.warn(err));
 	}
 
-	getBanks();
-	function getBanks() {
-		$http
-			.post('/datum/banks/admin', { headers: { token: localStorage.token } })
-			.then((res) => {
-				$scope.bank = bank || { label: 'intro', content: '' };
-			})
-			.catch((err) => console.warn(err));
-	}
+	// getBanks();
+	// function getBanks() {
+	// 	$http
+	// 		.post('/datum/banks/admin', { headers: { token: localStorage.token } })
+	// 		.then((res) => {
+	// 			$scope.bank = bank || { label: 'intro', content: '' };
+	// 		})
+	// 		.catch((err) => console.warn(err));
+	// }
 });
