@@ -17,7 +17,7 @@ router.post('/verify', (req, res) => {
 
 router.post('/register', (req, res, next) => {
 	if (req.body.registerKey !== process.env.REGISTER_KEY)
-		return res.status(500).send('Δεν έχετε εξουσιοδότηση για αυτή την ενέργεια.');
+		return res.status(401).send('Δεν έχετε εξουσιοδότηση για αυτή την ενέργεια.');
 	next();
 });
 
