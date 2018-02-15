@@ -14,7 +14,7 @@ app.service('$orders', function($http, $location, $rootScope) {
 				.catch((res) => {
 					if (res.status === 401) {
 						deleteToken();
-						$location.path('/login');
+						$location.path('/login').replace();
 					}
 					return res.data;
 				});
@@ -26,7 +26,7 @@ app.service('$orders', function($http, $location, $rootScope) {
 				.catch((res) => {
 					if (res.status === 401) {
 						deleteToken();
-						$location.path('/login');
+						$location.path('/login').replace();
 					}
 					return res.data;
 				});
@@ -38,7 +38,7 @@ app.service('$orders', function($http, $location, $rootScope) {
 				.catch((res) => {
 					if (res.status === 401) {
 						deleteToken();
-						$location.path('/login');
+						$location.path('/login').replace();
 					}
 					return res.data;
 				});
@@ -50,7 +50,7 @@ app.service('$orders', function($http, $location, $rootScope) {
 				.catch((res) => {
 					if (res.status === 401) {
 						deleteToken();
-						$location.path('/login');
+						$location.path('/login').replace();
 					}
 					return res.data;
 				});
