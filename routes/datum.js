@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Data = require('../database/models/Data.js');
 const Bank = require('../database/models/Bank.js');
+const Fraud = require('../database/models/Fraud.js');
 const checkAdmin = require('../authentication/bustAndLog.js');
 
 const router = express.Router();
@@ -64,7 +65,7 @@ router.post('/banks/:admin', (req, res) => {
 	});
 });
 
-router.put('/banks/:id', (req, res) => {
+router.put('/banks/:id/:admin', (req, res) => {
 	const id = req.params.id;
 	Bank.findByIdAndUpdate(id, req.body, { new: true }, (err, bank) => {
 		if (err) {
@@ -77,7 +78,7 @@ router.put('/banks/:id', (req, res) => {
 	});
 });
 
-router.delete('/banks/:id', (req, res) => {
+router.delete('/banks/:id/:admin', (req, res) => {
 	let id = req.params.id;
 	Bank.findByIdAndRemove(id, (err, bank) => {
 		if (err) {
@@ -85,6 +86,39 @@ router.delete('/banks/:id', (req, res) => {
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		res.send('Η τράπεζα διαγράφηκε επιτυχώς!');
+	});
+});
+
+router.get('/frauds/:admin', (req, res) => {
+	Fraud.find((err, frauds) => {
+		if (err) {
+			console.error(`${new Date()}, Frauds could not get retrieved. ERROR, ${err.message}`);
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+		}
+		res.send(frauds);
+	});
+});
+
+router.post('/frauds/:admin', (req, res) => {
+	const newFraud = new Fraud(req.body);
+	newFraud.save((err, bank) => {
+		if (err) {
+			console.error(`${new Date()}, New fraud could not be saved. ERROR, ${err.message}`);
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+		}
+
+		res.send({ message: 'Το νέο άτομο αποθηκεύτηκε επιτυχώς!', bank });
+	});
+});
+
+router.delete('/frauds/:id/:admin', (req, res) => {
+	let id = req.params.id;
+	Fraud.findByIdAndRemove(id, (err, bank) => {
+		if (err) {
+			console.error(`${new Date()}, Fraud could not get deleted. ERROR, ${err.message}`);
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+		}
+		res.send('Το άτομο διαγράφηκε επιτυχώς!');
 	});
 });
 

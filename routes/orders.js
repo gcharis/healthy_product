@@ -9,7 +9,7 @@ const router = express.Router();
 // a log will be saved
 router.param('admin', checkAdmin);
 
-router.post('/all/:admin', async (req, res) => {
+router.post('/page/:admin', async (req, res) => {
 	const ordersPerPage = 30;
 	const page = req.body.page;
 	try {
@@ -47,6 +47,26 @@ router.get('/one/:id/', (req, res) => {
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		res.send(order);
+	});
+});
+
+router.get('/search/:match/:admin', (req, res) => {
+	Order.find({ id: parseInt(req.params.match) }).select('id').exec((err, order) => {
+		if (err) {
+			console.error(`${new Date()}, Order could not get retrieved. ERROR, ${err.message}`);
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+		}
+		res.send(order);
+	});
+});
+
+router.get('/all/:admin', (req, res) => {
+	Order.find((err, orders) => {
+		if (err) {
+			console.error(`${new Date()}, Orders could not get retrieved. ERROR, ${err.message}`);
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+		}
+		res.send(orders);
 	});
 });
 

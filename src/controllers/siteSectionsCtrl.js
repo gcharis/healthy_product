@@ -1,6 +1,6 @@
 import app from 'angularApp';
 
-app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $timeout, $uiHandler) {
+app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $timeout, $uiHandler, $orders) {
 	$scope.navCategories = [];
 	getCategories();
 	$scope.startUploadingPictures = () => document.getElementById('picture-input').click();
@@ -77,6 +77,7 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $t
 	$scope.removeFormSLider = (i) => {
 		$scope.slider.images.splice(i, 1);
 	};
+
 	function getSlider() {
 		$http
 			.get('/images/slider', { headers: { token: localStorage.token } })
@@ -84,13 +85,65 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $t
 			.catch((err) => console.warn(err));
 	}
 
+	getFrauds();
+
 	$scope.addNewFraud = () => {
 		$scope.addingNewFraud = true;
-		console.log('hi');
+		$scope.newFraud = { orderId: [] };
+		getOrders();
 
 		// timeout does not immidiatelly puts the statement on top of the stack
 		$timeout(() => $uiHandler.openModalById('newFraud'), 0);
 	};
+
+	function getOrders() {
+		$orders.getAll().then((orders) => {
+			$scope.orders = orders;
+			$scope.fiteredOrders = orders;
+		});
+	}
+
+	$scope.filterOrders = (match) => {
+		const matchRegExp = new RegExp(match, 'i');
+		$scope.filteredOrders = $scope.orders.filter((order) => matchRegExp.test(order.id));
+	};
+
+	$scope.toggleOrderFromFraud = (order) => {
+		orderIsIncluded(order) ? removeOrderFromFraud(order) : addOrderToFraud(order);
+	};
+
+	$scope.registerFraud = (fraud) =>
+		$http
+			.post('/datum/frauds/admin', fraud, { headers: { token: localStorage.token } })
+			.then((res) => {
+				$scope.hideModalById('newFraud');
+				getFrauds();
+			})
+			.catch((err) => console.warn(err));
+
+	function orderIsIncluded(order) {
+		return $scope.newFraud.orderId.includes(order.id);
+	}
+
+	function removeOrderFromFraud(order) {
+		const i = $scope.newFraud.orderId.findIndex((fraudOrder) => order.id === fraudOrder);
+		$scope.newFraud.orderId = [ ...$scope.newFraud.orderId.slice(0, i), ...$scope.newFraud.orderId.slice(i + 1) ];
+	}
+
+	function addOrderToFraud(order) {
+		$scope.newFraud.orderId = [ ...$scope.newFraud.orderId, order.id ];
+	}
+
+	function getFrauds() {
+		$http.get('/datum/frauds/admin', { headers: { token: localStorage.token } }).then((res) => {
+			$scope.frauds = res.data;
+			console.log(res.data);
+		});
+	}
+
+	$scope.openModalById = (id) => $uiHandler.openModalById(id);
+	$scope.hideModalById = (id) => $uiHandler.hideModalById(id);
+
 	// getBanks();
 	// function getBanks() {
 	// 	$http

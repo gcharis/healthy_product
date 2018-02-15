@@ -7,9 +7,12 @@ app.service('$orders', function($http, $rootScope) {
 	}
 
 	return {
+		getAll() {
+			return $http.get('/orders/all/admin', { headers: { token: localStorage.token } }).then((res) => res.data);
+		},
 		getPage(page) {
 			return $http
-				.post('/orders/all/admin', { page }, { headers: { token: localStorage.token } })
+				.post('/orders/page/admin', { page }, { headers: { token: localStorage.token } })
 				.then((res) => res.data);
 		},
 		getByOrderId(id) {
@@ -25,6 +28,11 @@ app.service('$orders', function($http, $rootScope) {
 		deleteByMongoId(_id) {
 			return $http
 				.delete(`/orders/one/${_id}/admin`, { headers: { token: localStorage.token } })
+				.then((res) => res.data);
+		},
+		search(match) {
+			return $http
+				.get(`/orders/search/${match}/admin`, { headers: { token: localStorage.token } })
 				.then((res) => res.data);
 		}
 	};

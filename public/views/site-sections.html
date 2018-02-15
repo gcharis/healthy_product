@@ -5,13 +5,8 @@
         <div class="col" ng-class="{active:tab===3}" ng-click="tab = 3"> Banks</div>
         <div class="col" ng-class="{active:tab===4}" ng-click="tab = 4"> Slider</div>
         <div class="col" ng-class="{active:tab===5}" ng-click="tab = 5"> Blacklist</div>
-        <!-- <div ng-class="da-line"></div> -->
     </div>
-    <!-- <div class="row add">
-        <div class="col-md-12 text-right">
-            <button type="button" class="btn-fill" ng-click="addNewCategory()">Νέα Κατηγορία</button>
-        </div>
-    </div> -->
+
     <div class="row tab-content">
         <div ng-show="tab === 1" class="col-12">
             <h3 class="text-center">Navigation</h3>
@@ -82,38 +77,27 @@
         <div ng-show="tab === 5" class="col-12 bank-tab">
             <div class="row">
                 <div class="col text-right">
-                        <button type="button" class="btn-fill" ng-click="addNewFraud()">Προσθήκη Blacklist</button>
+                    <button type="button" class="btn-fill" ng-click="addNewFraud()">Προσθήκη Blacklist</button>
                 </div>
             </div>
                 
             <table class="table table-striped mt-4"> 
                 <thead>
                   <tr>
-                    <th scope="col">name</th>
-                    <th scope="col">lastname</th>
-                    <th scope="col">description</th>
-                    <th scope="col">order</th>
+                    <th scope="col">Όνομα</th>
+                    <th scope="col">Επώνυμο</th>
+                    <th scope="col">Περιγραφή</th>
+                    <th scope="col">Αριθμός Παραγγελίας</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                  <tr ng-repeat="fraud in frauds track by $index">
+                    <td>{{fraud.firstname}}</td>
+                    <td>{{fraud.firstname}}</td>
+                    <td>{{fraud.description}}</td>
+                    <td>{{fraud.orderId.toString()}}</td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
+
                 </tbody>
               </table>
               
@@ -130,30 +114,35 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Νεα εισγωρη στην μαύρη λίστα</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Νέα προσθήκη ατόμου στην μαύρη λίστα</h5>
                 <ui-message message="message" dur="3000"></ui-message>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="hideModalById('newFraud'); addingNewFraud = false">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form class="row" ng-submit="">
+                <form class="row" ng-submit="registerFraud(newFraud)">
                     <div class="form-group col-md-6">
                         <label>Όνομα *</label>
-                        <input type="text" class="form-control" placeholder="" ng-model="newProduct.name" required>
+                        <input type="text" class="form-control" ng-model="newFraud.firstname" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Επώνυμο *</label>
-                        <input type="text" class="form-control" placeholder="" ng-model="newProduct.lastname" required>
+                        <input type="text" class="form-control" ng-model="newFraud.lastname" required>
                     </div>
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6">
                         <label>Περιγραφή *</label>
-                        <textarea class="form-control" placeholder="Δεν Πληρωσε" ng-model="newProduct.description" required>
-                    </div>
+                        <textarea class="form-control" placeholder="Δεν Πλήρωσε" ng-model="newFraud.description" required>
+                    </div> -->
+
                     <div class="form-group col-md-6">
                         <label>Παραγγελία</label>
-                        <input type="number" class="form-control" placeholder="#10001" ng-model="newProduct.order">
-                    </div> 
+                        <input type="number" class="form-control" placeholder="100123" ng-model="orderSearchText" ng-change="filterOrders(orderSearchText)">
+                        <div ng-repeat="order in filteredOrders track by $index">
+                            <span ng-click="toggleOrderFromFraud(order)">{{order.id}}</span>
+                        </div>
+                    </div>
+
                     <div class="form-group col-md-12">
                         <button type="button" class="btn-outline" ng-click="hideModalById('newFraud')">Ακύρωση</button>
                         <button type="submit" class="btn-fill">Αποθήκευση</button>

@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
-const { orderSchema } = require('./order.js');
 
 const fraudSchema = new mongoose.Schema({
-	name: String,
+	firstname: String,
 	lastname: String,
 	description: String,
-	order: orderSchema
+	orderId: [ String ]
 });
 
 const Fraud = mongoose.model('fraud', fraudSchema);
