@@ -1,6 +1,6 @@
 import app from 'angularApp';
 
-app.controller('siteSections', function($scope, $categories, $http, $jsUtils) {
+app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $timeout, $uiHandler) {
 	$scope.navCategories = [];
 	getCategories();
 	$scope.startUploadingPictures = () => document.getElementById('picture-input').click();
@@ -84,6 +84,13 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils) {
 			.catch((err) => console.warn(err));
 	}
 
+	$scope.addNewFraud = () => {
+		$scope.addingNewFraud = true;
+		console.log('hi');
+
+		// timeout does not immidiatelly puts the statement on top of the stack
+		$timeout(() => $uiHandler.openModalById('newFraud'), 0);
+	};
 	// getBanks();
 	// function getBanks() {
 	// 	$http
