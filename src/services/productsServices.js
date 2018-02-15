@@ -16,38 +16,17 @@ app.service('$products', function($http, $rootScope, $location) {
 		register(newProduct) {
 			return $http
 				.post('/products/new/admin', newProduct, { headers: { token: localStorage.token } })
-				.then((res) => res.data)
-				.catch((res) => {
-					if (res.status === 401) {
-						deleteToken();
-						$location.path('/login').replace();
-					}
-					return res.data;
-				});
+				.then((res) => res.data);
 		},
 		updateOneById(product) {
 			return $http
 				.put(`/products/one/${product._id}/admin`, product, { headers: { token: localStorage.token } })
-				.then((res) => res.data)
-				.catch((res) => {
-					if (res.status === 401) {
-						deleteToken();
-						$location.path('/login').replace();
-					}
-					return res.data;
-				});
+				.then((res) => res.data);
 		},
 		deleteOneById(id) {
 			return $http
 				.delete(`/products/one/${id}/admin`, { headers: { token: localStorage.token } })
-				.then((res) => res.data)
-				.catch((res) => {
-					if (res.status === 401) {
-						deleteToken();
-						$location.path('/login').replace();
-					}
-					return res.data;
-				});
+				.then((res) => res.data);
 		}
 	};
 });

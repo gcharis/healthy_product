@@ -9,16 +9,19 @@ app.controller('productInfo', function($scope, $routeParams, $location, $product
 				$scope.categories = results[1];
 			});
 		})
-		.catch((err) => ($scope.message = err));
+		.catch((err) => {
+			if (err.status === 401) return catchUnauthorizedErr();
+			$scope.message = err.data;
+		});
 
 	$scope.updateProduct = (product) => {
 		product.images = product.images.map((image) => $jsUtils.resizeImage(image));
 		product.featuredImage = $jsUtils.resizeImage(product.featuredImage);
 
-		$products
-			.updateOneById(product)
-			.then((data) => $location.path('/products'))
-			.catch((err) => ($scope.message = err));
+		$products.updateOneById(product).then((data) => $location.path('/products')).catch((err) => {
+			if (err.status === 401) return catchUnauthorizedErr();
+			$scope.message = err.data;
+		});
 	};
 
 	$scope.toggleProductCategory = (category) => {
@@ -77,6 +80,11 @@ app.controller('productInfo', function($scope, $routeParams, $location, $product
 		$scope.product.category = $scope.product.category.filter(
 			({ name, slug }) => category.name !== name || category.slug !== slug
 		);
+	}
+
+	function catchUnauthorizedErr() {
+		localStorage.removeItem('token');
+		$location.path('/login').replace();
 	}
 
 	$scope.startUploadingPictures = () => document.getElementById('picture-input').click();

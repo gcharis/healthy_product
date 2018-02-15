@@ -10,7 +10,10 @@ app.controller('shippings', function($scope, $shippings, $uiHandler, $timeout) {
 				clearShippingRegistrationForm();
 				showShippings();
 			})
-			.catch((err) => ($scope.message = err));
+			.catch((err) => {
+				if (err.status === 401) return catchUnauthorizedErr();
+				$scope.message = err.data;
+			});
 	};
 
 	$scope.addNewShipping = () => {
@@ -27,7 +30,10 @@ app.controller('shippings', function($scope, $shippings, $uiHandler, $timeout) {
 
 				showShippings();
 			})
-			.catch((err) => ($scope.message = err));
+			.catch((err) => {
+				if (err.status === 401) return catchUnauthorizedErr();
+				$scope.message = err.data;
+			});
 	};
 
 	$scope.editShipping = (shipping) => {
@@ -38,7 +44,10 @@ app.controller('shippings', function($scope, $shippings, $uiHandler, $timeout) {
 	};
 
 	$scope.deleteShipping = (shipping) =>
-		$shippings.deleteOneById(shipping._id).then((data) => showShippings()).catch((err) => ($scope.message = err));
+		$shippings.deleteOneById(shipping._id).then((data) => showShippings()).catch((err) => {
+			if (err.status === 401) return catchUnauthorizedErr();
+			$scope.message = err.data;
+		});
 
 	function clearShippingRegistrationForm() {
 		$scope.newShipping = {};
@@ -51,14 +60,22 @@ app.controller('shippings', function($scope, $shippings, $uiHandler, $timeout) {
 	}
 
 	function showShippings() {
-		$shippings.getAll().then((shippings) => ($scope.shippings = shippings)).catch((err) => console.warn(err));
+		$shippings.getAll().then((shippings) => ($scope.shippings = shippings)).catch((err) => {
+			if (err.status === 401) return catchUnauthorizedErr();
+			$scope.message = err.data;
+		});
 	}
 
 	function showShippingInfo(shipping) {
-		$shippings
-			.getOneById(shipping._id)
-			.then((shipping) => ($scope.shipping = shipping))
-			.catch((err) => console.warn(err));
+		$shippings.getOneById(shipping._id).then((shipping) => ($scope.shipping = shipping)).catch((err) => {
+			if (err.status === 401) return catchUnauthorizedErr();
+			$scope.message = err.data;
+		});
+	}
+
+	function catchUnauthorizedErr() {
+		localStorage.removeItem('token');
+		$location.path('/login').replace();
 	}
 
 	$scope.openModalById = (id) => $uiHandler.openModalById(id);

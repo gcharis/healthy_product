@@ -19,7 +19,7 @@ router.get('/all', (req, res) => {
 });
 
 router.get('/one/:id', (req, res) => {
-	let id = req.params.id;
+	const id = req.params.id;
 	Product.findById(id, (err, product) => {
 		if (err) {
 			console.error(`${new Date()}, Product could not get retrieved. ERROR, ${err.message}`);
@@ -30,7 +30,7 @@ router.get('/one/:id', (req, res) => {
 });
 
 router.get('/one-slug/:slug', (req, res) => {
-	let slug = req.params.slug;
+	const slug = req.params.slug;
 	Product.findOne({ slug }, (err, product) => {
 		if (err) {
 			console.error(`${new Date()}, Product could not get retrieved. ERROR, ${err.message}`);
@@ -84,7 +84,7 @@ router.post('/by-category/:category/', async (req, res) => {
 });
 
 router.post('/new/:admin', (req, res) => {
-	let newProduct = new Product(req.body);
+	const newProduct = new Product(req.body);
 	newProduct.save((err, product) => {
 		if (err) {
 			console.error(`${new Date()}, Product could not be saved. ERROR, ${err.message}`);
@@ -108,7 +108,7 @@ router.put('/one/:id/:admin', (req, res) => {
 });
 
 router.delete('/one/:id/:admin', (req, res) => {
-	let id = req.params.id;
+	const id = req.params.id;
 	Product.findByIdAndRemove(id, (err, product) => {
 		if (err) {
 			console.error(`${new Date()}, Product could not get deleted. ERROR, ${err.message}`);
@@ -119,7 +119,7 @@ router.delete('/one/:id/:admin', (req, res) => {
 });
 
 router.delete('/multiple/:admin', (req, res) => {
-	let ids = req.body;
+	const ids = req.body;
 
 	ids.forEach(async (id) => {
 		await Product.findByIdAndRemove(id, (err) => {

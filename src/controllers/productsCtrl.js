@@ -13,11 +13,17 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 				clearProductRegistrationForm();
 				showProducts();
 			})
-			.catch((err) => ($scope.message = err));
+			.catch((err) => {
+				if (err.status === 401) return catchUnauthorizedErr();
+				$scope.message = err.data;
+			});
 	};
 
 	$scope.deleteProduct = (product) =>
-		$products.deleteOneById(product._id).then((data) => showProducts()).catch((err) => ($scope.message = err));
+		$products.deleteOneById(product._id).then((data) => showProducts()).catch((err) => {
+			if (err.status === 401) return catchUnauthorizedErr();
+			$scope.message = err.data;
+		});
 
 	$scope.renderProductCategories = (product) => product.category.map((category) => category.name).toString();
 
@@ -42,18 +48,24 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 
 	$scope.toggleFeatured = (product) => {
 		product.isFeatured = !product.isFeatured;
-		$products.updateOneById(product).then(() => showProducts()).catch((err) => console.warn(err));
+		$products.updateOneById(product).then(() => showProducts()).catch((err) => {
+			if (err.status === 401) return catchUnauthorizedErr();
+			$scope.message = err.data;
+		});
 	};
 
 	function showProducts() {
-		$products.getAll().then((products) => ($scope.products = products)).catch((err) => ($scope.message = err));
+		$products.getAll().then((products) => ($scope.products = products)).catch((err) => {
+			if (err.status === 401) return catchUnauthorizedErr();
+			$scope.message = err.data;
+		});
 	}
 
 	function showCategories() {
-		$categories
-			.getAll()
-			.then((categories) => ($scope.categories = categories))
-			.catch((err) => ($scope.message = err));
+		$categories.getAll().then((categories) => ($scope.categories = categories)).catch((err) => {
+			if (err.status === 401) return catchUnauthorizedErr();
+			$scope.message = err.data;
+		});
 	}
 
 	function clearProductRegistrationForm() {
@@ -104,6 +116,11 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 			images: [],
 			featuredImage: ''
 		};
+	}
+
+	function catchUnauthorizedErr() {
+		localStorage.removeItem('token');
+		$location.path('/login').replace();
 	}
 
 	$scope.openModalById = (id) => $uiHandler.openModalById(id);

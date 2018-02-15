@@ -10,7 +10,10 @@ app.controller('categories', function($http, $scope, $categories, $timeout, $loc
 				$uiHandler.hideModalById('registerModal');
 				showCategories();
 			})
-			.catch((err) => ($scope.message = err));
+			.catch((err) => {
+				if (err.status === 401) return catchUnauthorizedErr();
+				$scope.message = err.data;
+			});
 	};
 
 	$scope.addNewCategory = () => {
@@ -27,7 +30,10 @@ app.controller('categories', function($http, $scope, $categories, $timeout, $loc
 
 				showCategories();
 			})
-			.catch((err) => ($scope.message = err));
+			.catch((err) => {
+				if (err.status === 401) return catchUnauthorizedErr();
+				$scope.message = err.data;
+			});
 	};
 
 	$scope.editCategory = (category) => {
@@ -38,22 +44,33 @@ app.controller('categories', function($http, $scope, $categories, $timeout, $loc
 	};
 
 	$scope.deleteCategory = (category) =>
-		$categories.deleteOneById(category._id).then((data) => showCategories()).catch((err) => ($scope.message = err));
+		$categories.deleteOneById(category._id).then((data) => showCategories()).catch((err) => {
+			if (err.status === 401) return catchUnauthorizedErr();
+			$scope.message = err.data;
+		});
 
 	function showCategories() {
-		$categories.getAll().then((categories) => ($scope.categories = categories)).catch((err) => console.warn(err));
+		$categories.getAll().then((categories) => ($scope.categories = categories)).catch((err) => {
+			if (err.status === 401) return catchUnauthorizedErr();
+			$scope.message = err.data;
+		});
 	}
 
 	function showCategoryInfo(category) {
-		$categories
-			.getOneById(category._id)
-			.then((category) => ($scope.category = category))
-			.catch((err) => console.warn(err));
+		$categories.getOneById(category._id).then((category) => ($scope.category = category)).catch((err) => {
+			if (err.status === 401) return catchUnauthorizedErr();
+			$scope.message = err.data;
+		});
 	}
 
 	function clearCategoryEditingForm() {
 		$scope.category = {};
 		$uiHandler.hideModalById('editModal');
+	}
+
+	function catchUnauthorizedErr() {
+		localStorage.removeItem('token');
+		$location.path('/login').replace();
 	}
 
 	$scope.openModalById = (id) => $uiHandler.openModalById(id);
