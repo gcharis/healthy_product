@@ -1,6 +1,6 @@
 import app from 'angularApp';
 
-app.controller('orders', function($scope, $routeParams, $orders) {
+app.controller('orders', function($scope, $routeParams, $location, $orders) {
 	getPageOrders();
 	function getPageOrders() {
 		$orders

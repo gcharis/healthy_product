@@ -1,6 +1,6 @@
 import app from 'angularApp';
 
-app.service('$orders', function($http, $location, $rootScope) {
+app.service('$orders', function($http, $rootScope) {
 	function deleteToken() {
 		localStorage.removeItem('token');
 		$rootScope.$broadcast('admin logged out');
