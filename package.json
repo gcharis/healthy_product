@@ -4,13 +4,11 @@
 	"description": "Healthy Product e-commerce",
 	"main": "server.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "nodemon server.js --ignore public"
+		"start": "nodemon server.js",
+		"build": "webpack --config webpack.config.js",
+		"build:watch": "webpack --watch --config webpack.config.js"
 	},
-	"keywords": [
-		"healthy",
-		"product"
-	],
+	"keywords": [ "healthy", "product" ],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
