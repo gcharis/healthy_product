@@ -8,7 +8,10 @@
 		"build": "webpack --config webpack.config.js",
 		"build:watch": "webpack --watch --config webpack.config.js"
 	},
-	"keywords": [ "healthy", "product" ],
+	"keywords": [
+		"healthy",
+		"product"
+	],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
