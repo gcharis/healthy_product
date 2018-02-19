@@ -1,7 +1,9 @@
 module.exports = function toGreeklish() {
+	const goodDigits = 'abcdefghijklmnopqrstuvwxyz123456789'.split('');
 	return this.split('')
 		.map((letter) => {
 			letter = letter.toLowerCase();
+			if (goodDigits.includes(letter)) return letter;
 			switch (letter) {
 				case 'α':
 					return 'a';
@@ -69,10 +71,8 @@ module.exports = function toGreeklish() {
 					return 'w';
 				case 'ώ':
 					return 'w';
-				case ' ':
-					return '-';
 				default:
-					return letter;
+					return '-';
 			}
 		})
 		.join('');
