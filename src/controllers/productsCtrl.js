@@ -109,7 +109,6 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 			price: '',
 			salesPrice: '',
 			weight: '',
-			sku: '',
 			category: [],
 			description: '',
 			stock: '',

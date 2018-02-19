@@ -114,7 +114,7 @@ router.delete('/one/:id/:admin', (req, res) => {
 			console.error(`${new Date()}, Product could not get deleted. ERROR, ${err.message}`);
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
-		res.send(`Το προϊόν με κωδικό ${product.sku} διαγράφηκε επιτυχώς!`);
+		res.send(`Το προϊόν με κωδικό ${product.name} διαγράφηκε επιτυχώς!`);
 	});
 });
 

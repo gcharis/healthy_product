@@ -7,7 +7,6 @@ autoIncrement.initialize(mongoose.connection);
 let productSchema = new mongoose.Schema({
 	name: { type: String, unique: true, required: [ true, `Το πεδίο 'Όνομα' είναι υποχρεωτικό` ] },
 	slug: { type: String, unique: true },
-	sku: { type: String, unique: true, required: [ true, `Το πεδίο 'Κωδικός' είναι υποχρεωτικό` ] },
 	category: { type: Array, default: [] },
 	description: String,
 	price: { type: Number, required: [ true, `Το πεδίο 'Τιμή' είναι υποχρεωτικό` ] },
