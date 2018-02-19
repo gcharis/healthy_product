@@ -15,6 +15,7 @@
                         <th scope="col">Εικόνα</th>
                         <th scope="col">Όνομα Προϊόντος</th>
                         <th scope="col">Κατηγορία</th>
+                        <th scope="col">Προβολές</th>
                         <th scope="col">Επιλογές</th>
                     </tr>
                 </thead>
@@ -30,6 +31,7 @@
                         </td>
                         <td>{{product.name}}</td>
                         <td>{{renderProductCategories(product)}}</td>
+                        <td>{{product.viewCounter}}</td>
                         <td>
                             <a ng-href="#/products/{{product.slug}}" class="btn-outline" title="Επεξεργασία Προϊόντος">
                                 <img src="/public/img/svg-icons/file-or.svg" class="img-fluid">
@@ -104,6 +106,10 @@
                         <label>Ποσότητα Προϊόντος ανά Πώληση</label>
                         <input type="text" class="form-control" placeholder="Αριθμός τμχ / Ποσότητα (π.χ 100ml)" ng-model="newProduct.amountForSale">
                     </div>
+                    <div class="form-group col-md-12">
+                            <label>Σύντομη Περιγραφή</label>
+                            <textarea class="form-control" rows="3" placeholder="Σύντομη Περιγραφή" ng-model="newProduct.shortDescription"></textarea>
+                        </div>
                     <div class="form-group col-md-12">
                         <label>Περιγραφή</label>
                         <textarea class="form-control" rows="3" placeholder="Περιγραφή" ng-model="newProduct.description"></textarea>

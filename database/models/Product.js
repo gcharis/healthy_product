@@ -8,6 +8,7 @@ let productSchema = new mongoose.Schema({
 	name: { type: String, unique: true, required: [ true, `Το πεδίο 'Όνομα' είναι υποχρεωτικό` ] },
 	slug: { type: String, unique: true },
 	category: { type: Array, default: [] },
+	shortDescription: String,
 	description: String,
 	price: { type: Number, required: [ true, `Το πεδίο 'Τιμή' είναι υποχρεωτικό` ] },
 	salesPrice: Number,
