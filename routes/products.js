@@ -69,7 +69,7 @@ router.post('/by-category/:category/', async (req, res) => {
 		const products = await Product.find({
 			$or: [ { 'category.slug': searchCategory }, { 'category.name': searchCategory } ]
 		})
-			.select('-images, -creationDate')
+			.select('-images, -featuredImage, -creationDate')
 			.sort({ premium: -1, priority: 1 })
 			.skip((page - 1) * productsPerPage)
 			.limit(productsPerPage);
@@ -81,6 +81,17 @@ router.post('/by-category/:category/', async (req, res) => {
 		console.error(`${new Date()}, Products could not get retrieved. ERROR, ${err.message}`);
 		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 	}
+});
+
+router.get('/featured-image/:id', (req, res) => {
+	Product.findById(req.params.id).select('featuredImage').exec((err, { featuredImage }) => {
+		if (err) {
+			console.error(`${new Date()}, Featured image could not get retrieved. ERROR, ${err.message}`);
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+		}
+		const imageBuffer = Buffer.from(featuredImage.replace(/^data:image\/jpeg;base64,/, ''), 'base64');
+		res.set({ 'Content-Type': 'image/jpeg', 'Content-Length': imageBuffer.length }).end(imageBuffer, 'binary');
+	});
 });
 
 router.post('/new/:admin', (req, res) => {
