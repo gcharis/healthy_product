@@ -68,17 +68,25 @@ router.put('/one/:id/:admin', async (req, res) => {
 
 router.put('/multiple/:admin', async (req, res) => {
 	const { categories } = req.body;
-	try {
-		const promises = categories.map(category =>{
-			return Category.findByIdAndUpdate(category._id, category);
-		})
-
-		await Promise.all(promises)	
-	} catch (err) {
-		console.error(`${new Date()}, Multiple categories could not be updated. ERROR, ${err.message}`);
-		return res.status(500).send('Ένα σφάλμα συνέβη.');
+	console.log(categories)
+	try{
+		let promisesMap = categories.map(category =>{
+				return new Promise((resolve, reject) => {
+					Category.findByIdAndUpdate(category._id, category, {new:true}, (err, data)=>{
+						if(err) reject(err)	
+						 resolve(data)
+					})	
+				})
+				
+				
+			})
+			await Promise.all(promisesMap)	
+			res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');
 	}
-	res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');
+	catch(err){
+		return res.status(500).send('Ένα σφάλμα συνέβη.');
+		console.error(`${new Date()}, Multiple categories could not be updated. ERROR, ${err.message}`);
+	}
 });
 
 router.delete('/one/:id/:admin', (req, res) => {

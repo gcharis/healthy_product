@@ -33,7 +33,10 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $t
 		});
 		try {
 			// await $categories.clearNavBar();
-			$categories.updateMultiple(navCategories).then((res) => console.log(res));
+			console.log(navCategories)
+			$categories.updateMultiple(navCategories).then(
+				(res) => console.log(res)
+			);
 		} catch (err) {
 			console.warn(err);
 		}
@@ -45,11 +48,10 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $t
 			cat.isInOtherProductsDropdown= true;
 		});
 		try {
-			console.log(otherProductsDropdownCategories)
 			// await $categories.clearNavBar();
 			$categories.updateMultiple(otherProductsDropdownCategories).then((res) => console.log(res));
-		} catch (err) {
-			// console.warn(err);
+		} catch (errMessage) {
+			 console.warn(errMessage);
 		}
 	};
 
