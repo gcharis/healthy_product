@@ -74,6 +74,7 @@ router.post('/new/', async (req, res) => {
 	if (!req.body.recaptcha || req.body.recaptcha === ' ') return res.status(403).send('no captcha');
 
 	const secretKey = process.env.CAPTCHA_KEY;
+	console.log(secretKey);
 	const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body
 		.recaptcha}&remoteip=${req.connection.remoteAddress}`;
 
