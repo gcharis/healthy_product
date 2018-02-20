@@ -33,11 +33,8 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $t
 			cat.isInNavBar = true;
 		});
 		try {
-			// await $categories.clearNavBar();
-			console.log(navCategories)
-			$categories.updateMultiple(navCategories).then(
-				(res) => console.log(res)
-			);
+			await $categories.clearNavBar();
+			$categories.updateMultiple(navCategories).then((res) => console.log(res));
 		} catch (err) {
 			console.warn(err);
 		}
@@ -52,7 +49,7 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $t
 			// await $categories.clearNavBar();
 			$categories.updateMultiple(otherProductsDropdownCategories).then((res) => console.log(res));
 		} catch (errMessage) {
-			 console.warn(errMessage);
+			console.warn(errMessage);
 		}
 	};
 
@@ -172,7 +169,6 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $t
 	function getFrauds() {
 		$http.get('/datum/frauds/admin', { headers: { token: localStorage.token } }).then((res) => {
 			$scope.frauds = res.data;
-			console.log(res.data);
 		});
 	}
 
