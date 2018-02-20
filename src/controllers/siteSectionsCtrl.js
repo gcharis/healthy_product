@@ -49,16 +49,10 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $t
 			cat.isInOtherProductsDropdown = true;
 		});
 		try {
-<<<<<<< HEAD
 			// await $categories.clearNavBar();
 			$categories.updateMultiple(otherProductsDropdownCategories).then((res) => console.log(res));
 		} catch (errMessage) {
 			 console.warn(errMessage);
-=======
-			$categories.updateMultiple(otherProductsDropdownCategories).then((res) => console.log(res));
-		} catch (err) {
-			console.warn(err);
->>>>>>> 59d61175bee8165806177782cb77f2ab9866a6cc
 		}
 	};
 
