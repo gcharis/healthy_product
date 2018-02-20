@@ -68,24 +68,6 @@ router.put('/one/:id/:admin', async (req, res) => {
 
 router.put('/multiple/:admin', async (req, res) => {
 	const { categories } = req.body;
-<<<<<<< HEAD
-	console.log(categories)
-	try{
-		let promisesMap = categories.map(category =>{
-				return new Promise((resolve, reject) => {
-					Category.findByIdAndUpdate(category._id, category, {new:true}, (err, data)=>{
-						if(err) reject(err)	
-						 resolve(data)
-					})	
-				})
-				
-				
-			})
-			await Promise.all(promisesMap)	
-			res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');
-	}
-	catch(err){
-=======
 	try {
 		const promises = categories.map((category) => {
 			return Category.findByIdAndUpdate(category._id, category);
@@ -94,7 +76,6 @@ router.put('/multiple/:admin', async (req, res) => {
 		await Promise.all(promises);
 	} catch (err) {
 		console.error(`${new Date()}, Multiple categories could not be updated. ERROR, ${err.message}`);
->>>>>>> 59d61175bee8165806177782cb77f2ab9866a6cc
 		return res.status(500).send('Ένα σφάλμα συνέβη.');
 		console.error(`${new Date()}, Multiple categories could not be updated. ERROR, ${err.message}`);
 	}
@@ -111,23 +92,22 @@ router.delete('/one/:id/:admin', (req, res) => {
 	});
 });
 
-// router.put('/clear-navbar/:admin', async (req, res) => {
-// 	try {
-// 		const categories = await Category.find();
-// 		const promises = categories.map(category =>{
-// 			category.orderInNavBar = null;
-// 			category.isInNavBar = false;
-// 			return category.save();
-// 		})
+router.put('/clear-navbar/:admin', async (req, res) => {
+	try {
+		const categories = await Category.find();
+		const promises = categories.map((category) => {
+			category.orderInNavBar = null;
+			category.isInNavBar = false;
+			return category.save();
+		});
 
-// 		await Promise.all(promises)
-// 	}
-// 	catch (err) {
-// 		console.error(`${new Date()}, Navigation bar could not get deleted. ERROR, ${err.message}`);
-// 		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
-// 	}
-// 	res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');
-// });
+		await Promise.all(promises);
+	} catch (err) {
+		console.error(`${new Date()}, Navigation bar could not get deleted. ERROR, ${err.message}`);
+		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+	}
+	res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');
+});
 
 router.get('/navigation-bar', (req, res) => {
 	Category.find({ isInNavBar: true }).sort({ orderInNavBar: 1 }).select({ name: 1, slug: 1 }).exec((err, navBar) => {
