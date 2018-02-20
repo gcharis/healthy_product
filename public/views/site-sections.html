@@ -9,7 +9,7 @@
 
     <div class="row tab-content">
         <div ng-show="tab === 1" class="col-12">
-            <h3 class="text-center">Navigation</h3>
+            <h3 class="text-center" id="navigationLabel">Navigation</h3>
             <form ng-submit="updateNavigationBar(navCategories)">
                 <div class="row">
                     <div class="col-12 mat-section-padding mb-2">
@@ -45,7 +45,7 @@
             <form ng-submit="updateOtherProductsDropdown(otherProductsDropdownCategories)">
                 <div class="row">
                     <div class="col-sm-6 brdr-right">
-                        <h3 class="text-center">Άλλα προιόντα</h3>
+                        <h3 class="text-center" id="otherProductsLabel">Άλλα προιόντα</h3>
                         <div ng-repeat="category in categories track by $index" ng-click="toggleCategoryFromOtherProductsDropdown(category);"
                             class="category-wrapper">{{category.name}}
                             <span class="float-right" ng-if="!categoryIsInOtherProductsDropdown(category)">

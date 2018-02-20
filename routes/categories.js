@@ -74,10 +74,10 @@ router.put('/multiple/:admin', async (req, res) => {
 		});
 
 		await Promise.all(promises);
+		res.send("Αποθηκεύτηκε επιτυγχώς")
 	} catch (err) {
 		console.error(`${new Date()}, Multiple categories could not be updated. ERROR, ${err.message}`);
 		return res.status(500).send('Ένα σφάλμα συνέβη.');
-		console.error(`${new Date()}, Multiple categories could not be updated. ERROR, ${err.message}`);
 	}
 });
 
@@ -104,6 +104,23 @@ router.put('/clear-navbar/:admin', async (req, res) => {
 		await Promise.all(promises);
 	} catch (err) {
 		console.error(`${new Date()}, Navigation bar could not get deleted. ERROR, ${err.message}`);
+		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+	}
+	res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');
+});
+
+router.put('/clear-otherProducts-dropdown/:admin', async (req, res) => {
+	try {
+		const categories = await Category.find();
+		const promises = categories.map((category) => {
+			category.orderInOtherProductsDropdown = null;
+			category.isInOtherProductsDropdown = false;
+			return category.save();
+		});
+
+		await Promise.all(promises);
+	} catch (err) {
+		console.error(`${new Date()}, OtherProducts dropdown could not get deleted. ERROR, ${err.message}`);
 		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 	}
 	res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');

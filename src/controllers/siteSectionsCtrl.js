@@ -1,6 +1,6 @@
 import app from 'angularApp';
 
-app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $timeout, $uiHandler, $orders) {
+app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $timeout, $uiHandler, $orders, $route, $anchorScroll) {
 	$scope.navCategories = [];
 	$scope.otherProductsDropdownCategories = [];
 
@@ -35,8 +35,11 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $t
 		try {
 			await $categories.clearNavBar();
 			$categories.updateMultiple(navCategories).then((res) => console.log(res));
+			//Reload the current page
+			$route.reload();
+				$anchorScroll('navigationLabel')
 		} catch (err) {
-			console.warn(err);
+			console.warn(err);			
 		}
 	};
 
@@ -46,8 +49,13 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $t
 			cat.isInOtherProductsDropdown = true;
 		});
 		try {
-			// await $categories.clearNavBar();
-			$categories.updateMultiple(otherProductsDropdownCategories).then((res) => console.log(res));
+		    await $categories.clearOtherProductsDropdown();
+			$categories.updateMultiple(otherProductsDropdownCategories).then((res) => {
+				console.log(res)
+				//Reload the current page
+				$route.reload();
+				$anchorScroll('otherProductsLabel')
+			});
 		} catch (errMessage) {
 			console.warn(errMessage);
 		}
