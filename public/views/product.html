@@ -41,6 +41,10 @@
                         <input type="text" class="form-control" placeholder="" ng-model="product.name">
                     </div>
                     <div class="form-group">
+                            <label>Σύντομη Περιγραφή</label>
+                            <textarea class="form-control" rows="3" ng-model="product.shortDescription"></textarea>
+                        </div>
+                    <div class="form-group">
                         <label>Περιγραφή</label>
                         <textarea class="form-control" rows="3" ng-model="product.description"></textarea>
                     </div>
@@ -59,10 +63,7 @@
                             <label>Βάρος</label>
                             <input type="number" step="0.01" class="form-control" placeholder="Weight" ng-model="product.weight">
                         </div>
-                        <div class="col-sm-6 form-group">
-                            <label>SKU</label>
-                            <input type="text" class="form-control" placeholder="Sku" ng-model="product.sku">
-                        </div>
+                       
                         <div class="col-sm-6 form-group">
                             <label>Κατηγοριοποίηση</label>
                             <div class="dropdown">

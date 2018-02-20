@@ -2,13 +2,16 @@ import app from 'angularApp';
 
 app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $timeout, $uiHandler, $orders) {
 	$scope.navCategories = [];
+	$scope.otherProductsDropdownCategories = [];
+
 	getCategories();
+	
 	$scope.startUploadingPictures = () => document.getElementById('picture-input').click();
 
 	$scope.filterCategories = (searchText) => {
 		const searchRegExp = new RegExp(searchText, 'i');
 		$scope.filteredCategories = $scope.categories.filter(
-			(category) => searchRegExp.test(category.name) || searchRegExp.test(category.slug)
+			(category) => searchRegExp.test(category.name) 
 		);
 	};
 
@@ -17,30 +20,58 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $t
 		i === -1 ? $scope.navCategories.push(category) : $scope.navCategories.splice(i, 1);
 	};
 
+	$scope.toggleCategoryFromOtherProductsDropdown = (category) => {
+		const i = $scope.otherProductsDropdownCategories.findIndex((otherProductsDropdownCategory) => otherProductsDropdownCategory._id === category._id);
+		i === -1 ? $scope.otherProductsDropdownCategories.push(category) : $scope.otherProductsDropdownCategories.splice(i, 1);
+		console.log($scope.otherProductsDropdownCategories)
+	};
+
 	$scope.updateNavigationBar = async (navCategories) => {
 		navCategories.forEach((cat, i) => {
 			cat.orderInNavBar = i;
 			cat.isInNavBar = true;
 		});
 		try {
-			await $categories.clearNavBar();
+			// await $categories.clearNavBar();
 			$categories.updateMultiple(navCategories).then((res) => console.log(res));
 		} catch (err) {
 			console.warn(err);
 		}
 	};
 
+	$scope.updateOtherProductsDropdown = async (otherProductsDropdownCategories) => {
+		otherProductsDropdownCategories.forEach((cat, i) => {
+			cat.orderInOtherProductsDropdown = i;
+			cat.isInOtherProductsDropdown= true;
+		});
+		try {
+			console.log(otherProductsDropdownCategories)
+			// await $categories.clearNavBar();
+			$categories.updateMultiple(otherProductsDropdownCategories).then((res) => console.log(res));
+		} catch (err) {
+			// console.warn(err);
+		}
+	};
+
 	$scope.categoryIsInNavBar = (category) =>
 		!!$scope.navCategories.find((navCategory) => navCategory._id === category._id);
 
+	$scope.categoryIsInOtherProductsDropdown = (category) =>
+		!!$scope.otherProductsDropdownCategories.find((otherProductCategory) => otherProductCategory._id === category._id);
+
 	function getCategories() {
 		$categories.getAll().then((categories) => {
+			console.log(categories)
 			$scope.categories = categories;
 			$scope.filteredCategories = categories;
 
 			$scope.navCategories = $scope.categories
 				.filter((category) => !!category.isInNavBar)
 				.sort((a, b) => a.orderInNavBar > b.orderInNavBar);
+
+			$scope.otherProductsDropdownCategories = $scope.categories
+				.filter((category) => !!category.isInOtherProductsDropdown)
+				.sort((a, b) => a.orderInOtherProductsDropdown > b.orderInOtherProductsDropdown);
 		});
 	}
 

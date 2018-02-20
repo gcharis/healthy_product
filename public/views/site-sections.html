@@ -15,12 +15,12 @@
                     <div class="col-12 mat-section-padding mb-2">
                         <label> Αναζήτηση Κατηγορίας</label>
                         <input type="text" ng-model="categorySearchText" ng-change="filterCategories(categorySearchText)" class="form-control material-input-form"
-                            placeholder="Φρέσκια Γυρη">
+                            placeholder="πχ: Γυρη">
 
                     </div>
                     <div class="col-sm-6 brdr-right">
                         <h3 class="text-center">Κατηγορίες</h3>
-                        <div ng-repeat="category in filteredCategories track by $index" ng-click="toggleCategoryFromNav(category); isInNav = !isInNav"
+                        <div ng-repeat="category in filteredCategories track by $index" ng-click="toggleCategoryFromNav(category);"
                             class="category-wrapper">{{category.name}}
                             <span class="float-right" ng-if="!categoryIsInNavBar(category)">
                                 <img src="/public/img/svg-icons/add.svg" class="img-fluid add-remove">
@@ -32,7 +32,7 @@
 
                     </div>
                     <div class="col-sm-6">
-                        <h3 class="text-center">Μπάρα Πλοήγησης</h3>
+                        <h3 class="text-center">Σειρά</h3>
                         <div ng-repeat="category in navCategories track by $index" class="category-wrapper">
                             {{category.name}}
                         </div>
@@ -42,6 +42,32 @@
                     </div>
                 </div>
             </form>
+            <form ng-submit="updateOtherProductsDropdown(otherProductsDropdownCategories)">
+                    <div class="row">
+                        <div class="col-sm-6 brdr-right">
+                            <h3 class="text-center">Άλλα προιόντα</h3>
+                            <div ng-repeat="category in categories track by $index" ng-click="toggleCategoryFromOtherProductsDropdown(category);"
+                                class="category-wrapper">{{category.name}}
+                                <span class="float-right" ng-if="!categoryIsInOtherProductsDropdown(category)">
+                                    <img src="/public/img/svg-icons/add.svg" class="img-fluid add-remove">
+                                </span>
+                                <span class="float-right" ng-if="categoryIsInOtherProductsDropdown(category)">
+                                    <img src="/public/img/svg-icons/substract.svg" class="img-fluid add-remove">
+                                </span>
+                            </div>
+    
+                        </div>
+                        <div class="col-sm-6">
+                            <h3 class="text-center">Σειρά</h3>
+                            <div ng-repeat="category in otherProductsDropdownCategories track by $index" class="category-wrapper">
+                                {{category.name}}
+                            </div>
+                        </div>
+                        <div class="col-12 text-right" style="margin-top: 1rem;">
+                            <button type="submit" class="btn-fill">Αποθήκευση</button>
+                        </div>
+                    </div>
+                </form>
         </div>
         <div ng-show="tab === 2" class="col-12">
             <form ng-submit="updateIntroText(introText)">

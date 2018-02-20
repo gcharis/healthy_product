@@ -36,10 +36,10 @@ app.service('$categories', function($http, $rootScope) {
 				.delete(`/categories/one/${id}/admin`, { headers: { token: localStorage.token } })
 				.then((res) => res.data);
 		},
-		clearNavBar() {
-			return $http
-				.put(`/categories/clear-navbar/admin`, null, { headers: { token: localStorage.token } })
-				.then((res) => res.data);
-		}
+		// clearNavBar() {
+		// 	return $http
+		// 		.put(`/categories/clear-navbar/admin`, null, { headers: { token: localStorage.token } })
+		// 		.then((res) => res.data);
+		// }
 	};
 });

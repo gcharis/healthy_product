@@ -66,15 +66,19 @@ router.put('/one/:id/:admin', async (req, res) => {
 	});
 });
 
-router.put('/multiple/:admin', (req, res) => {
+router.put('/multiple/:admin', async (req, res) => {
 	const { categories } = req.body;
 	try {
-		categories.forEach(async (category) => await Category.findByIdAndUpdate(category._id, category));
-		res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');
+		const promises = categories.map(category =>{
+			return Category.findByIdAndUpdate(category._id, category);
+		})
+
+		await Promise.all(promises)	
 	} catch (err) {
 		console.error(`${new Date()}, Multiple categories could not be updated. ERROR, ${err.message}`);
 		return res.status(500).send('Ένα σφάλμα συνέβη.');
 	}
+	res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');
 });
 
 router.delete('/one/:id/:admin', (req, res) => {
@@ -88,21 +92,23 @@ router.delete('/one/:id/:admin', (req, res) => {
 	});
 });
 
-router.put('/clear-navbar/:admin', async (req, res) => {
-	try {
-		const categories = await Category.find();
-		categories.forEach(async (category) => {
-			category.orderInNavBar = null;
-			category.isInNavBar = false;
-			await category.save();
-		});
+// router.put('/clear-navbar/:admin', async (req, res) => {
+// 	try {
+// 		const categories = await Category.find();
+// 		const promises = categories.map(category =>{
+// 			category.orderInNavBar = null;
+// 			category.isInNavBar = false;
+// 			return category.save();
+// 		})
 
-		res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');
-	} catch (err) {
-		console.error(`${new Date()}, Navigation bar could not get deleted. ERROR, ${err.message}`);
-		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
-	}
-});
+// 		await Promise.all(promises)
+// 	}
+// 	catch (err) {
+// 		console.error(`${new Date()}, Navigation bar could not get deleted. ERROR, ${err.message}`);
+// 		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+// 	}
+// 	res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');	
+// });
 
 router.get('/navigation-bar', (req, res) => {
 	Category.find({ isInNavBar: true }).sort({ orderInNavBar: 1 }).select({ name: 1, slug: 1 }).exec((err, navBar) => {
@@ -111,6 +117,16 @@ router.get('/navigation-bar', (req, res) => {
 			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 		}
 		res.send(navBar);
+	});
+});
+
+router.get('/otherProducts-dropdown', (req, res) => {
+	Category.find({ isInOtherProductsDropdown: true }).sort({ orderInOtherProductsDropdown: 1 }).select({ name: 1, slug: 1 }).exec((err, otherProductsDropdown) => {
+		if (err) {
+			console.error(`${new Date()}, Navigation bar could not get retrieved. ERROR, ${err.message}`);
+			return res.status(500).send('Κάποιο σφάλμα συνέβη.');
+		}
+		res.send(otherProductsDropdown);
 	});
 });
 
