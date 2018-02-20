@@ -68,7 +68,6 @@ router.put('/one/:id/:admin', async (req, res) => {
 
 router.put('/multiple/:admin', async (req, res) => {
 	const { categories } = req.body;
-<<<<<<< HEAD
 	console.log(categories)
 	try{
 		let promisesMap = categories.map(category =>{
@@ -85,16 +84,6 @@ router.put('/multiple/:admin', async (req, res) => {
 			res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');
 	}
 	catch(err){
-=======
-	try {
-		const promises = categories.map((category) => {
-			return Category.findByIdAndUpdate(category._id, category);
-		});
-
-		await Promise.all(promises);
-	} catch (err) {
-		console.error(`${new Date()}, Multiple categories could not be updated. ERROR, ${err.message}`);
->>>>>>> 59d61175bee8165806177782cb77f2ab9866a6cc
 		return res.status(500).send('Ένα σφάλμα συνέβη.');
 		console.error(`${new Date()}, Multiple categories could not be updated. ERROR, ${err.message}`);
 	}
