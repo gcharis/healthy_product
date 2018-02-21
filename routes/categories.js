@@ -92,6 +92,7 @@ router.delete('/one/:id/:admin', (req, res) => {
 
 router.put('/clear-navbar/:admin', async (req, res) => {
 	try {
+		
 		const categories = await Category.find();
 		const savePromises = categories.map((category) => {
 			category.orderInNavBar = null;
@@ -100,6 +101,7 @@ router.put('/clear-navbar/:admin', async (req, res) => {
 		});
 
 		await Promise.all(savePromises);
+		res.send('Οι κατηγορίες αποθηκεύτηκαν επιτυχώς!');
 	} catch (err) {
 		console.error(`${new Date()}, Navigation bar could not get deleted. ERROR, ${err.message}`);
 		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
@@ -116,6 +118,7 @@ router.put('/clear-otherProducts-dropdown/:admin', async (req, res) => {
 		});
 
 		await Promise.all(savePromises);
+		res.send('Οι κατηγορίες αποθηκεύτηκαν επιτυχώς!');
 	} catch (err) {
 		console.error(`${new Date()}, OtherProducts dropdown could not get deleted. ERROR, ${err.message}`);
 		return res.status(500).send('Κάποιο σφάλμα συνέβη.');

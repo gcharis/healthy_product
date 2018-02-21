@@ -34,10 +34,11 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $t
 		});
 		try {
 			await $categories.clearNavBar();
-			$categories.updateMultiple(navCategories).then((res) => console.log(res));
+			$categories.updateMultiple(navCategories).then((res) => {
 			//Reload the current page
 			$route.reload();
-				$anchorScroll('navigationLabel')
+			$anchorScroll('navigationLabel')
+		})
 		} catch (err) {
 			console.warn(err);			
 		}

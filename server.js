@@ -18,7 +18,6 @@ require('./schedule_jobs/productViewCounterReset.js');
 const app = express();
 
 app.use(function(req, res, next) {
-
 //http://localhost:9000
 
 	res.header('Access-Control-Allow-Origin', '*');
@@ -50,5 +49,6 @@ app.use('/admin', admin);
 app.use('/orders', orders);
 app.use('/datum', datum);
 app.use('/images', images);
+app.use('/aboutAs', aboutUs);
 
 app.listen(config.port, () => console.log(`Healthy Product started on port ${config.port}`));
