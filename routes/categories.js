@@ -69,12 +69,10 @@ router.put('/one/:id/:admin', async (req, res) => {
 router.put('/multiple/:admin', async (req, res) => {
 	const { categories } = req.body;
 	try {
-		const promises = categories.map((category) => {
-			return Category.findByIdAndUpdate(category._id, category);
-		});
+		const updatePromises = categories.map((category) => Category.findByIdAndUpdate(category._id, category));
 
-		await Promise.all(promises);
-		res.send('Αποθηκεύτηκε επιτυγχώς');
+		await Promise.all(updatePromises);
+		res.send('Οι κατηγορίες αποθηκεύτηκαν επιτυχώς!');
 	} catch (err) {
 		console.error(`${new Date()}, Multiple categories could not be updated. ERROR, ${err.message}`);
 		return res.status(500).send('Ένα σφάλμα συνέβη.');
@@ -95,30 +93,29 @@ router.delete('/one/:id/:admin', (req, res) => {
 router.put('/clear-navbar/:admin', async (req, res) => {
 	try {
 		const categories = await Category.find();
-		const promises = categories.map((category) => {
+		const savePromises = categories.map((category) => {
 			category.orderInNavBar = null;
 			category.isInNavBar = false;
 			return category.save();
 		});
 
-		await Promise.all(promises);
+		await Promise.all(savePromises);
 	} catch (err) {
 		console.error(`${new Date()}, Navigation bar could not get deleted. ERROR, ${err.message}`);
 		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
 	}
-	res.send('Η μπάρα των κατηγοριών ανανεώθηκε επιτυχώς!');
 });
 
 router.put('/clear-otherProducts-dropdown/:admin', async (req, res) => {
 	try {
 		const categories = await Category.find();
-		const promises = categories.map((category) => {
+		const savePromises = categories.map((category) => {
 			category.orderInOtherProductsDropdown = null;
 			category.isInOtherProductsDropdown = false;
 			return category.save();
 		});
 
-		await Promise.all(promises);
+		await Promise.all(savePromises);
 	} catch (err) {
 		console.error(`${new Date()}, OtherProducts dropdown could not get deleted. ERROR, ${err.message}`);
 		return res.status(500).send('Κάποιο σφάλμα συνέβη.');
