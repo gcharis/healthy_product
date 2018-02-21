@@ -74,7 +74,7 @@ router.put('/multiple/:admin', async (req, res) => {
 		});
 
 		await Promise.all(promises);
-		res.send("Αποθηκεύτηκε επιτυγχώς")
+		res.send('Αποθηκεύτηκε επιτυγχώς');
 	} catch (err) {
 		console.error(`${new Date()}, Multiple categories could not be updated. ERROR, ${err.message}`);
 		return res.status(500).send('Ένα σφάλμα συνέβη.');
