@@ -11,6 +11,7 @@ const orders = require('./routes/orders.js');
 const admin = require('./routes/admin.js');
 const datum = require('./routes/datum.js');
 const images = require('./routes/images.js');
+const aboutUs = require('./routes/aboutUs.js');
 const config = require('./config.js');
 
 require('./schedule_jobs/productViewCounterReset.js');
@@ -49,6 +50,6 @@ app.use('/admin', admin);
 app.use('/orders', orders);
 app.use('/datum', datum);
 app.use('/images', images);
-app.use('/aboutAs', aboutUs);
+app.use('/aboutUs', aboutUs);
 
 app.listen(config.port, () => console.log(`Healthy Product started on port ${config.port}`));

@@ -1,5 +1,5 @@
 const express = require('express');
-const AboutAs = require('../database/models/AboutAs.js');
+const AboutUs = require('../database/models/AboutUs.js');
 const checkAdmin = require('../authentication/bustAndLog.js');
 
 const router = express.Router();

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const aboutAsSchema = new mongoose.Schema({
+const aboutUsSchema = new mongoose.Schema({
 	images: [{
         shortDescription: {
             type: String,
@@ -21,6 +21,6 @@ const aboutAsSchema = new mongoose.Schema({
     }
 });
 
-const AboutUs = mongoose.model('aboutAs', bankSchema);
+const AboutUs = mongoose.model('aboutUs', aboutUsSchema);
 
 module.exports = AboutUs;
