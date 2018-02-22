@@ -16,6 +16,7 @@
                         <th scope="col">Όνομα Προϊόντος</th>
                         <th scope="col">Κατηγορία</th>
                         <th scope="col">Προβολές</th>
+                        <th scope="col">Προτεραιότητα</th>
                         <th scope="col">Επιλογές</th>
                     </tr>
                 </thead>
@@ -32,6 +33,7 @@
                         <td>{{product.name}}</td>
                         <td>{{renderProductCategories(product)}}</td>
                         <td>{{product.viewCounter}}</td>
+                        <td>{{product.priority}}</td>
                         <td>
                             <a ng-href="#/products/{{product.slug}}" class="btn-outline" title="Επεξεργασία Προϊόντος">
                                 <img src="/public/img/svg-icons/file-or.svg" class="img-fluid">
