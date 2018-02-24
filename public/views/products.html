@@ -38,9 +38,10 @@
                             <a ng-href="#/products/{{product.slug}}" class="btn-outline" title="Επεξεργασία Προϊόντος">
                                 <img src="/public/img/svg-icons/file-or.svg" class="img-fluid">
                             </a>
-                            <button type="button" class="btn-fill mouse-hand" ng-click="deleteProduct(product)" title="Διαγραφή Προϊόντος">
+                            <button type="button" class="btn-fill mouse-hand" ng-click="warningModal(product)" title="Διαγραφή Προϊόντος">
                                 <img src="/public/img/svg-icons/dustbin-wh.svg" class="img-fluid">
                             </button>
+                            <!-- <button type="button" class="btn-fill mouse-hand" ng-click="warningModal(product)"> eeee</button> -->
                         </td>
                     </tr>
                 </tbody>
@@ -51,14 +52,14 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+<div class="modal fade" id="newProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
     ng-if="addingNewProduct">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Δημιουργία Προϊόντος</h5>
                 <ui-message message="message" dur="3000"></ui-message>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="hideModalById('registerModal'); addingNewProduct = false">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="hideModalById('newProductModal'); addingNewProduct = false">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -109,12 +110,14 @@
                         <input type="text" class="form-control" placeholder="Αριθμός τμχ / Ποσότητα (π.χ 100ml)" ng-model="newProduct.amountForSale">
                     </div>
                     <div class="form-group col-md-12">
-                            <label>Σύντομη Περιγραφή</label>
-                            <textarea class="form-control" rows="3" placeholder="Σύντομη Περιγραφή" ng-model="newProduct.shortDescription"></textarea>
-                        </div>
+                        <label>Σύντομη Περιγραφή</label>
+                        <!--<textarea class="form-control" rows="3" placeholder="Σύντομη Περιγραφή" ng-model="newProduct.shortDescription"></textarea> -->
+                        <text-angular ng-model="newProduct.shortDescription"></text-angular>
+                    </div>
                     <div class="form-group col-md-12">
                         <label>Περιγραφή</label>
-                        <textarea class="form-control" rows="3" placeholder="Περιγραφή" ng-model="newProduct.description"></textarea>
+                        <!-- <textarea class="form-control" rows="3" placeholder="Περιγραφή" ng-model="newProduct.description"></textarea> -->
+                        <text-angular ng-model="newProduct.description"></text-angular>
                     </div>
                     <div class="form-group col-md-12">
                         <label>Εικόνες</label>
@@ -148,9 +151,42 @@
                     </div>
                     <span style="margin-left: 15px">Τα πεδία με αστερίσκο (*) είναι υποχρεωτικά</span>
                     <div class="form-group col-md-12">
-                        <button type="button" class="btn-outline" ng-click="hideModalById('registerModal')">Ακύρωση</button>
+                        <button type="button" class="btn-outline" ng-click="hideModalById('newProductModal')">Ακύρωση</button>
                         <button type="submit" class="btn-fill">Αποθήκευση</button>
                     </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="warningModalLabel" aria-hidden="true"
+    ng-if="deletingStuff">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="warningModalLabel">Διαγραγη Προϊόντος</h5>
+                <ui-message message="message" dur="3000"></ui-message>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="hideModalById('warningModal'); deletingStuff = false">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <img src="/public/img/svg-icons/warning.svg" alt="" class="img-fluid" style="max-width: 80px;">
+                </div>
+                <h5>Είστε σίγουρος οτι θέλετε να διαγράψετε το προϊόν
+                    <br>
+                    <span class="text-center">{{product.name}} ?</span>
+                </h5>
+
+                <div class="form-group col-md-12 text-right">
+                    <button type="button" class="btn-outline" ng-click="hideModalById('warningModal')">Ακύρωση</button>
+                    <button type="submit" class="btn-fill" ng-click="deleteProduct(product)">Διαγραφή</button>
+                </div>
                 </form>
             </div>
         </div>

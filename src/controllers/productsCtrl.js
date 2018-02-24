@@ -1,6 +1,6 @@
 import app from 'angularApp';
 
-app.controller('products', function($scope, $products, $categories, $timeout, $location, $uiHandler, $jsUtils) {
+app.controller('products', function ($scope, $products, $categories, $timeout, $location, $uiHandler, $jsUtils) {
 	showProducts();
 
 	$scope.registerProduct = (newProduct) => {
@@ -19,11 +19,26 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 			});
 	};
 
-	$scope.deleteProduct = (product) =>
+	// ANDREAS WARNING MESSAGE
+	$scope.warningModal = (product) => {
+		$scope.deletingStuff = true;
+		$timeout(() => $uiHandler.openModalById('warningModal'), 0);
+
+		$products.getOneBySlug(product.slug).then((data) => {
+			$scope.product = data
+			console.log(data)
+		})
+	}
+
+
+	$scope.deleteProduct = (product) => {
 		$products.deleteOneById(product._id).then((data) => showProducts()).catch((err) => {
 			if (err.status === 401) return catchUnauthorizedErr();
 			$scope.message = err.data;
 		});
+		$timeout(() => $scope.hideModalById('warningModal'), 2000);
+	}
+
 
 	$scope.renderProductCategories = (product) => product.category.map((category) => category.name).toString();
 
@@ -43,7 +58,7 @@ app.controller('products', function($scope, $products, $categories, $timeout, $l
 		$scope.addingNewProduct = true;
 
 		// timeout does not immidiatelly puts the statement on top of the stack
-		$timeout(() => $uiHandler.openModalById('registerModal'), 0);
+		$timeout(() => $uiHandler.openModalById('newProductModal'), 0);
 	};
 
 	$scope.toggleFeatured = (product) => {

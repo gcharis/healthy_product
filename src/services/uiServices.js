@@ -1,6 +1,6 @@
 import app from 'angularApp';
 
-app.service('$uiHandler', function() {
+app.service('$uiHandler', function () {
 	return {
 		openModalById(modalId) {
 			const modal = document.getElementById(modalId);

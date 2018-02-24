@@ -19,6 +19,7 @@
                     <span class="btn-fill mouse-hand" ng-click="deleteCategory(category)">
                         <img src="/public/img/svg-icons/dustbin-wh.svg" alt="" class="img-fluid" style="max-width:25px;">
                     </span>
+                    <span ng-click="warningModal(category)">e</span>
                 </div>
             </div>
         </div>
@@ -50,7 +51,7 @@
                         <select class="form-control" ng-model="newCategory.parent" ng-options="category.name as category.name for category in categories">
                             <option value="">Καμία Υπέρ-Κατηγορία</option>
                         </select>
-                    </div> 
+                    </div>
                     <span style="margin-left: 15px">Τα πεδία με αστερίσκο (*) είναι υποχρεωτικά</span>
                     <div class="form-group col-md-12 text-right">
                         <button type="submit" class="btn-fill ">Αποθήκευση</button>
@@ -91,6 +92,37 @@
                         <button type="submit" class="btn-fill">Αποθήκευση</button>
                     </div>
                     <ui-message message="message" dur="3000"></ui-message>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="warningModalLabel" aria-hidden="true"
+    ng-if="deletingStuff">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="warningModalLabel">Διαγραγη Προϊόντος</h5>
+                <ui-message message="message" dur="3000"></ui-message>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="hideModalById('warningModal'); deletingStuff = false">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <img src="/public/img/svg-icons/warning.svg" alt="" class="img-fluid" style="max-width: 80px;">
+                </div>
+                <h5>Είστε σίγουρος οτι θέλετε να διαγράψετε το προϊόν
+                    <br>
+                    <span class="text-center">{{category.name}} ?</span>
+                </h5>
+
+                <div class="form-group col-md-12 text-right">
+                    <button type="button" class="btn-outline" ng-click="hideModalById('warningModal')">Ακύρωση</button>
+                    <button type="submit" class="btn-fill" ng-click="deleteCategory(category)">Διαγραφή</button>
+                </div>
                 </form>
             </div>
         </div>
