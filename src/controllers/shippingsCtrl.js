@@ -1,6 +1,6 @@
 import app from 'angularApp';
 
-app.controller('shippings', function($scope, $shippings, $uiHandler, $timeout) {
+app.controller('shippings', function ($scope, $shippings, $uiHandler, $timeout) {
 	showShippings();
 
 	$scope.registerShipping = (newShipping) => {
@@ -43,11 +43,25 @@ app.controller('shippings', function($scope, $shippings, $uiHandler, $timeout) {
 		showShippingInfo(shipping);
 	};
 
-	$scope.deleteShipping = (shipping) =>
+	// ANDREAS WARNING MESSAGE
+	$scope.warningModal = (shipping) => {
+		$scope.deletingStuff = true;
+		$timeout(() => $uiHandler.openModalById('warningModal'), 0);
+
+		$shippings.getOneById(shipping._id).then((data) => {
+			$scope.shipping = data
+			console.log(data)
+		})
+	}
+
+	$scope.deleteShipping = (shipping) => {
 		$shippings.deleteOneById(shipping._id).then((data) => showShippings()).catch((err) => {
 			if (err.status === 401) return catchUnauthorizedErr();
 			$scope.message = err.data;
 		});
+		$timeout(() => $scope.hideModalById('warningModal'), 2000);
+	}
+
 
 	function clearShippingRegistrationForm() {
 		$scope.newShipping = {};

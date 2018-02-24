@@ -1,6 +1,6 @@
 import app from 'angularApp';
 
-app.controller('categories', function($http, $scope, $categories, $timeout, $location, $uiHandler) {
+app.controller('categories', function ($http, $scope, $categories, $timeout, $location, $uiHandler) {
 	showCategories();
 
 	$scope.registerCategory = (newCategory) => {
@@ -43,11 +43,25 @@ app.controller('categories', function($http, $scope, $categories, $timeout, $loc
 		showCategoryInfo(category);
 	};
 
-	$scope.deleteCategory = (category) =>
+	// ANDREAS WARNING MESSAGE
+	$scope.warningModal = (category) => {
+		$scope.deletingStuff = true;
+		$timeout(() => $uiHandler.openModalById('warningModal'), 0);
+
+		$categories.getOneById(category._id).then((data) => {
+			$scope.category = data
+			console.log(data)
+		})
+	}
+
+	$scope.deleteCategory = (category) => {
 		$categories.deleteOneById(category._id).then((data) => showCategories()).catch((err) => {
 			if (err.status === 401) return catchUnauthorizedErr();
 			$scope.message = err.data;
 		});
+		$timeout(() => $scope.hideModalById('warningModal'), 2000);
+	}
+
 
 	function showCategories() {
 		$categories.getAll().then((categories) => ($scope.categories = categories)).catch((err) => {

@@ -36,21 +36,11 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Όνομα </label>
-                        <input type="text" class="form-control" placeholder="" ng-model="product.name">
-                    </div>
-                    <div class="form-group">
-                            <label>Σύντομη Περιγραφή</label>
-                            <textarea class="form-control" rows="3" ng-model="product.shortDescription"></textarea>
-                        </div>
-                    <div class="form-group">
-                        <label>Περιγραφή</label>
-                        <textarea class="form-control" rows="3" ng-model="product.description"></textarea>
-                    </div>
-                    <hr>
                     <div class="row">
-                        <h3 class="col-12">Χαρακτηριστικά</h3>
+                        <div class="col-12 form-group">
+                            <label>Όνομα </label>
+                            <input type="text" class="form-control" placeholder="" ng-model="product.name">
+                        </div>
                         <div class="col-sm-6 form-group">
                             <label>Τιμή</label>
                             <input type="number" step="0.01" class="form-control" placeholder="Price" ng-model="product.price">
@@ -63,7 +53,7 @@
                             <label>Βάρος</label>
                             <input type="number" step="0.01" class="form-control" placeholder="Weight" ng-model="product.weight">
                         </div>
-                       
+
                         <div class="col-sm-6 form-group">
                             <label>Κατηγοριοποίηση</label>
                             <div class="dropdown">
@@ -91,10 +81,26 @@
                             <input type="number" class="form-control" placeholder="Προτεραιότητα εμφάνισης (αριθμός)" ng-model="product.priority">
                         </div>
                     </div>
+                    <hr>
+                </div>
+            </div>
+            <!-- ./Product Info Row -->
+
+            <div class="row">
+                <!-- <h3 class="col-12">Χαρακτηριστικά</h3> -->
+                <hr>
+                <div class="form-group">
+                    <h3 class="text-center">Περιγραφή</h3>
+                    <!-- <textarea class="form-control" rows="3" ng-model="product.description"></textarea> -->
+                    <text-angular class="angular-text-height" ng-model="product.description"></text-angular>
+                </div>
+                <div class="form-group">
+                    <label>Σύντομη Περιγραφή</label>
+                    <!-- <textarea class="form-control" rows="3" ng-model="product.shortDescription"></textarea> -->
+                    <text-angular class="angular-text-height" ng-model="product.shortDescription"></text-angular>
                 </div>
 
             </div>
-            <!-- ./Product Info Row -->
 
             <div class="row text-right">
                 <div>

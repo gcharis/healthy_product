@@ -5,6 +5,7 @@
         <div class="col" ng-class="{active:tab===3}" ng-click="tab = 3"> Banks</div>
         <div class="col" ng-class="{active:tab===4}" ng-click="tab = 4"> Slider</div>
         <div class="col" ng-class="{active:tab===5}" ng-click="tab = 5"> Blacklist</div>
+        <div class="col" ng-class="{active:tab===5}" ng-click="tab = 6"> About Us</div>
     </div>
 
     <div class="row tab-content">
@@ -20,8 +21,7 @@
                     </div>
                     <div class="col-sm-6 brdr-right">
                         <h3 class="text-center">Κατηγορίες</h3>
-                        <div ng-repeat="category in filteredCategories track by $index" ng-click="toggleCategoryFromNav(category);"
-                            class="category-wrapper">{{category.name}}
+                        <div ng-repeat="category in filteredCategories track by $index" ng-click="toggleCategoryFromNav(category);" class="category-wrapper">{{category.name}}
                             <span class="float-right" ng-if="!categoryIsInNavBar(category)">
                                 <img src="/public/img/svg-icons/add.svg" class="img-fluid add-remove">
                             </span>
@@ -46,8 +46,7 @@
                 <div class="row">
                     <div class="col-sm-6 brdr-right">
                         <h3 class="text-center" id="otherProductsLabel">Άλλα προιόντα</h3>
-                        <div ng-repeat="category in categories track by $index" ng-click="toggleCategoryFromOtherProductsDropdown(category);"
-                            class="category-wrapper">{{category.name}}
+                        <div ng-repeat="category in categories track by $index" ng-click="toggleCategoryFromOtherProductsDropdown(category);" class="category-wrapper">{{category.name}}
                             <span class="float-right" ng-if="!categoryIsInOtherProductsDropdown(category)">
                                 <img src="/public/img/svg-icons/add.svg" class="img-fluid add-remove">
                             </span>
@@ -89,12 +88,13 @@
             <form ng-submit="updateSlider(slider)">
                 <h3 class="text-center" style="padding-left: 162px;">Slider
                     <button type="button" ng-click="startUploadingPictures()" class="btn-fill float-right">Προσθήκη Εικόνας</button>
-                    <input id="picture-input" style="display: none" type="file" class="form-control" placeholder="Add new image" image-upload images="slider.images" accept=".jpg, .jpeg, .png">
+                    <input id="picture-input" style="display: none" type="file" class="form-control" placeholder="Add new image" image-upload
+                        images="slider.images" accept=".jpg, .jpeg, .png">
                 </h3>
                 <div class="row">
                     <div class="col-md-4 slider-photo-col" ng-repeat="image in slider.images track by $index">
                         <img ng-src="{{image}}" class="img-fluid">
-                        <span ng-click="removeFormSLider($index)">X</span>
+                        <span class="remove-img" ng-click="removeFormSLider($index)">X</span>
                     </div>
                 </div>
                 <button type="submit" class="btn-fill">Αποθήκευση</button>
@@ -106,28 +106,67 @@
                     <button type="button" class="btn-fill" ng-click="addNewFraud()">Προσθήκη Blacklist</button>
                 </div>
             </div>
-                
-            <table class="table table-striped mt-4"> 
+
+            <table class="table table-striped mt-4">
                 <thead>
-                  <tr>
-                    <th scope="col">Όνομα</th>
-                    <th scope="col">Επώνυμο</th>
-                    <th scope="col">Περιγραφή</th>
-                    <th scope="col">Αριθμός Παραγγελίας</th>
-                  </tr>
+                    <tr>
+                        <th scope="col">Όνομα</th>
+                        <th scope="col">Επώνυμο</th>
+                        <th scope="col">Περιγραφή</th>
+                        <th scope="col">Αριθμός Παραγγελίας</th>
+                    </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="fraud in frauds track by $index">
-                    <td>{{fraud.firstname}}</td>
-                    <td>{{fraud.firstname}}</td>
-                    <td>{{fraud.description}}</td>
-                    <td>{{fraud.orderId.toString()}}</td>
-                  </tr>
+                    <tr ng-repeat="fraud in frauds track by $index">
+                        <td>{{fraud.firstname}}</td>
+                        <td>{{fraud.firstname}}</td>
+                        <td>{{fraud.description}}</td>
+                        <td>{{fraud.orderId.toString()}}</td>
+                    </tr>
 
                 </tbody>
-              </table>
-              
+            </table>
+
         </div>
+
+        <div ng-show="tab === 6" class="col-12 slider-tab">
+            <!-- <div class="row">
+                <div class="col text-right">
+                    <button type="button" class="btn-fill" ng-click="addNewFraud()">Προσθήκη Blacklist</button>
+                </div>
+            </div> -->
+
+            <form ng-submit="updateSlider(slider)">
+                <h3 class="text-center" style="padding-left: 162px;">About Us
+                    <button type="button" ng-click="startUploadingPictures()" class="btn-fill float-right">Προσθήκη Εικόνας</button>
+                    <input id="picture-input" style="display: none" type="file" class="form-control" placeholder="Add new image" image-upload
+                        images="slider.images" accept=".jpg, .jpeg, .png">
+                </h3>
+                <div class="row">
+                    <div class="col-md-4 slider-photo-col" ng-repeat="image in slider.images track by $index">
+                        <img ng-src="{{image}}" class="img-fluid">
+                        <span class="remove-img" ng-click="removeFormSLider($index)">X</span>
+                    </div>
+                    <div class="col-12 test-right">
+                        <button type="submit" class="btn-fill">Αποθήκευση</button>
+                    </div>
+                </div>
+
+            </form>
+
+            <hr>
+            <form>
+                <div class="row">
+                    <text-angular ng-model="aboutus.content"></text-angular>
+                    <div class="col-12 mt-4">
+                        <button type="submit" class="btn-fill">Αποθήκευση</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
     </div>
 
 </div>
