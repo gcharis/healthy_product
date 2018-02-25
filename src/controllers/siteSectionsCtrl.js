@@ -6,7 +6,7 @@ app.controller('siteSections', function($scope, $categories, $http, $jsUtils, $t
 
 	getCategories();
 
-	$scope.startUploadingPictures = () => document.getElementById('picture-input').click();
+	$scope.startUploadingPictures = (elementId) => document.getElementById(elementId).click();
 
 	$scope.filterCategories = (searchText) => {
 		const searchRegExp = new RegExp(searchText, 'i');

@@ -18,3 +18,4 @@ import 'Services/ordersServices';
 import 'Services/productsServices';
 import 'Services/shippingsServices';
 import 'Services/uiServices';
+import 'Services/aboutUsServices';
